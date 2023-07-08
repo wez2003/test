@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>publication</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        showProcessingMessages: false, //关闭js加载过程信息
+        messageStyle: "none", //不显示信息
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/HTML-CSS"],
+        tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code', 'a', 'annotation', 'annotation-xml'],
+        ignoreClass: 'crayon-.*' // 'crayon-' 开头的类，属于Wordpress代码高亮库，这部分不需要处理，否则会导致显示不正确,这部分是正则式，多条之间用'|'分割    
+        },
+        'HTML-CSS':{
+        showMathMenu: false //禁用右键菜单
+        }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        </script>
+        <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async>
+        </script>
+</head>
+<body class="backgroundcolor">
+    <h1 class="font darkblue ">Publication</h1>
+1.王尔卓,模论观点下讨论矩阵可交换问题</a> ,to appear in《高等数学研究》(in Chinese)<br>
+<br>
+<p>
+Abstract: Given a fixed matrix $A$ over an arbitrary field $F$, the matrixs in $M_n(F)$ which commute with $A$ form a vector space $V$
+over $F$. Our paper gives an explicit formula to calculate the dimension of $V$. This problem has been solved by Frobenious, but we use a new construction 
+to solve this problem inspired by <a href="paper/autoabeliangroup.pdf" class="nounderline" target="_top">Christopher J Hillar and Darren L Rhea. Automorphisms of finite abelian groups</a>.
+You can click <a href="#">here</a> to view the translated version of our paper.
+</p>
+</body>
+</html>
