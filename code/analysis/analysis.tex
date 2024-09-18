@@ -1,0 +1,1922 @@
+\documentclass[12pt,a4paper]{book}
+%宏包
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{geometry}
+\usepackage{natbib}%bibtex
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{quiver}
+\usepackage{float}
+\usepackage{caption}
+\usepackage[colorlinks,linkcolor=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{tabularx}%控制列宽
+
+%页面设置
+\linespread{1.2}
+\geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2cm}
+%\geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2cm}
+
+%环境和宏指令
+\newenvironment{prooff}{{\noindent\it\textcolor{cyan!40!black}{Proof}:}\,}{\par}
+\newenvironment{proofff}{{\noindent\it\textcolor{cyan!40!black}{Proof of the lemma}:}\,}{\qed \par}
+\newcommand{\bbrace}[1]{\left\{ #1 \right\} }
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\p}{^{\prime}}
+\renewcommand{\mod}[1]{(\text{mod}\,#1)}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\spec}[1]{\text{Spec}({#1})}
+\newcommand{\rarr}[1]{\xrightarrow{#1}}
+\newcommand{\larr}[1]{\xleftarrow{#1}}
+\newcommand{\emptyy}{\underline{\quad}}
+\newenvironment{enu}{\begin{enumerate}[(1)]}{\end{enumerate}}
+%ctrl+点击文本返回代码  选中代码 ctrl+alt+j 为代码查找文本
+
+
+
+
+%定理环境
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+\newtheorem{coro}[defn]{Corollary}
+\newtheorem{theo}[defn]{Theorem}
+\newtheorem{exer}[defn]{Exercise}
+\newtheorem{rema}[defn]{Remark}
+\newtheorem{lem}[defn]{Lemma}
+\newtheorem{prop}[defn]{Proposition}
+\newtheorem{nota}[defn]{Notation}
+\newtheorem{exam}[defn]{Example}
+
+
+
+\begin{document}
+\title{Analysis}
+\author{Erzhuo Wang}
+\date{\today}
+\maketitle % 标题页
+\tableofcontents
+\chapter{Foundation}
+\section{Construction of Real Number}
+\begin{defn}[ordered ring]
+    Thus, a ring(field) $R\neq 0$ with an order $<$ is called an ordered ring(field) if the following holds:
+    \begin{enu}
+        \item $(R,<)$ is totally ordered
+        \item $x<y \Rightarrow x+z<y+z, z \in R$
+        \item $x, y>0 \Rightarrow x y>0 $
+    \end{enu}
+    Of course, an element $x \in R$ is called positive if $x>0$ and negative if $x<0$. We gather in the next proposition some simple properties of ordered fields.
+\end{defn}
+\begin{prop}
+    Let $K$ be an ordered field, then for $x, y, a, b \in K$.
+    \begin{enumerate}[(1)]
+        \item  $x>y \Leftrightarrow x-y>0$.
+        \item  If $x>y$ and $a>b$, then $x+a>y+b$.
+        \item  If $a>0$ and $x>y$, then $a x>a y$.
+        \item If $x>0$, then $-x<0$. If $x<0$, then $-x>0$.
+        \item Let $x>0$. If $y>0$, then $x y>0$. If $y<0$, then $x y<0$.
+        \item  If $a<0$ and $x>y$, then $a x<a y$.
+        \item  $x^2>0$ for all $x\neq 0$. In particular, $1>0$.
+        \item  If $x>0$, then $x^{-1}>0$.
+        \item  If $x>y>0$, then $0<x^{-1}<y^{-1}$ and $x y^{-1}>1$.
+    \end{enumerate}
+\end{prop}
+\begin{defn}
+    $K$ is a ordered field, $K$ is said to be Archimedes if and only if for $x,y>0$ there's $n\in \bb{Z}$ such that $nx>y$.
+\end{defn}
+\begin{exam}
+    $\bb{Q}$ is a Archimedes ordered field with original order.
+\end{exam}
+\begin{prop}
+    For an ordered field $K$, the absolute value function, $|\cdot|: K \rightarrow K$ and the sign function, $\operatorname{sign}(\cdot): K \rightarrow K$ are defined by
+    $$
+        |x|:=\left\{\begin{array}{rl}
+            x,  & x>0, \\
+            0,  & x=0, \\
+            -x, & x<0,
+        \end{array} \quad \operatorname{sign} x:=\left\{\begin{aligned}
+            1,  & x>0,  \\
+            0,  & x=0,  \\
+            -1, & x<0 .
+        \end{aligned}\right.\right.
+    $$
+    Let $K$ be an ordered field and $x, y, a, \varepsilon \in K$ with $\varepsilon>0$.
+    \begin{enu}
+        \item $x=|x| \operatorname{sign}(x),|x|=x \operatorname{sign}(x)$.
+        \item  $|x|=|-x|, \quad x \leq|x|$.
+        \item  $|x y|=|x||y|$.
+        \item $|x| \geq 0$ and $(|x|=0 \Leftrightarrow x=0)$.
+        \item $|x-a|<\varepsilon \Leftrightarrow a-\varepsilon<x<a+\varepsilon$.
+        \item  $|x+y| \leq|x|+|y|$ (triangle inequality).
+        \item $|x-y| \geq|| x|-| y||, \quad x, y \in K$
+    \end{enu}
+\end{prop}
+\begin{defn}
+    A ring homomorphism $f$ between ordered field is said to be order-preserving if $$a<b\Longleftrightarrow  f(a)<f(b)$$.
+\end{defn}
+\begin{defn}
+    A sequence $r=(x_n)_{n\in \bb{Z}_{>0}}$ is a Cauchy sequence if for all $\epsilon \in \bb{Q}>0$, there's $N>0$ such that for all $m,n>N$, $|x_n-x_m|<\epsilon$.
+\end{defn}
+\begin{prop}
+    Cauchy sequence is bounded.
+\end{prop}
+\begin{defn}
+    Let $$\mathcal{R}=\bbrace{(x_n)\in \bb{Q}^{\bb{Z}_{>0}}:(x_n) \text{ is a Cauchy sequence}}$$ and
+    $$\mathbf{c}_0=\bbrace{(x_n)\in \bb{Q}^{\bb{Z}_{>0}}: \text{for all }\epsilon>0, \text{ there's } N>0 \text{ such that for all } n>N, |x_n|<\epsilon   }$$
+
+    It's clear that $\mathbf{c}_0\subset \mathcal{R}$ is a maximal ideal of $\mathcal{R}$. Hence $\mathcal{R}/\mathbf{c}_0$ is a field and we denote it by $\bb{R}$. For convenience, we usually denote $(a_n)+\mathbf{c_0}$ by $(a_n)$.
+\end{defn}
+
+\begin{defn}
+    Now we define a order on $\bb{R}$, for $(a_n),(b_n)$ in $\bb{R}$, $(a_n)>(b_n)$ if  there's $\epsilon>0$, a sufficiently large integer $N$, such that $a_n-b_n>\epsilon$ for $n>N$. And denote this order by $<$. It's esay to check that '<' is well-defined and
+    totally ordered.
+\end{defn}
+\begin{prop}
+    $(\bb{R},<)$ is a Archimedes ordered field. And the embedding $l:\bb{Q}\rightarrow \bb{R}$ given by
+    \begin{equation*}
+        r\mapsto (r,r,r,\dots)
+    \end{equation*}
+    is an order-preserving ring homomorphism.
+\end{prop}
+\begin{defn}
+    For a sequence $(A_n)\in \bb{R}$, we say $A_n\rightarrow A$ if for all $\epsilon\in\bb{R}>0$, there's $N>0$ such that for all $n>N$, $|A_n-A|<\epsilon$. And we say $(A_n)$ is a Cauchy sequence if for all $\epsilon \in \bb{R}_{>0}$, there's $N>0$ such that for all $m,n>N$, $|x_n-x_m|<\epsilon$.
+\end{defn}
+\begin{prop}[dense]
+    For all $a,b\in \bb{R}$, if $a<b$, there's $c\in \bb{Q}$ such that $a<l(c)<b$.
+\end{prop}
+\begin{prop}[completeness]
+    $(A_n)$ is a Cauchy sequence in $\bb{R}$ if and only if there's $A\in \bb{R}$ such that $A_n\rightarrow A$.
+\end{prop}
+\begin{prooff}
+    'if' is obvious.
+
+    'only if': Take $x_n\in \mathbb{Q}$ such that:
+    $$
+        A_n<l(x_n)<A_n+l(\frac{1}{n})
+    $$
+    It's cleat that $a=(x_n)+\mathbf{c}_0\in \mathbb{R}$.
+
+    Notice that $A_n\rightarrow a$, we have $\bb{R}$ is complete.
+\end{prooff}
+
+\vskip 1cm
+Now we identity $\bb{Q}$ with a subfield of $\bb{R}$ in the following content.
+
+\begin{prop}
+    \begin{enu}
+        \item $E$ is a non-empty subset of $\bb{R}$ and if $E$ is lower-bounded, then $E$ has a infimum; if $E$ is upper-bounded, then $E$ has a supremum.
+        \item Every incresing bounded sequence $(x_n)\in \bb{R}$ has a limit.
+        \item (Bolzano-Weierstress) Every bounded sequence has a convergent subsequnce.
+        \item if $$[a,b]\subset \bigcup_{i\in I}(a_i,b_i)$$, then $$[a,b]\subset \bigcup_{k\in J}(a_k,b_k)$$ for some finite subset $J$ of $I$.
+    \end{enu}
+\end{prop}
+
+\begin{prop}
+    $a>0$, $n\in \bb{Z}_{>0}$, then there's unique $x\in \bb{R}_{>0}$ such that $x^n=a$. We denote the unique positive root by $\sqrt[n]{a}$. And for all $a\in \bb{R}$ and $r=\frac{p}{q}\in \bb{Q}$, define $a^{r}=\sqrt[q]{a^p}$. It's easy to check that $\sqrt[q]{a^p}=(\sqrt[q]{a})^p$.
+\end{prop}
+% \begin{prooff}
+%     To prove the existence of a solution, we can, without loss of generality, assume that $n \geq 2$ and $a\neq 1$.
+%     We only prove with the case $a>1$. Then we have
+%     $$
+%         x^n>a^n>a>0 \quad \text { for all } x>a .
+%     $$
+
+%     Now set $A:=\left\{x\ge 0:x^n \leq a\right\}$. Then $0 \in A$ and $x \leq a$ for all $x \in A$. Thus $s:=\sup (A)$ is a well defined real number such that $s \geq 0$. We will prove that $s^n=a$ holds by showing that $s^n \neq a$ leads to a contradiction.
+%     Suppose first that $s^n<a$ so that $a-s^n>0$.
+%     $$
+%         b:=\sum_{k=0}^{n-1}\left(\begin{array}{l}
+%                 n \\
+%                 k
+%             \end{array}\right) s^k>0
+%     $$
+%     implies that there is some $\varepsilon \in \mathbb{R}$ such that $0<\varepsilon<\left(a-s^n\right) / b$. By making $\varepsilon$ smaller if needed, we can further suppose that $\varepsilon \leq 1$. Then $\varepsilon^k \leq \varepsilon$ for all $k \in \mathbb{Z}_{>0}$, and, using the binomial theorem, we have
+%     $$
+%         (s+\varepsilon)^n=s^n+\sum_{k=0}^{n-1}\left(\begin{array}{l}
+%                 n \\
+%                 k
+%             \end{array}\right) s^k \varepsilon^{n-k} \leq s^n+\left(\sum_{k=0}^{n-1}\left(\begin{array}{l}
+%                     n \\
+%                     k
+%                 \end{array}\right) s^k\right) \varepsilon<a .
+%     $$
+
+%     This shows that $s+\varepsilon \in A$, a contradiction of $\sup (A)=s<s+\varepsilon$. Therefore $s^n<a$ cannot be true.
+%     Now suppose that $s^n>a$. Then, in particular, $s>0$ and
+%     $$
+%         b:=\sum^*\left(\begin{array}{c}
+%                 n \\
+%                 2 j-1
+%             \end{array}\right) s^{2 j-1}>0,
+%     $$
+%     where the symbol $\sum^*$ means that we sum over all indices $j \in \mathbb{Z}_{>0}$ such that $2j \leq n$. Then there is some $\varepsilon \in \mathbb{R}$ such that $0<\varepsilon<\left(s^n-a\right) / b$ and $\varepsilon \leq\min\bbrace{1,s}$. Thus we have
+%     $$
+%         \begin{aligned}
+%             (s-\varepsilon)^n & =s^n+\sum_{k=0}^{n-1}(-1)^{n-k}\left(\begin{array}{l}
+%                     n \\
+%                     k
+%                 \end{array}\right) s^k \varepsilon^{n-k}                                                                        \\
+%                               & \geq s^n-\sum^*\left(\begin{array}{c}
+%                     n \\
+%                     2 j-1
+%                 \end{array}\right) s^{2 j-1} \varepsilon^{n-2 j+1} \geq s^n-\varepsilon \sum^*\left(\begin{array}{c}
+%                     n \\
+%                     2 j-1
+%                 \end{array}\right) s^{2 j-1} \\
+%                               & >a
+%         \end{aligned}
+%     $$
+% \end{prooff}
+\begin{defn}[complex number]
+    Let $\bb{C}=\bb{R}\times \bb{R}$, define $(a,b)\cdot (c,d)=(ac-bd,bc+ad)$. Then $\bb{C}$ is a field under this operator and $\bb{R}$ is a subfield of $\bb{C}$.
+\end{defn}
+
+
+
+\newpage
+\section{Point-Set Topology}
+Munkres's Topology is a good reference for this section.
+\subsection{Definition}
+\begin{defn}
+    A topology on a set $X$ is a collection $\mathcal{T}$ of subsets of $X$ having the following properties:
+    \begin{enu}
+        \item $\varnothing$ and $X$ are in $\mathcal{T}$.
+        \item The union of the elements of any subcollection of $\mathcal{T}$ is in $\mathcal{T}$.
+        \item The intersection of the elements of any finite subcollection of $\mathcal{T}$ is in $\mathcal{T}$.
+    \end{enu}
+    A set $X$ for which a topology $\mathcal{T}$ has been specified is called a topological space.
+\end{defn}
+\begin{defn}
+    If $X$ is a set, a basis for a topology on $X$ is a collection $\mathcal{B}$ of subsets of $X$ (called basis elements) such that
+    \begin{enu}
+        \item For each $x \in X$, there is at least one basis element $B$ containing $x$.
+        \item  If $x$ belongs to the intersection of two basis elements $B_1$ and $B_2$, then there is a basis element $B_3$ containing $x$ such that $B_3 \subset B_1 \cap B_2$.
+    \end{enu}
+    If $\mathcal{B}$ satisfies these two conditions, then we define the topology $\boldsymbol{T}$ generated by $\mathcal{B}$ as follows: $A$ subset $U$ of $X$ is said to be open in $X$ (that is, to be an element of $\mathcal{T}$ ) if for each $x \in U$, there is a basis element $B \in \mathcal{B}$ such that $x \in B$ and $B \subset U$. Note that each basis element is itself an element of $\mathcal{T}$.
+\end{defn}
+\begin{defn}
+    Let $X$ be a topological space with topology $\mathcal{T}$. If $Y$ is a subset of $X$, the collection
+    $$
+        \mathcal{T}_Y=\{Y \cap U \mid U \in \mathcal{T}\}
+    $$
+    is a topology on $Y$, called the subspace topology. With this topology, $Y$ is called a subspace of $X$; its open sets consist of all intersections of open sets of $X$ with $Y$.
+\end{defn}
+\begin{defn}
+    $X$ is Hausdorff if for any two elements $x\neq y$ in X, there's $U,V$ open in $X$ such that $x\in U,y\in V$ and $U\cap V=\varnothing$.
+\end{defn}
+\begin{defn}[convergence]
+
+\end{defn}
+\begin{prop}
+    If $X$ is a Hausdorff space, then a sequence of points of $X$ converges to at most one point of $X$.
+\end{prop}
+\begin{exam}
+    Let $X$ be a ordered set; assume $X$ has more than one element. Let $\mathcal{B}$ be the collection of all sets of the following types:
+    \begin{enu}
+        \item All open intervals $(a, b)$ in $X$.
+        \item All intervals of the form $\left[a_0, b\right)$, where $a_0$ is the smallest element (if any) of $X$.
+                    \item  All intervals of the form $\left(a, b_0\right]$, where $b_0$ is the largest element (if any) of $X$. The collection $\mathcal{B}$ is a basis for a topology on $X$, which is called the order topology.
+    \end{enu}
+\end{exam}
+\begin{exam}
+    $\overline{\bb{R}}=\bb{R}\cup\bbrace{+\infty}\cup\bbrace{-\infty}$.
+\end{exam}
+
+
+
+\begin{prop}
+    Given a subset $A$ of a topological space $X$, the interior of $A$ is defined as the union of all open sets contained in $A$, and the closure of $A$ is defined as the intersection of all closed sets containing $A$.
+
+    Let $Y$ be a subspace of $X$; let $A$ be a subset of $Y$; let $\bar{A}$ denote the closure of $A$ in $X$. Then the closure of $A$ in $Y$ equals $\bar{A} \cap Y$.
+\end{prop}
+\begin{defn}
+    If $A$ is a subset of the topological space $X$ and if $x$ is a point of $X$, we say that $x$ is a limit point of $A$ if every neighborhood of $x$ intersects $A$ in some point other than $x$ itself. Said differently, $x$ is a limit point of $A$ if it belongs to the closure of $A-\{x\}$. The point $x$ may lie in $A$ or not; for this definition it does not matter.
+    Let $A$ be a subset of the topological space $X$; let $A^{\prime}$ be the set of all limit points of $A$. Then
+    $$
+        \bar{A}=A \cup A^{\prime} .
+    $$
+\end{defn}
+\begin{prop}
+    Let $X$ and $Y$ be topological spaces; let $f: X \rightarrow Y$. Then the following are equivalent:
+    \begin{enu}
+        \item  $f$ is continuous.($U$ open in $X$ implies $f^{-1}(U)$ open in $Y$)
+        \item  For every subset $A$ of $X$, one has $f(\bar{A}) \subset \overline{f(A)}$.
+        \item  For every closed set $B$ of $Y$, the set $f^{-1}(B)$ is closed in $X$.
+        \item  For each $x \in X$ and each neighborhood $V$ of $f(x)$, there is a neighborhood $U$ of $x$ such that $f(U) \subset V$.
+        If the condition in (4) holds for the point $x$ of $X$, we say that $f$ is continuous at the point $x$.
+    \end{enu}
+\end{prop}
+\begin{defn}
+    Consider $(X_i)_{i\in I}$ be a family of topology spaces, then the sets of the form
+    \begin{equation*}
+        \prod_{i\in I} U_i
+    \end{equation*}
+    $U_i=X_i$ for all but finite $i$, form a basis of $\prod_{i\in I } X_i$. We call it the topology induced by this product topology.
+
+    In language of category, product topology with projection $p_i: \prod_{i\in I } X_i\rightarrow X_i$ is the product object in the category of topological space.
+\end{defn}
+\begin{prop}
+    If each space $X_\alpha$ is Hausdorff space, then $\prod X_\alpha$ is a Hausdorff space in product topology.
+\end{prop}
+
+\begin{prop}
+    Let $\left\{X_\alpha\right\}$ be an indexed family of spaces; let $A_\alpha \subset X_\alpha$ for each $\alpha$. If $\prod X_\alpha$ is given the product topology, then
+    $$
+        \prod \bar{A}_\alpha=\overline{\prod A_\alpha}
+    $$
+\end{prop}
+\begin{theo}
+    Let $f: A \rightarrow \prod_{\alpha \in J} X_\alpha$ be given by the equation
+    $$
+        f(a)=\left(f_\alpha(a)\right)_{\alpha \in J},
+    $$
+    where $f_\alpha: A \rightarrow X_\alpha$ for each $\alpha$. Let $\prod X_\alpha$ have the product topology. Then the function $f$ is continuous if and only if each function $f_\alpha$ is continuous.
+\end{theo}
+\subsection{Metric space}
+\begin{defn}
+    A metric on a set $X$ is a function
+    $$
+        d: X \times X \longrightarrow \bb{R}
+    $$
+    having the following properties:
+    \begin{enu}
+        \item  $d(x, y) \geq 0$ for all $x, y \in X$; equality holds if and only if $x=y$.
+        \item  $d(x, y)=d(y, x)$ for all $x, y \in X$.
+        \item  (Triangle inequality) $d(x, y)+d(y, z) \geq d(x, z)$, for all $x, y, z \in X$.
+    \end{enu}
+    Given a metric $d$ on $X$, the number $d(x, y)$ is often called the distance between $x$ and $y$ in the metric $d$. Given $\epsilon>0$, consider the set
+    $$
+        B_d(x, \epsilon)=\{y \mid d(x, y)<\epsilon\}
+    $$
+    of all points $y$ whose distance from $x$ is less than $\epsilon$. It is called the $\boldsymbol{\epsilon}$-ball centered at $\boldsymbol{x}$. Sometimes we omit the metric $d$ from the notation and write this ball simply as $B(x, \epsilon)$, when no confusion will arise.
+
+    If $d$ is a metric on the set $X$, then the collection of all $\epsilon$-balls $B_d(x, \epsilon)$, for $x \in X$ and $\epsilon>0$, is a basis for a topology on $X$, called the metric topology induced by $d$.
+\end{defn}
+\begin{exam}
+    $\bb{R}^n$ is a metric space with distance $d(x,y)=||x-y||$
+\end{exam}
+
+
+\begin{theo}
+    Let $X$ be a topological space; let $A \subset X$. If there is a sequence of points of $A$ converging to $x$, then $x \in \bar{A}$; the converse holds if $X$ is metrizable.
+
+    Let $f: X \rightarrow Y$. If the function $f$ is continuous, then for every convergent sequence $x_n \rightarrow x$ in $X$, the sequence $f\left(x_n\right)$ converges to $f(x)$. The converse holds if $X$ is metrizable.
+\end{theo}
+\begin{theo}
+    Let $f_n: X \rightarrow Y$ be a sequence of functions from the set $X$ to the metric space $Y$. Let $d$ be the metric for $Y$. We say that the sequence $\left(f_n\right)$ converges uniformly to the function $f: X \rightarrow Y$ if given $\epsilon>0$, there exists an integer $N$ such that
+    $$
+        d\left(f_n(x), f(x)\right)<\epsilon
+    $$
+    for all $n>N$ and all $x$ in $X$.
+
+    Let $f_n: X \rightarrow Y$ be a sequence of continuous functions from the topological space $X$ to the metric space $Y$. If $\left(f_n\right)$ converges uniformly to $f$, then $f$ is continuous.
+\end{theo}
+\begin{prop}
+    If $f \in B(X)$, we define the uniform norm of $f$ to be
+    $$
+        \|f\|_u=\sup \{|f(x)|: x \in X\} .
+    $$
+
+    The function $\rho(f, g)=\|f-g\|_u$ is easily seen to be a metric on $B(X)$, and convergence with respect to this metric is simply uniform convergence on $X . B(X)$ is obviously complete in the uniform metric: If $\left\{f_n\right\}$ is uniformly Cauchy, then $\left\{f_n(x)\right\}$ is Cauchy for each $x$, and if we set $f(x)=\lim _n f_n(x)$, it is easily verified that $\left\|f_n-f\right\|_u \rightarrow 0$.
+
+    If $X$ is a topological space, $B C(X)=B(X)\cap C(X)$ is a closed subspace of $B(X)$ in the uniform metric; in particular, $B C(X)$ is complete.
+\end{prop}
+
+
+
+
+
+
+\subsection{Compactness}
+\begin{defn}
+    A collection $\mathcal{A}$ of subsets of a space $X$ is said to cover $X$, or to be a covering of $X$, if the union of the elements of $\mathcal{A}$ is equal to $X$. It is called an open covering of $X$ if its elements are open subsets of $X$.
+
+    A space $X$ is said to be compact if every open covering $\mathcal{A}$ of $X$ contains a finite subcollection that also covers $X$.
+
+\end{defn}
+\begin{prop}
+    Every closed subspace of a compact space is compact.  Every compact subspace of a Hausdorff space is closed.
+\end{prop}
+\begin{theo}
+    The image of a compact space under a continuous map is compact.
+\end{theo}
+\begin{coro}
+    $X$ is a compact space, $Y$ is a Hausdorff space, then continuous $f:X\rightarrow Y$ is closed.
+    \label{proposition: X compact Y T2 imply closed}
+\end{coro}
+\begin{coro}
+    Let $f: X \rightarrow Y$ be a continuous bijection. $X$ is a compact space, $Y$ is a Hausdorff space, then $f$ is homemorphism.
+\end{coro}
+\begin{lem}[Lebesgue number lemma]
+    Let $\mathcal{A}$ be an open covering of the metric space $(X, d)$. If $X$ is compact, there is a $\delta>0$ such that for each subset of $X$ having diameter less than $\delta$, there exists an element of $\mathcal{A}$ containing it.
+    The number $\delta$ is called a Lebesgue number for the covering $\mathcal{A}$.
+\end{lem}
+\begin{theo}
+    Let $X$ be a metrizable space. Then the following are equivalent:
+    \begin{enu}
+        \item  $X$ is compact.
+        \item  $X$ is limit point compact(infinite subset has a limit point).
+        \item  $X$ is sequentially compact(every sequnence has a convergent subsequnce).
+    \end{enu}
+\end{theo}
+\begin{theo}[Tychonoff theorem]
+    An arbitrary product of compact spaces is
+    compact in the product topology.
+\end{theo}
+
+
+
+\begin{defn}
+    A function $f$ from the metric space $\left(X, d_X\right)$ to the metric space $\left(Y, d_Y\right)$ is said to be uniformly continuous if given $\epsilon>0$, there is a $\delta>0$ such that for every pair of points $x_0, x_1$ of $X$,
+    $$
+        d_X\left(x_0, x_1\right)<\delta \Longrightarrow d_Y\left(f\left(x_0\right), f\left(x_1\right)\right)<\epsilon .
+    $$
+\end{defn}
+\begin{theo}
+    Let $f: X \rightarrow Y$ be a continuous map of the compact metric space $\left(X, d_X\right)$ to the metric space $\left(Y, d_Y\right)$. Then $f$ is uniformly continuous.
+\end{theo}
+\begin{prop}[finite intersection]
+    A collection $\mathcal{C}$ of subsets of $X$ is said to have the finite intersection property if for every finite subcollection
+    $$
+        \left\{C_1, \ldots, C_n\right\}
+    $$
+    of $\mathcal{C}$, the intersection $C_1 \cap \cdots \cap C_n$ is nonempty.
+
+    Let $X$ be a topological space. Then $X$ is compact if and only if for every collection $\mathcal{C}$ of closed sets in $X$ having the finite intersection property, the intersection $\bigcap_{C \in \mathcal{C}} C$ of all the elements of $\mathcal{C}$ is nonempty.
+\end{prop}
+
+
+
+
+
+
+
+
+\begin{defn}[locally compact]
+    A space $X$ is said to be locally compact at $\boldsymbol{x}$ if there is some compact subspace $C$ of $X$ that contains a neighborhood of $x$. If $X$ is locally compact at each of its points, $X$ is said simply to be locally compact.
+\end{defn}
+
+\begin{defn}[one-point compactification]
+    Let $X$ be a space. Then $X$ is locally compact Hausdorff if and only if there exists a space $Y$ satisfying the following conditions:
+    \begin{enu}
+        \item $X$ is a subspace of $Y$.
+        \item The set $Y-X$ consists of a single point.
+        \item $Y$ is a compact Hausdorff space.
+    \end{enu}
+
+    If $Y$ and $Y^{\prime}$ are two spaces satisfying these conditions, then there is a homeomorphism of $Y$ with $Y^{\prime}$ that equals the identity map on $X$.
+\end{defn}
+\begin{prooff}
+    We only provide the form of the open sets in $Y$: $U$ open in $Y$ if and only if $U$ open in $X$, or $U$ is the complement of a compact subset in $X$.
+\end{prooff}
+\begin{defn}
+    If $Y$ is a compact Hausdorff space and $X$ is a proper subspace of $Y$ whose closure equals $Y$, then $Y$ is said to be a compactification of $X$. If $Y-X$ equals a single point, then $Y$ is called the one-point compactification of $X$.
+\end{defn}
+\begin{prop}
+    Let $X$ be a Hausdorff space. Then $X$ is locally compact if and only if given $x$ in $X$, and given a neighborhood $U$ of $x$, there is a neighborhood $V$ of $x$ such that $\bar{V}$ is compact and $\bar{V} \subset U$.
+    \label{proposition: LCH if and only if}
+\end{prop}
+\begin{coro}
+    If $X$ is an LCH space and $K \subset U \subset X$ where $K$ is compact and $U$ is open,
+    there exists a precompact open $V$ such that $K \subset V \subset \bar{V} \subset U$.
+\end{coro}
+\begin{prop}
+    Let $X$ be locally compact Hausdorff; let $A$ be a subspace of $X$. If $A$ is closed in $X$ or open in $X$, then $A$ is locally compact.
+\end{prop}
+
+\begin{prop}
+    In a locally compact Hausdorff space $E$, a subset $A$ is closed if and only if its
+    intersection with every compact set is compact
+\end{prop}
+\begin{prooff}
+    Let $A \subseteq E$ have the property that $A \cap K$ is closed in $K$ for all compact $K \subseteq E$. We want to show that $A$ is closed whenever $E$ is locally compact Hausdorff, so we will show that $E-A$ is open.
+
+    Let $x \in E- A$, let $K$ be a compact neighbourhood of $x$, and let $U \subseteq K$ be an open neighbourhood of $x$. Then $x\in U-K\cap A$ and $U-K\cap A$ is open in $X$. Hence $E-A$ is open in $X$.
+\end{prooff}
+\begin{theo}[Usysohn's Lemma, Locally Compact Version]
+    If $X$ is an LCH space and $K \subset U \subset X$ where $K$ is compact and $U$ is open, there exists $f \in C(X,[0,1])$ such that $f=1$ on $K$ and $f=0$ outside a compact subset of $U$.
+\end{theo}
+\begin{defn}
+    If $X$ is a topological space and $f \in C(X)$, the support of $f$, denoted by $\operatorname{supp}(f)$, is the smallest closed set outside of which $f$ vanishes, that is, the closure of $\{x: f(x) \neq 0\}$. If $\operatorname{supp}(f)$ is compact, we say that $f$ is compactly supported, and we define
+    $$
+        C_c(X)=\{f \in C(X): \operatorname{supp}(f) \text { is compact }\} .
+    $$
+
+    Moreover, if $f \in C(X)$, we say that $f$ vanishes at infinity if for every $\epsilon>0$ the set $\{x:|f(x)| \geq \epsilon\}$ is compact, and we define
+    $$
+        C_0(X)=\{f \in C(X): f \text { vanishes at infinity }\} .
+    $$
+
+    Clearly $C_c(X) \subset C_0(X)$. Moreover, $C_0(X) \subset B C(X)$, because for $f \in C_0(X)$ the image of the set $\{x:|f(x)| \geq \epsilon\}$ is compact, and $|f|<\epsilon$ on its complement.
+\end{defn}
+\begin{prop}
+    If $X$ is an LCH space, $C_0(X)$ is the closure of $C_c(X)$ in the uniform metric.
+\end{prop}
+\begin{prooff}
+    If $\left\{f_n\right\}$ is a sequence in $C_c(X)$ that converges uniformly
+    to $f \in C(X)$, for each $\epsilon>0$ there exists $n \in \mathbb{N}$ such that $\left\|f_n-f\right\|_u<\epsilon$. Then $|f(x)|<\epsilon$ if $x \notin \operatorname{supp}\left(f_n\right)$, so $f \in C_0(X)$. Conversely, if $f \in C_0(X)$, for $n \in \mathbb{N}$ let $K_n=\left\{x:|f(x)| \geq n^{-1}\right\}$. Then $K_n$ is compact,
+    so by Usysohn's Lemma, there exists $g_n \in C_c(X)$ with $0 \leq g_n \leq 1$ and $g_n=1$ on $K_n$. Let $f_n=g_n f$. Then $f_n \in C_c(X)$ and $\left\|f_n-f\right\|_u \leq n^{-1}$, so $f_n \rightarrow f$ uniformly.
+\end{prooff}
+
+
+% \begin{prop}
+%     Let $f: X \rightarrow Y$ be a continuous map of topological Hausdorff spaces, with $X$ compact. Let $y \in Y$ and $U$ be a neighbourhood of $f^{-1}(y)$. Then there exists some neighbourhood $V$ of $y$ with $f^{-1}(V) \subseteq U$.
+% \end{prop}
+% \begin{prooff}
+%     As $V$ varies over all neighbourhoods of $y \in Y, \bigcap \bar{V}=\{y\}$, by the Hausdorff property. Then, $\cap f^{-1}(\bar{V})=f^{-1}(y)$. But then, $\cap f^{-1}(\bar{V}) \cap(X- U)=\varnothing$. Now the $f^{-1}(\bar{V})$ and $(X-U)$ are closed sets,
+%     and by compactness of $X$, some finite intersection is already empty. So $X-U \cap f^{-1}\left(\bar{V}_1\right) \cap \cdots \cap f^{-1}\left(\bar{V}_n\right)=\emptyset$,
+%     hence $f^{-1}\left(\bar{V}_1 \cap \cdots \cap \bar{V}_n\right) \subseteq U$, in particular $f^{-1}\left(V_1 \cap \cdots \cap V_n\right) \subseteq U$.
+% \end{prooff}
+
+
+
+
+\subsection{Connectness}
+\begin{defn}
+    Given $X$, define an equivalence relation on $X$ by setting $x \sim y$ if there is a connected subspace of $X$ containing both $x$ and $y$. The equivalence classes are called the components (or the "connected components") of $X$.The components of $X$ are connected disjoint subspaces of $X$ whose union is $X$, such that each nonempty connected subspace of $X$ intersects only one of them.
+\end{defn}
+\begin{defn}
+    We define another equivalence relation on the space $X$ by defining $x \sim y$ if there is a path in $X$ from $x$ to $y$. The equivalence classes are called the path components of $X$.
+    The path components of $X$ are path-connected disjoint subspaces of $X$ whose union is $X$, such that each nonempty path-connected subspace of $X$ intersects only one of them.
+\end{defn}
+\begin{defn}
+    A space $X$ is said to be locally connected at $x$ if for
+    every neighborhood $U$ of $x$, there is a connected neighborhood $V$ of $x$ contained in $U$.
+    If $X$ is locally connected at each of its points,
+    it is said simply to be locally connected. Similarly, a space $X$ is said to be locally path connected
+    at $x$ if for every neighborhood $U$ of $x$, there is a path-connected neighborhood $V$ of $x$ contained in $U$. If $X$ is locally path connected at each of its points, then it is said to be locally path connected.
+\end{defn}
+\begin{prop}
+    \begin{enu}
+        \item A space $X$ is locally connected if and only if for every open set $U$ of $X$, each component of $U$ is open in $X$.
+        \item A space $X$ is locally path connected if and only if for every open set $U$ of $X$, each path component of $U$ is open in $X$.
+        \item  If $X$ is a topological space, each path component of $X$ lies in a component of $X$. If $X$ is locally path connected, then the components and the path components of $X$ are the same.
+    \end{enu}
+\end{prop}
+\begin{prop}
+    The union of a collection of connected subspaces of $X$ that have a point in common is connected.
+\end{prop}
+\begin{prop}
+    Let $A$ be a connected subspace of $X$. If $A \subset B \subset \bar{A}$, then $B$ is also connected.
+\end{prop}
+\begin{prop}
+    The image of a connected space under a continuous map is connected.
+\end{prop}
+\begin{theo}[Intermediate Value Theorem]
+    Let $f: X \rightarrow Y$ be a continuous map, where $X$ is a connected space and $Y$ is an ordered set in the order topology. If a and $b$ are two points of $X$ and if $r$ is a point of $Y$ lying between $f(a)$ and $f(b)$, then there exists a point $c$ of $X$ such that $f(c)=r$.
+\end{theo}
+\begin{theo}[Extreme value theorem]
+    Let $f: X \rightarrow Y$ be continuous, where $Y$ is an ordered set in the order topology. If $X$ is compact, then there exist points $c$ and $d$ in $X$ such that $f(c) \leq f(x) \leq f(d)$ for every $x \in X$.
+\end{theo}
+
+
+
+\subsection{Countability}
+\begin{defn}
+    A space $X$ is said to have a countable basis at $x$ if there is a countable collection $B$ of neighborhoods of $x$ such that each neighborhood of $x$ contains at least one of the elements of $B$. A space that has a countable basis at each of its points is said to satisfy the first countability axiom,
+    or to be first-countable.
+\end{defn}
+\begin{prop}
+    Let $X$ be a topological space.
+    \begin{enu}
+        \item Let $A$ be a subset of $X$. If there is a sequence of points of $A$ converging to $x$, then $x \in \bar{A}$; the converse holds if $X$ is first-countable.
+        \item Let $f: X \rightarrow Y$. If $f$ is continuous, then for every convergent sequence $x_n \rightarrow x$ in $X$, the sequence $f\left(x_n\right)$ converges to $f(x)$. The converse holds if $X$ is firstcountable.
+    \end{enu}
+\end{prop}
+\begin{defn}
+    If a space $X$ has a countable basis for its topology, then $X$ is said to satisfy the second countability axiom, or to be second-countable.
+\end{defn}
+\begin{defn}
+    A subset $A$ of a space $X$ is said to be dense in $X$ if $\bar{A}=X$.
+\end{defn}
+\begin{defn}
+    Suppose that $X$ has a countable basis. Then:
+    \begin{enu}
+        \item Every open covering of $X$ contains a countable subcollection covering $X$.(Lindelof space)
+        \item There exists a countable subset of $X$ that is dense in $X$.(separable)
+    \end{enu}
+\end{defn}
+\begin{prop}
+    \begin{enu}
+        \item Every metrizable space with a countable dense subset has a countable basis.
+        \item Every metrizable Lindelöf space has a countable basis.
+    \end{enu}
+\end{prop}
+
+
+\subsection{Separation}
+\begin{defn}
+    Suppose that one-point sets are closed in $X$. Then $X$ is said to be regular if for each pair consisting of a point $x$ and a closed set $B$ disjoint from $x$, there exist disjoint open sets containing $x$ and $B$, respectively.
+
+    The space $X$ is said to be normal if for each pair $A, B$ of disjoint closed sets of $X$, there exist disjoint open sets containing $A$ and $B$, respectively.
+\end{defn}
+\begin{prop}
+    Let $X$ be a topological space. Let one-point sets in $X$ be closed.
+    \begin{enu}
+        \item $X$ is regular if and only if given a point $x$ of $X$ and a neighborhood $U$ of $x$, there is a neighborhood $V$ of $x$ such that $\bar{V} \subset U$.
+        \item $X$ is normal if and only if given a closed set $A$ and an open set $U$ containing $A$, there is an open set $V$ containing $A$ such that $\bar{V} \subset U$.
+    \end{enu}
+\end{prop}
+\begin{prop}
+    \begin{enu}
+        \item Every metrizable space is normal.
+
+        \item Every compact Hausdorff space is normal.
+    \end{enu}
+\end{prop}
+\begin{theo}[Usysohn's lemma]
+    Let $X$ be a normal space; let $A$ and $B$ be disjoint closed subsets of $X$. Let $[a, b]$ be a closed interval in the real line. Then there exists a continuous map
+    $$
+        f: X \longrightarrow[a, b]
+    $$
+    such that $f(x)=a$ for every $x$ in $A$, and $f(x)=b$ for every $x$ in $B$.
+\end{theo}
+\begin{theo}[Tietze extension theorem]
+    Let $X$ be a normal space; let $A$ be a closed subspace of $X$.
+    \begin{enu}
+        \item Any continuous map of $A$ into the closed interval $[a, b]$ of $\mathbb{R}$ may be extended to a continuous map of all of $X$ into $[a, b]$.
+        \item Any continuous map of $A$ into $\mathbb{R}$ may be extended to a continuous map of all of $X$ into $\mathbb{R}$.
+    \end{enu}
+\end{theo}
+
+
+
+\subsection{Completeness}
+\begin{defn}
+    Let $(X, d)$ be a metric space. A sequence $\left(x_n\right)$ of points of $X$ is said to be a Cauchy sequence in $(X, d)$ if it has the property that given $\epsilon>0$, there is an integer $N$ such that
+    $$
+        d\left(x_n, x_m\right)<\epsilon \quad \text { whenever } n, m \geq N .
+    $$
+    The metric space $(X, d)$ is said to be complete if every Cauchy sequence in $X$ converges.
+\end{defn}
+\begin{theo}
+    A metric space $(X, d)$ is compact if and only if it is complete and totally bounded.
+\end{theo}
+\begin{theo}[extension theorem]
+    Suppose $Y$ and $Z$ are metric spaces, and $Z$ is complete. Also suppose $X$ is a dense subset of $Y$, and $f: X \rightarrow Z$ is uniformly continuous. Then $f$ has a uniquely determined extension $\bar{f}: Y \rightarrow Z$ given by
+    $$
+        \bar{f}(y)=\lim _{\substack{x \rightarrow y \\ x \in X}} f(x) \quad \text { for } y \in Y
+    $$
+    and $\bar{f}$ is also uniformly continuous.
+    \label{theorem:extension theorem}
+\end{theo}
+\begin{defn}
+    Let $X$ be a metric space. If $h: X \rightarrow Y$ is an isometric imbedding of $X$ into a complete metric space $Y$, such that $h(X)$ dense in $Y$. Then Y is called the completion of $X$.
+    By extension theorem, the completion of $X$ is uniquely determined up to an isometry.
+\end{defn}
+
+
+\begin{defn}
+    A space $X$ is said to be a Baire space if the following condition holds: Given any countable collection $\left\{A_n\right\}$ of closed sets of $X$ each of which has empty interior in $X$, their union $\bigcup A_n$ also has empty interior in $X$.
+\end{defn}
+\begin{theo}[Baire Category Theorem]
+    If $X$ is a compact Hausdorff space or a complete metric space, then $X$ is a Baire space.
+\end{theo}
+\begin{theo}
+    Any open subspace $Y$ of a Baire space $X$ is itself a Baire space.
+\end{theo}
+\begin{theo}
+    Let $X$ be a space; let $(Y, d)$ be a metric space. Let $f_n: X \rightarrow Y$ be a sequence of continuous functions such that $f_n(x) \rightarrow f(x)$ for all $x \in X$, where $f: X \rightarrow Y$. If $X$ is a Baire space, the set of points at which $f$ is continuous is dense in $X$.
+\end{theo}
+\newpage
+\section{Limit}
+\subsection{Limit Superior and Limit Inferior}
+\begin{defn}
+Let $\left(x_n\right)$ be a sequence in $\mathbb{R}$. We can define two new sequences $\left(y_n\right)$ and $\left(z_n\right)$ by
+    $$
+    \begin{aligned}
+    & y_n:=\sup _{k \geq n} x_k:=\sup \left\{x_k ; k \geq n\right\} \\
+    & z_n:=\inf _{k \geq n} x_k:=\inf \left\{x_k ; k \geq n\right\}
+    \end{aligned}
+    $$
+    Clearly $\left(y_n\right)$ is a decreasing sequence and $\left(z_n\right)$ is an increasing sequence in $\overline{\mathbb{R}}$. These sequences converge in $\overline{\mathbb{R}}$  
+    $$
+    \limsup _{n \rightarrow \infty} x_n:=\varlimsup_{n \rightarrow \infty} x_n:=\lim _{n \rightarrow \infty}\left(\sup _{k \geq n} x_k\right)
+    $$
+    the limit superior, and
+    $$
+    \liminf_{n \rightarrow \infty} x_n:=\varliminf_{n \rightarrow \infty} x_n:=\lim _{n \rightarrow \infty}\left(\inf_{k \geq n} x_k\right)
+    $$
+    the limit inferior.
+\end{defn}
+\begin{theo}
+    Any sequence $\left(x_n\right)$ in $\mathbb{R}$ has a smallest cluster point $x_*$ and a greatest cluster point $x^*$ in $\overline{\mathbb{R}}$ and these satisfy
+    $$
+    \liminf x_n=x_* \quad \text { and } \quad \limsup x_n=x^*
+     $$
+\end{theo}
+\subsection{Series}
+In the following theorem, $\bb{K}$ is $\bb{R}$ or $\bb{C}$, 
+$(E,|\cdot|)$ is a Banach space over $\bb{K}$ and $(x_n)$ is a sequence in $E$.
+\begin{prop}
+    For a series $\sum x_k$ in a Banach space $(E,|\cdot|)$, the following are equivalent:
+    \begin{enu}
+        \item  $\sum x_k$ converges.
+        \item  For each $\varepsilon>0$ there is some $N \in \mathbb{N}$ such that
+        $$
+            \left|\sum_{k=n+1}^m x_k\right|<\varepsilon, \quad m>n \geq N .
+        $$
+    \end{enu}
+\end{prop}
+\begin{prop}
+    Let $\sum x_k$ be a series in $E$ and $\sum a_k$ a series in $\mathbb{R}^{+}$. Then the series $\sum a_k$ is called a majorant (or minorant) for $\sum x_k$ if there is some $K \in \mathbb{N}$ such that $\left|x_k\right| \leq a_k$ (or $a_k \leq\left|x_k\right|$ ) for all $k \geq K$.
+    If a series in a Banach space has a convergent majorant, then it converges absolutely.
+\end{prop}
+\begin{prop}[Abel]
+    Let $\left(a_n\right)_{n \in \mathbb{Z}}, \left(b_n\right)_{n \in \mathbb{Z}}$ be two sequneces in $E$, then
+    $$
+        \sum_{M<n \leqslant M+N} a_n b_n=a_{M+N} B_{M+N}+\sum_{M<n \leqslant M+N-1}\left(a_n-a_{n+1}\right) B_n,
+    $$
+    where $B_n=\sum_{M<k \leqslant n} b_k$.
+
+    If in particular $E=\bb{C}$ and $(a_n)$ is a monotone sequence in $\bb{R}$, and
+    $$
+        \sup _{M<n \leqslant M+N}\left|B_n\right| \leqslant \rho,
+    $$
+    we have
+    $$
+        \left|\sum_{M<n \leqslant M+N} a_n b_n\right| \leqslant \rho\left(\left|a_{M+1}\right|+2\left|a_{M+N}\right|\right) .
+    $$
+\end{prop}
+% \begin{coro}
+%     \begin{enu}
+%         \item (Dirichlet's Rule)
+%         \item (Leibniz's Rule)
+%     \end{enu}
+% \end{coro}
+\begin{exam}[base $g$ expansion]
+    Suppose that $g \geq 2$. Then every real number $x$ has a base $g$ expansion. This expansion is unique if expansions satisfying $x_k=g-1$ for almost all $k \in \mathbb{N}$ are excluded(for example, if $g=10$, 
+    $0.999\dots$ is excluded).
+    Moreover, $x$ is a rational number if and only if its base $g$ expansion is periodic.
+\end{exam}
+\begin{defn}
+$$
+    \exp : \mathbb{C} \rightarrow \mathbb{C}, \quad z \mapsto \sum_{k=0}^{\infty} \frac{z^k}{k !}
+$$
+converges absolutely for all $z\in \bb{C}$.
+\end{defn}
+\begin{theo}
+    Every rearrangement of an absolutely convergent series $\sum x_k$ is absolutely convergent and has the same value as $\sum x_k$.
+\end{theo}
+\begin{theo}
+    There is a bijection $\alpha: \mathbb{N} \rightarrow \mathbb{N} \times \mathbb{N}$. If $\alpha$ is such a bijection, we call the series $\sum_n x_{\alpha(n)}$ an ordering of the double series $\sum x_{j k}$. If we fix $j \in \mathbb{N}$ (or $k \in \mathbb{N}$ ), then the series $\sum_k x_{j k}$ (or $\sum_j x_{j k}$ ) is called the $j^{\text {th }}$ row series (or $j^{\text {th }}$ column series) of $\sum x_{j k}$. If every row series (or column series) converges, then we can consider the series of row sums $\sum_j\left(\sum_{k=0}^{\infty} x_{j k}\right)$ (or the series of column sums $\left.\sum_k\left(\sum_{j=0}^{\infty} x_{j k}\right)\right)$. Finally we say that the double series $\sum x_{j k}$ is summable if
+    $$
+        \sup _{n \in \mathbb{N}} \sum_{j, k=0}^n\left|x_{j k}\right|<\infty .
+    $$
+    Let $\sum x_{j k}$ be a summable double series.
+    \begin{enu}
+        \item  Every ordering $\sum_n x_{\alpha(n)}$ of $\sum x_{j k}$ converges absolutely to a value $s \in E$ which is independent of $\alpha$.
+        \item The series of row sums $\sum_j\left(\sum_{k=0}^{\infty} x_{j k}\right)$ and column sums $\sum_k\left(\sum_{j=0}^{\infty} x_{j k}\right)$ converge absolutely, and
+        $$
+            \sum_{j=0}^{\infty}\left(\sum_{k=0}^{\infty} x_{j k}\right)=\sum_{k=0}^{\infty}\left(\sum_{j=0}^{\infty} x_{j k}\right)=s
+        $$
+    \end{enu}
+\end{theo}
+\begin{theo}
+    Suppose that the series $\sum x_j$ and $\sum y_k$ in $\mathbb{K}$ converge absolutely. Then the Cauchy product $\sum_n \sum_{k=0}^n x_k y_{n-k}$ of $\sum x_j$ and $\sum y_k$ converges absolutely, and
+    $$
+        \left(\sum_{j=0}^{\infty} x_j\right)\left(\sum_{k=0}^{\infty} y_k\right)=\sum_{n=0}^{\infty} \sum_{k=0}^n x_k y_{n-k}
+    $$
+\end{theo}
+\begin{coro}
+    $$\exp(x+y)=\exp(x)\exp(y) $$ for $x,y\in \bb{C}$
+\end{coro}
+\subsection{Some Important Limits}
+\begin{exam}
+    Let $k \in \mathbb{N}$ and $a \in \mathbb{C}$ be such that $|a|>1$. Then
+    $$
+    \lim _{n \rightarrow \infty} \frac{n^k}{a^n}=0
+    $$
+    that is, for $|a|>1$ the function $n \mapsto a^n$ increases faster than any power function $n \mapsto n^k$.
+\end{exam}
+\begin{exam}
+    For all $a \in \mathbb{C}$,
+    $$
+    \lim _{n \rightarrow \infty} \frac{a^n}{n!}=0
+    $$
+    The factorial function $n \mapsto n$ ! increases faster than the function ${ }^2 n \mapsto a^n$.
+\end{exam}
+\begin{defn}
+    The sequence $\left((1+1 / n)^n\right)$ converges and its limit
+    $$
+    e:=\lim _{n \rightarrow \infty}\left(1+\frac{1}{n}\right)^n
+    $$
+    the Euler number, satisfies $2<e \leq 3$.
+    Morover, we can show that 
+    $$  
+    e=\lim _{n \rightarrow \infty} \sum_{k=0}^n \frac{1}{k!}
+    $$
+\end{defn}
+\begin{prop}
+    As an application of this property of the exponential function, we determine the values of the exponential function for rational arguments. Namely,
+    $$
+    \exp (r)=e^r, \quad r \in \mathbb{Q}
+    $$
+    that is, for a rational number $r, \exp (r)$ is the $r^{\mathrm{th}}$ power of $e$.
+\end{prop}
+\subsection{Power Series}
+\begin{defn}
+    Let
+    $$
+    a:=\sum a_k X^k:=\sum_k a_k X^k
+    $$
+    be a (formal) power series in one indeterminate with coefficients in $\mathbb{K}$. Then, for each $x \in \mathbb{K}, \sum a_k x^k$ is a series in $\mathbb{K}$. When this series converges we denote its value by $\underline{a}(x)$, the value of the (formal) power series  at $x$. Set
+    $$
+    \operatorname{dom}(\underline{a}):=\left\{x \in \mathbb{K} ; \sum a_k x^k \text { converges in } \mathbb{K}\right\}
+    $$
+    Then $\underline{a}: \operatorname{dom}(\underline{a}) \rightarrow \mathbb{K}$ is a well defined function:
+    $$
+    \underline{a}(x):=\sum_{k=0}^{\infty} a_k x^k, \quad x \in \operatorname{dom}(\underline{a})
+    $$
+    Note that $0 \in \operatorname{dom}(\underline{a})$ for any $a \in \mathbb{K}[[X]]$. The following examples show that each of the cases
+    $$
+    \operatorname{dom}(\underline{a})=\mathbb{K}, \quad\{0\} \subset \operatorname{dom}(\underline{a}) \subset \mathbb{K}, \quad \operatorname{dom}(\underline{a})=\{0\}
+    $$
+    is possible.
+\end{defn}
+\begin{prop}
+    For a power series $a=\sum a_k X^k$ with coefficients in $\mathbb{K}$ there is a unique $\rho:=\rho_a \in[0, \infty]$ with the following properties:
+\begin{enu}
+    \item The series $\sum a_k x^k$ converges absolutely if $|x|<\rho$ and diverges if $|x|>\rho$.
+    \item Hadamard's formula holds:
+    $$
+    \rho_a=\frac{1}{\varlimsup_{k \rightarrow \infty} \sqrt[k]{\left|a_k\right|}}
+    $$
+    The number ${ }^1 \rho_a \in[0, \infty]$ is called the radius of convergence of $a$, and
+    $$
+    \rho_a \mathbb{B}_{\mathbb{K}}=\left\{x \in \mathbb{K} ;|x|<\rho_a\right\}
+    $$
+    is the disk of convergence of $a$.
+\end{enu} 
+\end{prop}
+\begin{prop}
+   Let $a=\sum a_k X^k$ be a power series such that $\lim \left|a_k / a_{k+1}\right|$ exists in $\overline{\mathbb{R}}$. Then the radius of convergence of $a$ is given by the formula
+    $$
+    \rho_a=\lim _{k \rightarrow \infty}\left|\frac{a_k}{a_{k+1}}\right|
+    $$
+\end{prop}
+\begin{theo}
+    Let $a=\sum a_k X^k$ and $b=\sum b_k X^k$ be power series with radii of convergence $\rho_a$ and $\rho_b$ respectively. Set $\rho:=\min \left(\rho_a, \rho_b\right)$. Then for all $x \in \mathbb{K}$ such that $|x|<\rho$ we have
+    $$
+    \begin{aligned}
+    \sum_{k=0}^{\infty} a_k x^k+\sum_{k=0}^{\infty} b_k x^k & =\sum_{k=0}^{\infty}\left(a_k+b_k\right) x^k \\
+    {\left[\sum_{k=0}^{\infty} a_k x^k\right]\left[\sum_{k=0}^{\infty} b_k x^k\right] } & =\sum_{k=0}^{\infty}\left(\sum_{j=0}^k a_j b_{k-j}\right) x^k
+    \end{aligned}
+    $$
+\end{theo}
+\begin{prop}
+    Let $\sum a_k X^k$ be a power series with positive radius of convergence $\rho_a$. If there is a null sequence $\left(y_j\right)$ such that $0<\left|y_j\right|<\rho_a$ and
+    $$
+    \underline{a}\left(y_j\right)=\sum_{k=0}^{\infty} a_k y_j^k=0, \quad j \in \mathbb{N}
+    $$
+    then $a_k=0$ for all $k \in \mathbb{N}$, that is, $a=0 \in \mathbb{K} [[X]]$.
+\end{prop}
+\subsection{Expoential and Related Functions}
+
+
+\newpage
+\section{Functions of Single variable}
+
+
+
+
+
+\newpage
+
+
+\section{Several Variables functions}
+
+
+
+
+
+
+
+
+
+
+\chapter{Measure}
+\section{Measure Space}
+\begin{defn}
+    Let $X$ be a nonempty set. An algebra of sets on $X$ is a nonempty collection $\mathcal{A}$ of subsets of $X$ that is closed under finite unions and complements; in other words, if $E_1, \ldots, E_n \in \mathcal{A}$, then $\bigcup_1^n E_j \in \mathcal{A}$; and if $E \in \mathcal{A}$, then $E^c \in \mathcal{A}$. A $\sigma$-algebra is an algebra that is closed under countable unions.
+
+    We observe that since $\bigcap_j E_j=\left(\bigcup_j E_j^c\right)^c$, algebras (resp. $\sigma$-algebras) are also closed under finite (resp. countable) intersections. Moreover, if $\mathcal{A}$ is an algebra, then $\varnothing \in \mathcal{A}$ and $X \in \mathcal{A}$, for if $E \in \mathcal{A}$ we have $\varnothing=E \cap E^c$ and $X=E \cup E^c$.
+\end{defn}
+\begin{defn}
+    If $X$ is any topological space, the $\sigma$-algebra generated by the family of open sets in $X$ is called the Borel $\sigma$-algebra on $X$ and is denoted by $\mathcal{B}_X$. Its members are called Borel sets. $\mathcal{B}_X$ thus includes open sets, closed sets, countable intersections of open sets, countable unions of closed sets, and so forth.
+
+    There is a standard terminology for the levels in this hierarchy. A countable intersection of open sets is called a $G_{\delta}$ set; a countable union of closed sets is called an $F_{\sigma}$ set.
+\end{defn}
+\begin{defn}
+    Let $\left\{X_\alpha\right\}_{\alpha \in A}$ be an indexed collection of nonempty sets, $X=\prod_{\alpha \in A} X_\alpha$, and $\pi_\alpha: X \rightarrow X_\alpha$ the coordinate maps. If $\mathcal{M}_\alpha$ is a $\sigma$-algebra on $X_\alpha$ for each $\alpha$, the product $\sigma$-algebra on $X$ is the $\sigma$-algebra generated by
+    $$
+        \left\{\pi_\alpha^{-1}\left(E_\alpha\right): E_\alpha \in \mathcal{M}_\alpha, \alpha \in A\right\} \text {. }
+    $$
+
+    We denote this $\sigma$-algebra by $\bigotimes_{\alpha \in A} \mathcal{M}_\alpha$. (If $A=\{1, \ldots, n\}$ we also write $\bigotimes_1^n \mathcal{M}_j$ or $\mathcal{M}_1 \otimes \cdots \otimes \mathcal{M}_n$.
+\end{defn}
+\begin{prop}
+    If $A$ is countable, then $\bigotimes_{\alpha \in A} \mathcal{M}_\alpha$ is the $\sigma$-algebra generated by
+    $$\left\{\prod_{\alpha \in A} E_\alpha: E_\alpha \in \mathcal{M}_\alpha\right\}$$.
+\end{prop}
+\begin{prop}
+    Let $X_1, \ldots, X_n$ be topological spaces and let $X=\prod_1^n X_j$, equipped with the product topology. Then $\bigotimes_1^n \mathcal{B}_{X_j} \subset \mathcal{B}_X$. If the $X_j$ 's are secound countable, then $\bigotimes_1^n \mathcal{B}_{X_j}=\mathcal{B}_X$
+\end{prop}
+\begin{prop}
+    Define an elementary family to be a collection $\mathcal{E}$ of subsets of $X$ such that
+    \begin{enu}
+        \item $\varnothing \in \mathcal{E}$,
+        \item If $E, F \in \mathcal{E}$ then $E \cap F \in \mathcal{E}$,
+        \item If $E \in \mathcal{E}$ then $E^c$ is a finite disjoint union of members of $\mathcal{E}$.
+    \end{enu}
+    If $\mathcal{E}$ is an elementary family, the collection $\mathcal{A}$ of finite disjoint unions of members of $\mathcal{E}$ is an algebra.
+    \label{proposition:elementary family}
+\end{prop}
+\begin{prop}
+    $X$ is a topological space, $Y\in B_X$ be a measurable set. Give $Y$ the subspace topology from $X$, then $B_Y$ equals to the $\sigma$-algebra $\bbrace{Y\cap E: E\in B_X}$
+\end{prop}
+
+\begin{defn}
+    Let $X$ be a set equipped with a $\sigma$-algebra $\mathcal{M}$. A measure on $\mathcal{M}$ (or on $(X, \mathcal{M}$ ), or simply on $X$ if $\mathcal{M}$ is understood) is a function $\mu: \mathcal{M} \rightarrow[0, \infty]$ such that
+    \begin{enu}
+        \item $\mu(\varnothing)=0$,
+        \item if $\left\{E_j\right\}_1^{\infty}$ is a sequence of disjoint sets in $\mathcal{M}$, then $\mu\left(\bigcup_1^{\infty} E_j\right)=\sum_1^{\infty} \mu\left(E_j\right)$.
+    \end{enu}
+    If $X$ is a set and $\mathcal{M} \subset \mathcal{P}(X)$ is a $\sigma$-algebra, $(X, \mathcal{M})$ is called a measurable space and the sets in $\mathcal{M}$ are called measurable sets. If $\mu$ is a measure on $(X, \mathcal{M})$, then $(X, \mathcal{M}, \mu)$ is called a measure space.
+\end{defn}
+\begin{defn}
+    Let $(X, \mathcal{M}, \mu)$ be a measure space.
+    Here is some standard terminology concerning the "size" of $\mu$. If $\mu(X)<\infty$ (which implies that $\mu(E)<\infty$ for all $E \in \mathcal{M}$ since $\left.\mu(X)=\mu(E)+\mu\left(E^c\right)\right), \mu$ is called finite.
+    If $X=\bigcup_1^{\infty} E_j$ where $E_j \in \mathcal{M}$ and $\mu\left(E_j\right)<\infty$ for all $j, \mu$ is called $\sigma$-finite. More generally, if $E=\bigcup_1^{\infty} E_j$ where $E_j \in \mathcal{M}$ and $\mu\left(E_j\right)<\infty$ for all $j$, the set $E$ is said to be $\sigma$-finite for $\mu$.
+
+    If for each $E \in \mathcal{M}$ with $\mu(E)=\infty$ there exists $F \in \mathcal{M}$ with $F \subset E$ and $0<\mu(F)<\infty, \mu$ is called semifinite.($\sigma$-finite is semi-finte)
+\end{defn}
+\begin{exam}
+    Let $X$ be any nonempty set, $\mathcal{M}=\mathcal{P}(X)$, and $f$ any function from $X$ to $[0, \infty]$. Then $f$ determines a measure $\mu$ on $\mathcal{M}$ by the formula $\mu(E)=\sum_{x \in E} f(x)$.Two special cases are of particular significance: If $f(x)=1$ for all $x, \mu$ is called counting measure; and if, for some $x_0 \in X, f$ is defined by $f\left(x_0\right)=1$ and $f(x)=0$ for $x \neq x_0$, $\mu$ is called the point mass or Dirac measure at $x_0$.
+\end{exam}
+\begin{prop}
+    Let $(X, \mathcal{M}, \mu)$ be a measure space.
+    \begin{enu}
+        \item (Monotonicity) If $E, F \in \mathcal{M}$ and $E \subset F$, then $\mu(E) \leq \mu(F)$.
+        \item (Subadditivity) If $\left\{E_j\right\}_1^{\infty} \subset \mathcal{M}$, then $\mu\left(\bigcup_1^{\infty} E_j\right) \leq \sum_1^{\infty} \mu\left(E_j\right)$.
+        \item (Continuity from below) If $\left\{E_j\right\}_1^{\infty} \subset \mathcal{M}$ and $E_1 \subset E_2 \subset \cdots$, then $\mu\left(\bigcup_1^{\infty} E_j\right)=\lim _{j \rightarrow \infty} \mu\left(E_j\right)$.
+        \item (Continuity from above) If $\left\{E_j\right\}_1^{\infty} \subset \mathcal{M}, E_1 \supset E_2 \supset \cdots$, and $\mu\left(E_1\right)<\infty$, then $\mu\left(\bigcap_1^{\infty} E_j\right)=\lim _{j \rightarrow \infty} \mu\left(E_j\right)$.
+    \end{enu}
+\end{prop}
+\begin{defn}
+    If $(X, \mathcal{M}, \mu)$ is a measure space,
+    a set $E \in \mathcal{M}$ such that $\mu(E)=0$ is called a null set. By subadditivity,
+    any countable union of null sets is a null set, a fact which we shall use frequently.
+    If a statement about points $x \in X$ is true except for $x$ in some null set, we say that it is true almost
+    everywhere (abbreviated a.e.), or for almost every $x$. (If more precision is needed,
+    we shall speak of a $\mu$-null set, or $\mu$-almost everywhere).
+\end{defn}
+\begin{defn}
+    If $\mu(E)=0$ and $F \subset E$, then $\mu(F)=0$ by monotonicity provided that $F \in \mathcal{M}$, but in general it need not be true that $F \in \mathcal{M}$. A measure whose domain includes all subsets of null sets is called complete. Completeness can sometimes obviate annoying technical points, and it can always be achieved by enlarging the domain of $\mu$, as follows.
+\end{defn}
+\begin{theo}
+    Suppose that $(X, \mathcal{M}, \mu)$ is a measure space. Let $\mathcal{N}=\{N \in \mathcal{M}$ : $\mu(N)=0\}$ and $\overline{\mathcal{M}}=\{E \cup F: E \in \mathcal{M}$ and $F \subset N$ for some $N \in \mathcal{N}\}$. Then $\overline{\mathcal{M}}$ is a $\sigma$-algebra, and there is a unique extension $\bar{\mu}$ of $\mu$ to a complete measure on $\overline{\mathcal{M}}$.
+\end{theo}
+\begin{defn}[outer measure]
+    The abstract generalization of the notion of outer area is as follows. An outer measure on a nonempty set $X$ is a function $\mu^*: \mathcal{P}(X) \rightarrow[0, \infty]$ that satisfies
+    \begin{enu}
+        \item $\mu^*(\varnothing)=0$,
+        \item $\mu^*(A) \leq \mu^*(B)$ if $A \subset B$,
+        \item $\mu^*\left(\bigcup_1^{\infty} A_j\right) \leq \sum_1^{\infty} \mu^*\left(A_j\right)$.
+    \end{enu}
+    \label{proposition:induce a outer measure}
+\end{defn}
+\begin{prop}
+    Let $\mathcal{E} \subset \mathcal{P}(X)$ and $\rho: \mathcal{E} \rightarrow[0, \infty]$ be such that $\varnothing \in \mathcal{E}, X \in \mathcal{E}$, and $\rho(\varnothing)=0$.
+    For any $A \subset X$, define
+    $$
+        \mu^*(A)=\inf \left\{\sum_1^{\infty} \mu\left(E_j\right): E_j \in \mathcal{E} \text { and } A \subset \bigcup_1^{\infty} E_j\right\} .
+    $$
+    Then $\mu^*$ is an outer measure.
+\end{prop}
+\begin{prop}
+    If $\mu^*$ is an outer measure on $X$, a set $A \subset X$ is called $\boldsymbol{\mu}^{\star}$-measurable if
+    $$
+        \mu^*(E)=\mu^*(E \cap A)+\mu^*\left(E \cap A^c\right) \text { for all } E \subset X .
+    $$
+\end{prop}
+\begin{theo}[Carathéodory's Theorem]
+    If $\mu^*$ is an outer measure on $X$, the collection $\mathcal{M}$ of $\mu^*$-measurable sets is a $\sigma$-algebra, and the restriction of $\mu^*$ to $\mathcal{M}$ is a complete measure.
+\end{theo}
+\begin{defn}
+    If $\mathcal{A} \subset \mathcal{P}(X)$ is an algebra, a function $\mu_0: \mathcal{A} \rightarrow[0, \infty]$ will be called a premeasure if
+    \begin{enu}
+        \item $\mu_0(\varnothing)=0$,
+        \item if $\left\{A_j\right\}_1^{\infty}$ is a sequence of disjoint sets in $\mathcal{A}$ such that $\bigcup_1^{\infty} A_j \in \mathcal{A}$, then $\mu_0\left(\bigcup_1^{\infty} A_j\right)=\sum_1^{\infty} \mu_0\left(A_j\right)$.
+    \end{enu}
+    In particular, a premeasure is finitely additive since one can take $A_j=\varnothing$ for $j$ large. The notions of finite and $\sigma$-finite premeasures are defined just as for measures.
+\end{defn}
+\begin{theo}
+    If $\mu_0$ is a premeasure on $\mathcal{A} \subset \mathcal{P}(X)$, it induces an outer measure on $X$, namely,
+    $$
+        \mu^*(E)=\inf \left\{\sum_1^{\infty} \mu_0\left(A_j\right): A_j \in \mathcal{A}, E \subset \bigcup_1^{\infty} A_j\right\} .
+    $$
+    then every set in $\mathcal{A}$ is $\mu^*$ measurable and  $\mu^* \mid \mathcal{A}=\mu_0$.
+\end{theo}
+\begin{theo}
+    Let $\mathcal{A} \subset \mathcal{P}(X)$ be an algebra, $\mu_0$ a premeasure on $\mathcal{A}$, and $\mathcal{M}$ the $\sigma$-algebra generated by $\mathcal{A}$.
+    There exists a measure $\mu$ on $\mathcal{M}$ whose restriction to $\mathcal{A}$ is $\mu_0$ - namely, $\mu=\mu^* \mid \mathcal{M}$ where $\mu^*$ is given by Proposition~\ref{proposition:induce a outer measure}.
+    If $\mu_0$ is $\sigma$-finite, then $\mu$ is the unique extension of $\mu_0$ to a measure on $\mathcal{M}$ and the completion of $\mu$ is $\mu^*|M^*$ where $M^*$ is the $\mu^*$-measurable sets.
+\end{theo}
+\begin{exam}[Lebesgue-Stieltjes measure]
+    Consider sets of the form $(a, b]$ or $(a, \infty)$ or $\varnothing$, where $-\infty \leq a<b<\infty$. In this section we shall refer to such sets as h-intervals (h for "half-open"). Clearly the intersection of two h-intervals is an h-interval, and the complement of an h-interval is an h-interval or the disjoint union of two h-intervals.
+    Hence the collection $\mathcal{A}$ of finite disjoint unions of $\mathrm{h}$-intervals is an algebra.
+    Notice tha the $\sigma$-algebra generated by $\mathcal{A}$ is $\mathcal{B}_{\mathbb{R}}$.
+
+    Let $F: \mathbb{R} \rightarrow \mathbb{R}$ be increasing and right continuous. If $\left(a_j, b_j\right]$ $(j=1, \ldots, n)$ are disjoint $h$-intervals, let
+    $$
+        \mu_0\left(\bigcup_1^n\left(a_j, b_j\right]\right)=\sum_1^n\left[F\left(b_j\right)-F\left(a_j\right)\right]
+    $$
+    and let $\mu_0(\varnothing)=0$. Then $\mu_0$ is a premeasure on the algebra $\mathcal{A}$.
+\end{exam}
+\begin{exam}
+    If $F: \mathbb{R} \rightarrow \mathbb{R}$ is any increasing, right continuous function, there is a unique Borel measure $\mu_F$ on $\mathbb{R}$ such that $\mu_F((a, b])=F(b)-F(a)$ for all $a, b$. If $G$ is another such function, we have $\mu_F=\mu_G$ iff $F-G$ is constant. Conversely, if $\mu$ is a Borel measure on $\mathbb{R}$ that is finite on all bounded Borel sets and we define
+    $$
+        F(x)= \begin{cases}\mu((0, x]) & \text { if } x>0 \\ 0 & \text { if } x=0 \\ -\mu((-x, 0]) & \text { if } x<0\end{cases}
+    $$
+    then $F$ is increasing and right continuous, and $\mu=\mu_F$.
+\end{exam}
+\begin{exam}[Lebesgue measure]
+    This is the complete measure $\mu_F$ associated to the function $F(x)=x$, for which the measure of an interval is simply its length. We shall denote it by $m$. The domain of $m$ is called the class of Lebesgue measurable sets, and we shall denote it by $\mathcal{L}$. We shall also refer to the restriction of $m$ to $\mathcal{B}_{\mathbb{R}}$ as Lebesgue measure.
+\end{exam}
+\begin{prop}
+    If $E \in \mathcal{L}$, then $E+s \in \mathcal{L}$ and $r E \in \mathcal{L}$ for all $s, r \in \mathbb{R}$. Moreover, $m(E+s)=m(E)$ and $m(r E)=|r| m(E)$.
+\end{prop}
+
+
+\section{Intergration}
+\begin{prop}
+    $f: X \rightarrow Y$ between two sets induces a mapping $f^{-1}: \mathcal{P}(Y) \rightarrow \mathcal{P}(X)$, defined by $f^{-1}(E)=\{x \in X: f(x) \in E\}$, which preserves unions, intersections, and complements. Thus, if $\mathcal{N}$ is a $\sigma$-algebra on $Y$, $\left\{f^{-1}(E): E \in \mathcal{N}\right\}$ is a $\sigma$-algebra on $X$. If $(X, \mathcal{M})$ and $(Y, \mathcal{N})$ are measurable spaces, a mapping $f: X \rightarrow Y$ is called $(\mathcal{M}, \mathcal{N})$-measurable, or just measurable when $\mathcal{M}$ and $\mathcal{N}$ are understood, if $f^{-1}(E) \in \mathcal{M}$ for all $E \in \mathcal{N}$.
+
+    If $\mathcal{N}$ is generated by $\mathcal{E}$, then $f: X \rightarrow Y$ is $(\mathcal{M}, \mathcal{N})$-measurable iff $f^{-1}(E) \in \mathcal{M}$ for all $E \in \mathcal{E}$.
+\end{prop}
+\begin{defn}
+    If $(X, \mathcal{M})$ is a measurable space, a real- or complex-valued function $f$ on $X$ will be called $\mathcal{M}$-measurable, or just measurable, if it is $\left(\mathcal{M}, \mathcal{B}_{\mathbb{R}}\right)$ or
+    $\left(\mathcal{M}, \mathcal{B}_{\mathbb{C}}\right)$ measurable.
+    $\mathcal{B}_{\mathbb{R}}$ or $\mathcal{B}_{\mathbb{C}}$ is always understood as the $\sigma$-algebra on the range space unless otherwise specified.
+    In particular, $f: \mathbb{R} \rightarrow \mathbb{C}$ is Lebesgue (resp. Borel) measurable if is $\left(\mathcal{L}, \mathcal{B}_{\mathbb{C}}\right)\left(\right.$ resp. $\left.\left(\mathcal{B}_{\mathbb{R}}, \mathcal{B}_{\mathbb{C}}\right)\right)$ measurable;
+\end{defn}
+\begin{prop}
+    If $(X, \mathcal{M})$ is a measurable space and $f: X \rightarrow \mathbb{R}$, the following are equivalent:
+    \begin{enu}
+        \item $f$ is $\mathcal{M}$-measurable.
+        \item $f^{-1}((a, \infty)) \in \mathcal{M}$ for all $a \in \mathbb{R}$.
+        \item $f^{-1}([a, \infty)) \in \mathcal{M}$ for all $a \in \mathbb{R}$.
+                        \item $f^{-1}((-\infty, a)) \in \mathcal{M}$ for all $a \in \mathbb{R}$.
+                        \item $f^{-1}((-\infty, a]) \in \mathcal{M}$ for all $a \in \mathbb{R}$.
+    \end{enu}
+\end{prop}
+\begin{coro}
+    $f:X\rightarrow Y$ is continuous, then $f$ is $(B_X,B_Y)$-measurable.
+\end{coro}
+\begin{prop}
+    A function $f: X \rightarrow \mathbb{C}$ is $\mathcal{M}$-measurable iff $\operatorname{Re} f$ and $\operatorname{Im} f$ are $\mathcal{M}$-measurable.
+\end{prop}
+\begin{defn}
+    It is sometimes convenient to consider functions with values in the extended real number system $\overline{\mathbb{R}}=[\infty, \infty]$(with order topology).
+    It is easily verified that $\mathcal{B}_{\overline{\mathbb{R}}}$ is generated by the rays $(a, \infty]$ or $[-\infty, a)(a \in \mathbb{R})$, and
+    we define $f: X \rightarrow \overline{\mathbb{R}}$ to be $\mathcal{M}$-measurable if it is $\left(\mathcal{M}, \mathcal{B}_{\overline{\mathbb{R}}}\right)$-measurable.
+    And we always define $0 \cdot \infty$ to be 0.
+\end{defn}
+\begin{prop}
+    If $f, g: X \rightarrow \mathbb{C}$ are $\mathcal{M}$-measurable, then so are $f+g$ and $f g$.
+\end{prop}
+\begin{prop}
+    If $\left\{f_j\right\}$ is a sequence of $\overline{\mathbb{R}}$-valued measurable functions on $(X, \mathcal{M})$, then the functions
+    $$
+        \begin{array}{ll}
+            g_1(x)=\sup _j f_j(x), & g_3(x)=\varlimsup_{j\to \infty}  f_j(x), \\
+            g_2(x)=\inf _j f_j(x), & g_4(x)=\varliminf_{j\to \infty} f_j(x)
+        \end{array}
+    $$
+    are all measurable.
+\end{prop}
+\begin{coro}
+    If $f, g: X \rightarrow \overline{\mathbb{R}}$ are measurable, then so are $\max (f, g)$ and $\min (f, g)$.
+
+    If $\left\{f_j\right\}$ is a sequence of complex-valued measurable functions and $f(x)=\lim _{j \rightarrow \infty} f_j(x)$ exists for all $x$, then $f$ is measurable.
+\end{coro}
+\begin{defn}
+    We now discuss the functions that are the building blocks for the theory of integration. Suppose that $(X, \mathcal{M})$ is a measurable space. If $E \subset X$, the characteristic function $\chi_E$ of $E$ (sometimes called the indicator function of $E$ and denoted by $\left.1_E\right)$ is defined by
+    $$
+        \chi_E(x)= \begin{cases}1 & \text { if } x \in E, \\ 0 & \text { if } x \notin E .\end{cases}
+    $$
+
+    It is easily checked that $\chi_E$ is measurable iff $E \in \mathcal{M}$. A simple function on $X$ is a finite linear combination, with complex coefficients, of characteristic functions of sets in $\mathcal{M}$. (We do not allow simple functions to assume the values $\pm \infty$.) Equivalently, $f: X \rightarrow \mathbb{C}$ is simple iff $f$ is measurable and the range of $f$ is a finite subset of $\mathbb{C}$. Indeed, we have
+    $$
+        f=\sum_1^n z_j \chi_{E_j}, \text { where } E_j=f^{-1}\left(\left\{z_j\right\}\right) \text { and range }(f)=\left\{z_1, \ldots, z_n\right\} .
+    $$
+
+    We call this the standard representation of $f$. It exhibits $f$ as a linear combination, with distinct coefficients, of characteristic functions of disjoint sets whose union is $X$. Note: One of the coefficients $z_j$ may well be 0 , but the term $z_j \chi_{E_j}$ is still to be envisioned as part of the standard representation, as the set $E_j$ may have a role to play when $f$ interacts with other functions.
+\end{defn}
+\begin{theo}
+    Let $(X, \mathcal{M})$ be a measurable space.
+    If $f: X \rightarrow[0, \infty]$ is measurable, there is a sequence $\left\{\phi_n\right\}$ of simple functions such that $0 \leq \phi_1 \leq \phi_2 \leq \cdots \leq f, \phi_n \rightarrow f$ pointwise, and $\phi_n \rightarrow f$ uniformly on any set on which $f$ is bounded.
+
+    If $f: X \rightarrow \mathbb{C}$ is measurable, there is a sequence $\left\{\phi_n\right\}$ of simple functions such that $0 \leq\left|\phi_1\right| \leq\left|\phi_2\right| \leq \cdots \leq|f|, \phi_n \rightarrow f$ pointwise, and $\phi_n \rightarrow f$ uniformly on any set on which $f$ is bounded.
+
+    \label{theorem:approximate by simple function}
+
+\end{theo}
+\begin{defn}
+    The following implications are valid iff the measure $\mu$ is complete:
+    \begin{enu}
+        \item If $f$ is measurable and $f=g\, \mu$-a.e., then $g$ is measurable.
+
+        \item If $f_n$ is measurable for $n \in \mathbb{N}$ and $f_n \rightarrow f\,\mu$-a.e., then $f$ is measurable.
+    \end{enu}
+\end{defn}
+\begin{prop}
+    Let $(X, \mathcal{M}, \mu)$ be a measure space and let $(X, \overline{\mathcal{M}}, \bar{\mu})$ be its completion. If $f$ is an $\overline{\mathcal{M}}$-measurable function on $X$, there is an $\mathcal{M}$-measurable function $g$ such that $f=g \bar{\mu}$-almost everywhere.
+\end{prop}
+
+\begin{defn}
+    In this section we fix a measure space $(X, \mathcal{M}, \mu)$, and we define
+    $$
+        L^{+}=\text {the space of all measurable functions from } X \text { to }[0, \infty] .
+    $$
+
+    If $\phi$ is a simple function in $L^{+}$with standard representation $\phi=\sum_1^n a_j \chi_{E_j}$, we define the integral of $\phi$ with respect to $\mu$ by
+    $$
+        \int \phi d \mu=\sum_1^n a_j \mu\left(E_j\right)
+    $$
+\end{defn}
+\begin{prop}
+    Let $\phi$ and $\psi$ be simple functions in $L^{+}$.
+    \begin{enu}
+        \item If $c \geq 0, \int c \phi=c \int \phi$.
+        \item $\int(\phi+\psi)=\int \phi+\int \psi$.
+        \item If $\phi \leq \psi$, then $\int \phi \leq \int \psi$.
+    \end{enu}
+\end{prop}
+\begin{defn}
+    We now extend the integral to all functions $f \in L^{+}$by defining
+    $$
+        \int f d \mu=\sup \left\{\int \phi d \mu: 0 \leq \phi \leq f, \phi \text { simple }\right\} .
+    $$
+\end{defn}
+\begin{theo}
+    If $\left\{f_n\right\}$ is a sequence in $L^{+}$such that $f_j \leq f_{j+1}$ for all $j$, and $f=\lim _{n \rightarrow \infty} f_n\left(=\sup _n f_n\right)$, then $\int f=\lim _{n \rightarrow \infty} \int f_n$.
+\end{theo}
+\begin{coro}
+    If $\left\{f_n\right\}$ is a finite or infinite sequence in $L^{+}$and $f=\sum_n f_n$, then $\int f=\sum_n \int f_n$.
+\end{coro}
+\begin{prop}
+    If $f \in L^{+}$, then $\int f=0$ iff $f=0$ a.e.
+\end{prop}
+\begin{lem}[Fatou's lemma,]
+    If $\left\{f_n\right\}$ is any sequence in $L^{+}$, then
+    $$
+        \int\left(\liminf f_n\right) \leq \liminf \int f_n .
+    $$
+\end{lem}
+\begin{prop}
+    The two definitions of $\int f$ agree when $f$ is simple, as the family of simple functions over which the supremum is taken includes $f$ itself and
+    $$
+        \int f \leq \int g \text { whenever } f \leq g, \text { and } \int c f=c \int f \text { for all } c \in[0, \infty) .
+    $$
+\end{prop}
+\begin{defn}
+    If $f^{+}$and $f^{-}$are the positive and negative parts of $f$ and at least one of $\int f^{+}$and $\int f^{-}$is finite, we define
+    $$
+        \int f=\int f^{+}-\int f^{-} .
+    $$
+
+    We shall be mainly concerned with the case where $\int f^{+}$and $\int f^{-}$are both finite; we then say that $f$ is integrable. Since $|f|=f^{+}+f^{-}$, it is clear that $f$ is integrable iff $\int|f|<\infty$
+
+    Next, if $f$ is a complex-valued measurable function, we say that $f$ is integrable if $\int|f|<\infty$. More generally, if $E \in \mathcal{M}, f$ is integrable on $E$ if $\int_E|f|<\infty$. Since $|f| \leq|\operatorname{Re} f|+|\operatorname{Im} f| \leq 2|f|, f$ is integrable iff $\operatorname{Re} f$ and $\operatorname{Im} f$ are both integrable, and in this case we define
+    $$
+        \int f=\int \operatorname{Re} f+i \int \operatorname{Im} f .
+    $$
+
+    It follows easily that the space of complex-valued integrable functions is a complex vector space and that the integral is a complex-linear functional on it. We denote this space - provisionally - by $L^1(\mu)$ (or $L^1(X, \mu)$, or $L^1(X)$, or simply $L^1$, depending on the context).
+\end{defn}
+\begin{prop}
+    If $f \in L^1$, then $\left|\int f\right| \leq \int|f|$.
+\end{prop}
+\begin{prop}
+    \begin{enu}
+        \item If $f \in L^1$, then $\{x: f(x) \neq 0\}$ is $\sigma$-finite.
+        \item If $f, g \in L^1$, then $\int_E f=\int_E g$ for all $E \in \mathcal{M}$ iff $\int|f-g|=0$ iff $f=g$ a.e.
+    \end{enu}
+\end{prop}
+\begin{rema}
+    $(X,M,\mu)$ is a measurable space. Take $E\in M$ and $(E,M\cap E, \mu|_E)$ is also measurable space. If $f\in L^1(E)$, then
+    \begin{equation*}
+        f\p=\begin{cases}
+            f  \quad x\in E \\
+            0 \quad x\in E^c
+        \end{cases}
+    \end{equation*}
+    is a function in $L^1(X)$ and $\int_X f\p=\int_E f$.
+\end{rema}
+\begin{rema}
+    $(X,M,\mu)$ is a measurable space. $(X,M\p,\tau)$ is another measurable space such that $M\p\supset M$ and $\tau|M=\mu$. Then if $f\in L^1(X,M)$, $f\in L^1(X,M\p)$ and
+    values of integration of $f$ on both measurable spaces are the same.
+    This follows from Theorem~\ref{theorem:approximate by simple function} and Monotone Convergence Theorem.
+\end{rema}
+\begin{theo}[Dominated Convergence Theorem]
+    Let $\left\{f_n\right\}$ be a sequence in $L^1$ such that (a) $f_n \rightarrow f$, and (b) there exists a nonnegative $g \in L^1$ such that $\left|f_n\right| \leq g$ for all $n$. Then $f \in L^1$ and $\int f=\lim _{n \rightarrow \infty} \int f_n$.
+\end{theo}
+\begin{prooff}
+    By Fatou's lemma.
+\end{prooff}
+\begin{theo}
+    Suppose that $\left\{f_j\right\}$ is a sequence in $L^1$ such that $\sum_1^{\infty} \int\left|f_j\right|<\infty$. Then $\sum_1^{\infty} f_j$ converges a.e. to a function in $L^1$, and $\int \sum_1^{\infty} f_j=\sum_1^{\infty} \int f_j$.
+\end{theo}
+\begin{theo}
+    If $f \in L^1(\mu)$ and $\epsilon>0$, there is an integrable simple function $\phi=\sum a_j \chi_{E_j}$
+    such that $\int|f-\phi| d \mu<\epsilon$. (That is, the integrable simple functions are dense in $L^1$ in the $L^1$ metric.)
+    If $\mu$ is a Lebesgue measure on $\mathbb{R}$, the sets $E_j$ in the definition of $\phi$ can be taken to be finite unions of open intervals; moreover, there is a continuous function $g$ that vanishes outside a bounded interval such that $\int|f-g| d \mu<\epsilon$.
+\end{theo}
+\begin{defn}
+    Let $(X, \mathcal{M}, \mu)$ and $(Y, \mathcal{N}, \nu)$ be measure spaces. We have already discussed the product $\sigma$-algebra $\mathcal{M} \otimes \mathcal{N}$ on $X \times Y$; we now construct a measure on $\mathcal{M} \otimes \mathcal{N}$ that is, in an obvious sense, the product of $\mu$ and $\nu$.
+
+    To begin with, we define a (measurable) rectangle to be a set of the form $A \times B$ where $A \in \mathcal{M}$ and $B \in \mathcal{N}$. Clearly
+    $$
+        (A \times B) \cap(E \times F)=(A \cap E) \times(B \cap F), \quad(A \times B)^c=\left(X \times B^c\right) \cup\left(A^c \times B\right) .
+    $$
+
+    Therefore, by Proposition~\ref{proposition:elementary family}, the collection $\mathcal{A}$ of finite disjoint unions of rectangles is an algebra, and of course the $\sigma$-algebra it generates is $\mathcal{M} \otimes \mathcal{N}$.
+
+    If we integrate with respect to $x$
+    $$
+        \begin{aligned}
+            \mu(A) \chi_B(y)=\int \chi_A(x) \chi_B(y) d \mu(x) & =\sum \int \chi_{A_j}(x) \chi_{B_j}(y) d \mu(x) \\
+                                                               & =\sum \mu\left(A_j\right) \chi_{B_j}(y) .
+        \end{aligned}
+    $$
+
+    In the same way, integration in $y$ then yields
+    $$
+        \mu(A) \nu(B)=\sum \mu\left(A_j\right) \nu\left(B_j\right) .
+    $$
+
+    It follows that if $E \in \mathcal{A}$ is the disjoint union of rectangles $A_1 \times B_1, \ldots, A_n \times B_n$, and we set
+    $$
+        \pi(E)=\sum_1^n \mu\left(A_j\right) \nu\left(E_j\right)
+    $$
+    then $\pi$ is well defined on $\mathcal{A}$ (since any two representations of $E$ as a finite disjoint union of
+    rectangles have a common refinement), and $\pi$ is a premeasure on $\mathcal{A}$. Therefore,
+    $\pi$ generates an outer measure on $X \times Y$ whose restriction to $\mathcal{M} \times \mathcal{N}$ is a
+    measure that extends $\pi$. We call this measure the product of $\mu$ and $\nu$ and denote it by $\mu \times \nu$.
+    Moreover, if $\mu$ and $\nu$ are $\sigma$-finite - say, $X=\bigcup_1^{\infty} A_j$ and $Y=\bigcup_1^{\infty} B_k$ with $\mu\left(A_j\right)<$ $\infty$ and $\nu\left(B_k\right)<\infty$ -
+    then $X \times Y=\bigcup_{j, k} A_j \times B_k$, and $\mu \times \nu\left(A_j \times B_k\right)<\infty$,
+    so $\mu \times \nu$ is also $\sigma$-finite.Then $\mu \times \nu$
+    is the unique measure on $\mathcal{M} \otimes \mathcal{N}$ such that $\mu \times \nu(A \times B)=\mu(A) \nu(B)$ for all rectangles $A \times B$.
+
+    The same construction works for any finite number of factors. That is, suppose $\left(X_j, \mathcal{M}_j, \mu_j\right)$ are measure spaces for $j=1, \ldots, n$. If we define a rectangle to be a set of the form $A_1 \times \cdots \times A_n$ with $A_j \in \mathcal{M}_j$, then the collection $\mathcal{A}$ of finite disjoint unions of rectangles is an algebra, and the same procedure as above produces a measure $\mu_1 \times \cdots \times \mu_n$ on $\mathcal{M}_1 \otimes \cdots \otimes \mathcal{M}_n$ such that
+    $$
+        \mu_1 \times \cdots \times \mu_n\left(A_1 \times \cdots \times A_n\right)=\prod_1^n \mu_j\left(A_j\right) .
+    $$
+
+    Moreover, if the $\mu_j$ 's are $\sigma$-finite so that the extension from $\mathcal{A}$ to $\bigotimes_1^{\prime} \mathcal{M}_j$ is uniquely determined.
+\end{defn}
+\begin{prop}
+    If $\left(X_j, \mathcal{M}_j\right)$ is a measurable space for $j=1,2,3$, then $\bigotimes_1^3 \mathcal{M}_j=\left(\mathcal{M}_1 \otimes \mathcal{M}_2\right) \otimes$ $\mathcal{M}_3$.
+    Moreover, if $\mu_j$ is a $\sigma$-finite measure on $\left(X_j, \mathcal{M}_j\right)$, then $\mu_1 \times \mu_2 \times \mu_3=$ $\left(\mu_1 \times \mu_2\right) \times \mu_3$.
+\end{prop}
+\begin{prooff}
+    Consider $\bbrace{A\subset M_1\otimes M_2:A\times E_3\in M_1\otimes M_2\otimes M_3}$ for some $E_3\in M_3$ is a $\sigma$-algebra.
+\end{prooff}
+\begin{defn}
+    We return to the case of two measure spaces $(X, \mathcal{M}, \mu)$ and $(Y, \mathcal{N}, \nu)$.
+    If $E \subset$ $X \times Y$, for $x \in X$ and $y \in Y$ we define the $x$-section $E_x$ and the $y$-section $E^y$ of $E$ by
+    $$
+        E_x=\{y \in Y:(x, y) \in E\}, \quad E^y=\{x \in X:(x, y) \in E\} .
+    $$
+
+    Also, if $f$ is a function on $X \times Y$ we define the $x$-section $f_x$ and the $y$-section $f^y$ of $f$ by
+    $$
+        f_x(y)=f^y(x)=f(x, y) .
+    $$
+\end{defn}
+
+\begin{prop}
+    If $E \in \mathcal{M} \otimes \mathcal{N}$, then $E_x \in \mathcal{N}$ for all $x \in X$ and $E^y \in \mathcal{M}$ for all $y \in Y$.
+
+    If $f$ is $\mathcal{M} \otimes \mathcal{N}$-measurable, then $f_x$ is $\mathcal{N}$-measurable for all $x \in X$ and $f^y$ is $\mathcal{M}$-measurable for all $y \in Y$.
+\end{prop}
+\begin{theo}
+    Suppose $(X, \mathcal{M}, \mu)$ and $(Y, \mathcal{N}, \nu)$ are $\sigma$-finite measure spaces. If $E \in \mathcal{M} \otimes \mathcal{N}$, then the functions $x \mapsto \nu\left(E_x\right)$ and $y \mapsto \mu\left(E^y\right)$ are measurable on $X$ and $Y$, respectively, and
+    $$
+        \mu \times \nu(E)=\int \nu\left(E_x\right) d \mu(x)=\int \mu\left(E^y\right) d \nu(y) .
+    $$
+\end{theo}
+\begin{theo}[The Fubini-Tonelli Theorem]
+    Suppose that $(X, \mathcal{M}, \mu)$ and $(Y, \mathcal{N}, \nu)$ are $\sigma$ finite measure spaces.
+    \begin{enu}
+        \item (Tonelli) If $f \in L^{+}(X \times Y)$, then the functions $g(x)=\int f_x d \nu$ and $h(y)=$ $\int f^y d \mu$ are in $L^{+}(X)$ and $L^{+}(Y)$, respectively, and
+        $$
+            \begin{aligned}
+                \int f d(\mu \times \nu) & =\int\left[\int f(x, y) d \nu(y)\right] d \mu(x)   \\
+                                         & =\int\left[\int f(x, y) d \mu(x)\right] d \nu(y) .
+            \end{aligned}
+        $$
+        \item (Fubini) If $f \in L^1(\mu \times \nu)$, then $f_x \in L^1(\nu)$ for a.e. $x \in X$, $f^y \in L^1(\mu)$ for a.e. $y \in Y$,
+        Define
+        \begin{equation*}
+            g(x)=\begin{cases}
+                \int f_x \quad \text{if\,} f_x\in L^1(\nu) \\
+                0  \text{\quad otherwise}
+            \end{cases}
+        \end{equation*}
+        \begin{equation*}
+            h(y)=\begin{cases}
+                \int f^y \quad \text{if\,} f_x\in L^1(\nu) \\
+                0  \text{\quad otherwise}
+            \end{cases}
+        \end{equation*}, we have $g(x)\in L^1(\mu)$, $h(y)\in L^1(\nu)$ and $\int g(x)\text{d}\mu=\int h(y)\text{d}\mu=\int f \text{d}(\mu\times \nu)$.
+    \end{enu}
+\end{theo}
+\begin{defn}
+    Lebesgue measure $m^n$ on $\mathbb{R}^n$ is the completion of the $n$-fold product of Lebesgue measure on $\mathbb{R}$ with itself, that is, the completion of $m \times \cdots \times m$ on $\mathcal{B}_{\mathbb{R}} \otimes \cdots \otimes \mathcal{B}_{\mathbb{R}}=$ $\mathcal{B}_{\mathbb{R}^n}$.
+\end{defn}
+\begin{prop}
+    Lebesgue measure is translation-invariant. More precisely, for $a \in$ $\mathbb{R}^n$ define $\tau_a: \mathbb{R}^n \rightarrow \mathbb{R}^n$ by $\tau_a(x)=x+a$.
+    \begin{enu}
+        \item If $E \in \mathcal{L}^n$, then $\tau_a(E) \in \mathcal{L}^n$ and $m\left(\tau_a(E)\right)=m(E)$.
+        \item If $f: \mathbb{R}^n \rightarrow \mathbb{C}$ is Lebesgue measurable, then so is $f \circ \tau_a$. Moreover, if either $f \geq 0$ or $f \in L^1(m)$, then $\int\left(f \circ \tau_a\right) d m=\int f d m$.
+    \end{enu}
+\end{prop}
+\begin{theo}
+    Suppose $T \in G L(n, \mathbb{R})$.
+    \begin{enu}
+        \item If $f$ is a Lebesgue measurable function on $\mathbb{R}^n$, so is $f \circ T$. If $f \geq 0$ or $f \in L^1(m)$, then
+        $$
+            \int f(x) d x=|\operatorname{det} T| \int f \circ T(x) d x .
+        $$
+        \item If $E \in \mathcal{L}^n$, then $T(E) \in \mathcal{L}^n$ and $m(T(E))=|\operatorname{det} T| m(E)$.
+    \end{enu}
+\end{theo}
+\begin{theo}[Change of Variables]
+    Let $G=\left(g_1, \ldots, g_n\right)$ be a map from an open set $\Omega \subset \mathbb{R}^n$ into $\mathbb{R}^n$ whose components $g_j$ are of class $C^1$. $G$ is called a $C^1$ diffeomorphism if $G$ is injective and $D_x G$ is invertible for all $x \in \Omega$. In this case, the inverse function theorem guarantees that $G(\Omega)$ is open and $G^{-1}: G(\Omega) \rightarrow \Omega$ is also a $C^1$ diffeomorphism and that $D_x\left(G^{-1}\right)=\left[D_{G^{-1}(x)} G\right]^{-1}$ for all $x \in G(\Omega)$.
+
+    Suppose that $\Omega$ is an open set in $\mathbb{R}^n$ and $G: \Omega \rightarrow \mathbb{R}^n$ is a $C^1$ diffeomorphism.
+    \begin{enu}
+        \item If $f$ is a Lebesgue measurable function on $G(\Omega)$, then $f \circ G$ is Lebesgue measurable on $\Omega$. If $f \geq 0$ or $f \in L^1(G(\Omega), m)$, then
+        $$
+            \int_{G(\Omega)} f(x) d x=\int_{\Omega} f \circ G(x)\left|\operatorname{det} D_x G\right| d x .
+        $$
+        \item If $E \subset \Omega$ and $E \in \mathcal{L}^n$, then $G(E) \in \mathcal{L}^n$ and $m(G(E))=\int_E\left|\operatorname{det} D_x G\right| d x$.
+    \end{enu}
+\end{theo}
+\section{Signed Measure and Complex Measure}
+\begin{defn}
+    Let $(X, \mathcal{M})$ be a measurable space. A signed measure on $(X, \mathcal{M})$ is a function $\nu: \mathcal{M} \rightarrow[-\infty, \infty]$ such that
+    \begin{enu}
+        \item $\nu(\varnothing)=0$
+        \item $\nu$ assumes at most one of the values $\pm \infty$;
+        \item if $\left\{E_j\right\}$ is a sequence of disjoint sets in $\mathcal{M}$, then $\nu\left(\bigcup_1^{\infty} E_j\right)=\sum_1^{\infty} \nu\left(E_j\right)$, where the latter sum converges absolutely if $\nu\left(\bigcup_1^{\infty} E_j\right)$ is finite.
+    \end{enu}
+\end{defn}
+\begin{defn}
+    If $\nu$ is a signed measure on $(X, \mathcal{M})$, a set $E \in \mathcal{M}$ is called positive (resp. negative, null) for $\nu$ if $\nu(F) \geq 0$ (resp. $\nu(F) \leq 0, \nu(F)=0$ ) for all $F \in \mathcal{M}$ such that $F \subset E$.
+\end{defn}
+\begin{defn}[mutually singular]
+    Two signed measures $\mu$ and $\nu$ on $(X, \mathcal{M})$ are mutually singular, or that $\nu$ is singular with respect to $\mu$, if there exist $E, F \in \mathcal{M}$ such that $E \cap F=\varnothing, E \cup F=X, E$ is null for $\mu$, and $F$ is null for $\nu$.We express this relationship symbolically with the perpendicularity sign:
+    $$
+        \mu \perp \nu \text {. }
+    $$
+\end{defn}
+\begin{theo}[Jordan Decomposition Theorem]
+    If $\nu$ is a signed measure, there exist unique positive measures $\nu^{+}$and $\nu^{-}$such that $\nu=\nu^{+}-\nu^{-}$and $\nu^{+} \perp \nu^{-}$.
+
+    Moreover, if $\nu$ omits $-\infty$, $\mu^{-}$ is finite and if $\nu$ omits $\infty$, $\nu^{+}$ is finite.
+\end{theo}
+\begin{rema}
+    The measures $\nu^{+}$and $\nu^{-}$are called the positive and negative variations of $\nu$, and $\nu=\nu^{+}-\nu^{-}$is called the Jordan decomposition of $\nu$. Furthermore, we define the total variation of $\nu$ to be the measure $|\nu|$ defined by
+    $$
+        |\nu|=\nu^{+}+\nu^{-} .
+    $$
+\end{rema}
+\begin{defn}
+    Integration with respect to a signed measure $\nu$ is defined in the obvious way: We set
+    $$
+        \begin{gathered}
+            L^1(\nu)=L^1\left(\nu^{+}\right) \cap L^1\left(\nu^{-}\right) \\
+            \int f d \nu=\int f d \nu^{+}-\int f d \nu^{-} \quad\left(f \in L^1(\nu)\right) .
+        \end{gathered}
+    $$
+
+    One more piece of terminology: a signed measure $\nu$ is called finite (resp. $\sigma$-finite) if $|\nu|$ is finite (resp. $\sigma$-finite).
+\end{defn}
+\begin{prop}
+    $E \in \mathcal{M}$ is $\nu$-null iff $|\nu|(E)=0$, and $\nu \perp \mu$ iff $|\nu| \perp \mu$ iff $\nu^{+} \perp \mu$ and $\nu^{-} \perp \mu$
+\end{prop}
+\begin{defn}
+    Suppose that $\nu$ is a signed measure and $\mu$ is a positive measure on $(X, \mathcal{M})$. We say that $\nu$ is absolutely continuous with respect to $\mu$ and write
+    $$
+        \nu \ll \mu
+    $$
+    if $\nu(E)=0$ for every $E \in \mathcal{M}$ for which $\mu(E)=0$. Absolute continuity is in a sense the
+\end{defn}
+\begin{prop}
+    $\nu \ll \mu$ iff $|\nu| \ll \mu$ iff $\nu^{+} \ll \mu$ and $\nu^{-} \ll \mu$
+\end{prop}
+\begin{prop}
+    If $\nu \perp \mu$ and $\nu \ll \mu$, then $\nu=0$
+\end{prop}
+\begin{prop}
+    Let $\nu$ be a finite signed measure and $\mu$ a positive measure on $(X, \mathcal{M})$. Then $\nu \ll \mu$ iff for every $\epsilon>0$ there exists $\delta>0$ such that $|\nu(E)|<\epsilon$ whenever $\mu(E)<\delta$.
+\end{prop}
+\begin{prooff}
+    If there's $\varepsilon>0$ such that for all $n>0$, there's $E_n\in M$ such that $\mu(E_n)<2^{-n}$ and $\nu(E)\ge \varepsilon$.
+    Consider the set
+    \begin{equation*}
+        \limsup  E_n=\bigcap_{n=1}^\infty \bigcup_{k\ge n} E_k
+    \end{equation*}
+\end{prooff}
+\begin{coro}
+    If $f \in L^1(\mu)$, for every $\epsilon>0$ there exists $\delta>0$ such that $\left|\int_E f d \mu\right|<\epsilon$ whenever $\mu(E)<\delta$.
+\end{coro}
+\begin{defn}
+    A complex measure on a measurable space $(X, \mathcal{M})$ is a map $\nu: \mathcal{M} \rightarrow \mathbb{C}$ such that
+    \begin{enu}
+        \item $\nu(\varnothing)=0$;
+        \item if $\left\{E_j\right\}$ is a sequence of disjoint sets in $\mathcal{M}$, then $\nu\left(\bigcup_1^{\infty} E_j\right)=\sum_1^{\infty} \nu\left(E_j\right)$, where the series converges absolutely.
+    \end{enu}
+\end{defn}
+\begin{exam}
+    If $\mu$ is a positive measure and$ f\in L^1(\mu)$, then
+    $f\text{d}\mu$ is a complex measure.
+\end{exam}
+
+If $\nu$ is a complex measure,
+we shall write $\nu_r$ and $\nu_i$ for the real and imaginary parts of $\nu$. Thus $\nu_r$ and $\nu_i$ are signed measures that do not assume the values $\pm \infty$; hence they are finite, and so the range of $\nu$ is a bounded subset of $\mathbb{C}$.
+
+The notions we have developed for signed measures generalize easily to complex measures. For example, we define $L^1(\nu)$ to be $L^1\left(\nu_r\right) \cap L^1\left(\nu_i\right)$,
+and for $f \in L^1(\nu)$, we set $\int f d \nu=\int f d \nu_r+i \int f d \nu_i$.
+If $\nu$ and $\mu$ are complex measures, we say
+that $\nu \perp \mu$ if $\nu_a \perp \mu_b$ for $a, b=r, i$, and if $\lambda$ is a positive measure,
+we say that $\nu \ll \lambda$ if $\nu_r \ll \lambda$ and $\nu_i \ll \lambda$.
+
+\begin{theo}[Lebesgue-Radon-Nikodym Theorem]
+    If $\nu$ is a complex measure and $\mu$ is
+    a $\sigma$-finite positive measure on
+    $(X, \mathcal{M})$, there exist a complex measure $\lambda$
+    and an $f \in L^1(\mu)$ such that $\lambda \perp \mu$ and
+    $d \nu=d \lambda+f d \mu$. If also $\lambda^{\prime} \perp \mu$ and $d \nu=d \lambda^{\prime}+f^{\prime} d \mu$, then $\lambda=\lambda^{\prime}$ and $f=f^{\prime} \mu$-a.e.
+\end{theo}
+\begin{defn}[total variation of complex measure]
+    If $\nu$ is a complex measure and $\nu_r$ and $\nu_i$
+    be the real part and imaginary part of $\nu$. Take a $\sigma$-finite
+    positive measure $\mu$ on $X$, for example $|\nu_r|+|\nu_i|$, such that $\nu \ll \mu$. By Lebesgue-Radon-Nikodym Theorem,
+    $\nu=fd \mu$ for some $f\in L^1(\mu)$. Define total variation of $\nu$ by $|f|d\mu$.
+    This definition is independent of the choice of
+    $f$ and $\mu$.
+\end{defn}
+\begin{prop}
+    Let $\nu$ be a complex measure on $(X, \mathcal{M})$.
+    \begin{enu}
+        \item  $|\nu(E)| \leq|\nu|(E)$ for all $E \in \mathcal{M}$.
+        \item  $\nu \ll|\nu|$
+        \item  $L^1(\nu)=L^1(|\nu|)$, and if $f \in L^1(\nu)$, then $\left|\int f d \nu\right| \leq \int|f| d|\nu|$.
+    \end{enu}
+\end{prop}
+\begin{defn}
+    A measurable function $f: \mathbb{R}^n \rightarrow \mathbb{C}$ is called locally integrable (with respect to Lebesgue measure) if $\int_K|f(x)| d x<\infty$ for every bounded measurable set $K \subset \mathbb{R}^n$.
+
+    We denote the space of locally integrable functions by $L_{\text {loc }}^1$. If $f \in L_{\text {loc }}^1, x \in \mathbb{R}^n$, and $r>0$, we define $A_r f(x)$ to be the average value of $f$ on $B(r, x)$ :
+    $$
+        A_r f(x)=\frac{1}{m(B(r, x))} \int_{B(r, x)} f(y) d y
+    $$
+\end{defn}
+\begin{theo}[The Lebesgue Differentiation Theorem]
+    Let us define the Lebesgue set $L_f$ of $f$ to be
+    $$
+        L_f=\left\{x: \lim _{r \rightarrow 0} \frac{1}{m(B(r, x))} \int_{B(r, x)}|f(y)-f(x)| d y=0\right\} .
+    $$
+
+    If $f \in L_{\mathrm{loc}}^1$, then $m\left(\left(L_f\right)^c\right)=0$.
+\end{theo}
+\begin{defn}
+    A family $\left\{E_r\right\}_{r>0}$ of Borel subsets of $\mathbb{R}^n$ is said to shrink nicely to $x \in \mathbb{R}^n$ if $E_r \subset B(r, x)$ for each $r$;
+    and there is a constant $\alpha>0$, independent of $r$, such that $m\left(E_r\right)>\alpha m(B(r, x))$.
+\end{defn}
+\begin{theo}
+    Let $\nu$ be a regular complex Borel measure on $\mathbb{R}^n$, and let $d \nu=d \lambda+f d m$ be its Lebesgue-Radon-Nikodym representation. Thenfor $m$-almost every $x \in \mathbb{R}^n$,
+    $$
+        \lim _{r \rightarrow 0} \frac{\nu\left(E_r\right)}{m\left(E_r\right)}=f(x)
+    $$
+    where $E_r$ shrinks nicely to $0$.
+    \label{Fundamental Theorem of Calculus, generalized version}
+\end{theo}
+\section{Function of bounded variation}
+\begin{defn}
+    If $F: \mathbb{R} \rightarrow \mathbb{C}$ and $x \in \mathbb{R}$, we define
+    $$
+        T_F(x)=\sup \left\{\sum_1^n\left|F\left(x_j\right)-F\left(x_{j-1}\right)\right|: n \in \mathbb{N},-\infty<x_0<\cdots<x_n=x\right\} \text {. }
+    $$
+    $T_F$ is called the total variation function of $F$.
+
+    $T_F$ is an increasing function with values in $[0, \infty]$. If $T_F(\infty)=\lim _{x \rightarrow \infty} T_F(x)$ is finite, we say that $F$ is of bounded variation on $\mathbb{R}$, and we denote the space of all such $F$ by $B V$.
+\end{defn}
+\begin{prop}
+    We observe that the sums in the definition of $T_F$ are made bigger if the additional subdivision points $x_j$ are added. Hence, if $a<b$, the definition of $T_F(b)$ is unaffected if we assume that $a$ is always one of the subdivision points. It follows that
+    \begin{equation*}
+        T_F(b)=T_F(a)+\sup \left\{\sum_1^n\left|F\left(x_j\right)-F\left(x_{j-1}\right)\right|: n \in \mathbb{N}, a=x_0<\cdots<x_n=b\right\}
+    \end{equation*}
+\end{prop}
+\begin{defn}
+    Define $BV([a, b])$ to be the set of all functions on $[a, b]$ whose total variation
+    $$\sup \left\{\sum_1^n\left|F\left(x_j\right)-F\left(x_{j-1}\right)\right|: n \in \mathbb{N}, a=x_0<\cdots<x_n=b\right\}$$
+    is finite.
+
+    If $F \in B V$, the restriction of $F$ to $[a, b]$ is in $B V([a, b])$ for all $a, b$; indeed, its total variation on $[a, b]$ is nothing but $T_F(b)-T_F(a)$. Conversely,
+    if $F \in B V([a, b])$ and we set $F(x)=F(a)$ for $x<a$ and $F(x)=F(b)$ for $x>b$, then $F \in B V$. By this device the results that we shall prove for $B V$ can also be applied to $B V([a, b])$.
+\end{defn}
+\begin{prop}
+    \begin{enu}
+        \item If $F: \mathbb{R} \rightarrow \mathbb{R}$ is bounded and increasing, then $F \in B V$.
+        \item If $F, G \in B V$ and $a, b \in \mathbb{C}$, then $a F+b G \in B V$.
+        \item If $F$ is differentiable on $\mathbb{R}$ and $F^{\prime}$ is bounded, then $F \in B V([a, b])$ for $-\infty<a<b<\infty$ (by the mean value theorem).
+    \end{enu}
+\end{prop}
+\begin{prop}
+    Define the normalized bounded variation function space to be
+    $$
+        NBV=\{F \in B V: F \text { is right continuous and } F(-\infty)=0\}
+    $$
+
+    If $F \in B V$, then $T_F(-\infty)=0$. If $F$ is also right continuous, then so is $T_F$.
+    If $F\in NBV$, $T_F$ is also in $NBV$.
+\end{prop}
+\begin{prop}
+    If $\mu$ is a complex Borel measure on $\mathbb{R}$ and $F(x)=\mu((-\infty, x])$, then $F \in N B V$. Conversely, if $F \in N B V$, there is a unique complex Borel measure $\mu_F$ such that $F(x)=\mu_F((-\infty, x])$.
+    Moreover, $\left|\mu_F\right|=\mu_{T_F}$.
+\end{prop}
+\begin{prop}
+    A function $F: \mathbb{R} \rightarrow \mathbb{C}$ is called absolutely continuous if for every $\epsilon>0$ there exists $\delta>0$ such that for any finite set of disjoint intervals $\left(a_1, b_1\right), \ldots,\left(a_N, b_N\right)$,
+    $$
+        \sum_1^N\left(b_j-a_j\right)<\delta \Longrightarrow \sum_1^N\left|F\left(b_j\right)-F\left(a_j\right)\right|<\epsilon .
+    $$
+
+    More generally, $F$ is said to be absolutely continuous on $[a, b]$ if this condition is satisfied whenever the intervals $\left(a_j, b_j\right)$ all lie in $[a, b]$. Clearly, if $F$ is absolutely continuous, then $F$ is uniformly continuous (take $N=1$ in (3.31)). On the other hand, if $F$ is everywhere differentiable and $F^{\prime}$ is bounded, then $F$ is absolutely continuous, for $\left|F\left(b_j\right)-F\left(a_j\right)\right| \leq\left(\max \left|F^{\prime}\right|\right)\left(b_j-a_j\right)$ by the mean value theorem.
+
+    If $F \in N B V$, then $F$ is absolutely continuous iff $\mu_F \ll m$.
+\end{prop}
+\begin{theo}
+    If $F \in N B V$, then $F$ is differentiable almost $m$-everywhere(In this section we only consider Borel measure).
+    Take a set $M\subset\bb{R}$ such that $F$ is differentiable on $M$ and its complement
+    is Borel zero measure set. We have
+    \begin{equation*}
+        F\p(x)=\lim_{n\to \infty}\frac{F(x+\frac{1}{n})-F(x)}{\frac{1}{n}}\cdot \chi_M\in L^1(m)
+    \end{equation*}
+    Moreover, $\mu_F \perp m$ iff $F^{\prime}=0$ a.e., and $\mu_F \ll m$ iff $F(x)=\int_{-\infty}^x F^{\prime}(t) d t$.
+\end{theo}
+\begin{prooff}
+    Since total variation of $\mu_F$ is regular, the theorem follows from Theorem~\ref{Fundamental Theorem of Calculus, generalized version}.
+\end{prooff}
+\begin{theo}
+    If $f \in L^1(m)$, then the function $F(x)=\int_{-\infty}^x f(t) d t$ is in $N B V$ and is absolutely continuous, and $f=F^{\prime}$ a.e.
+    Conversely, if $F \in N B V$ is absolutely continuous, then $F^{\prime} \in L^1(m)$ and $F(x)=\int_{-\infty}^x F^{\prime}(t) d t$.
+\end{theo}
+\begin{theo}
+    If $-\infty<$ $a<b<\infty$ and $F:[a, b] \rightarrow \mathbb{C}$, the following are equivalent:
+    \begin{enu}
+        \item $F$ is absolutely continuous on $[a, b]$.
+        \item $F(x)-F(a)=\int_a^x f(t) d t$ for some $f \in L^1([a, b], m)$.
+        \item $F$ is differentiable a.e. on $[a, b], F^{\prime} \in L^1([a, b], m)$, and $F(x)-F(a)=$ $\int_a^x F^{\prime}(t) d t$.
+    \end{enu}
+\end{theo}
+\begin{theo}[integrate by part]
+    If $F$ and $G$ are in $N B V$ and at least one of them is continuous, then for $-\infty<a<b<\infty$,
+    $$
+        \int_{(a, b]} F d G+\int_{(a, b]} G d F=F(b) G(b)-F(a) G(a) .
+    $$
+\end{theo}
+\section{$L^p$ Space}
+
+\section{Radon measure}
+\begin{defn}
+    Let $\mu$ be a Borel measure on $X$ and $E$ a Borel subset of $X$. The measure $\mu$ is called outer regular on $E$ if
+    $$
+        \mu(E)=\inf \{\mu(U): U \supset E, U \text { open }\}
+    $$
+    and inner regular on $E$ if
+    $$
+        \mu(E)=\sup \{\mu(K): K \subset E, K \text { compact }\} \text {. }
+    $$
+
+    If $\mu$ is outer and inner regular on all Borel sets,
+    $\mu$ is called \blue{regular}.
+
+    A \blue{Radon measure} on $X$ is a Borel measure that is finite on all compact sets, outer regular on all Borel sets, and inner regular on all open sets.
+\end{defn}
+\begin{defn}
+    A complex measure is regular if its total variation is regular.
+\end{defn}
+\begin{prop}
+    Every $\sigma$-finite Radon measure is regular.
+\end{prop}
+\begin{lem}
+    In $C_2$ LCH space $X$, every open subset is $\sigma$-compact.
+\end{lem}
+\begin{prooff}
+    Since in $C_2$ space, every open subspace is still $C_2$ hence Lindelöf.
+
+    By Proposition~\ref{proposition: LCH if and only if}, for all $x\in U$, there's $V_x$ open and precompact such that $x\in V_x\subset \bar{V_x}\subset U$.
+    Take a countable subcovering of $\bbrace{V_x}$ indexed by $J$, we have $$\bigcup_{x\in J} \bar{V_x}=U$$.
+\end{prooff}
+\begin{prop}
+    Let $X$ be a $C_2$ LCH space.
+    Then every Borel measure on $X$ that is finite on compact sets is regular and hence Radon.
+\end{prop}
+\begin{prop}
+    If $\mu$ is a Radon measure on $X, C_c(X)$ is dense in $L^p(\mu)$ for $1 \leq p<\infty$
+\end{prop}
+\begin{theo}[The Riesz Representation Theorem]
+    If $U$ is open in $X$ and $f \in C_c(X)$, we shall write
+    $$
+        f \prec U
+    $$
+    to mean that $0 \leq f \leq 1$ and $\operatorname{supp}(f) \subset U$.
+
+    If $I$ is a positive linear functional on $C_c(X)$, there is a unique Radon measure $\mu$ on $X$ such that $I(f)=\int f d \mu$ for all $f \in C_c(X)$. Moreover, $\mu$ satisfies
+    $$
+        \mu(U)=\sup \left\{I(f): f \in C_c(X), f \prec U\right\} \text { for all open } U \subset X
+    $$
+    and
+    $\mu(K)=\inf \left\{I(f): f \in C_c(X), f \geq \chi_K\right\}$ for all compact $K \subset X$.
+\end{theo}
+\begin{coro}
+    There's one-to-one correspondence between bounded positive linear functional $C_c(X)$ and finite Radon meausre on $X$.
+    Moreover, since $C_c(X)$ is dense subset of Banach space $C_0(X)$,
+    by Theorem~\ref{theorem:extension theorem},
+    every bounded positive linear functional on $C_c(X)$ can be extended to $C_0(X)$ continuously.
+\end{coro}
+\begin{prooff}
+    If $I$ is a bounded positive linear functional, by  Riesz Representation Theorem,
+    \begin{equation*}
+        \mu(X)=\sup \left\{\int f d \mu: f \in C_c(X), 0 \leq f \leq 1\right\}<\infty
+    \end{equation*}
+\end{prooff}
+\begin{prop}
+    If $\mu$ is a $\sigma$-finite Radon measure on $X$ and $A \in \mathcal{B}_X$, the Borel measure $\mu_A$ defined by $\mu_A(E)=\mu(E \cap A)$ is a Radon measure. 
+\end{prop}
+\begin{prop}
+    Suppose that $\mu$ is a Radon measure on $X$. If $\phi \in L^1(\mu)$ and $\phi \geq 0$, then $\nu(E)=\int_E \phi d \mu$ is a Radon measure. 
+\end{prop}
+\begin{prop}
+    Suppose that $\mu$ is a Radon measure on $X$ and $\phi \in C(X,(0, \infty))$. Let $\nu(E)=$ $\int_E \phi d \mu$, and let $\nu^{\prime}$ be the Radon measure associated to the functional $f \mapsto \int f \phi d \mu$ on $C_c(X)$, then $\nu=\nu^{\prime}$, and hence $\nu$ is a Radon measure.
+    \label{proposition: integration Radon measure}
+\end{prop}
+\begin{defn}
+    A complex measure is Radon if its real and imaginary parts are difference of finite Radon measure.
+\end{defn}
+\begin{defn}
+    $M(X)$ is the space of all the complex Radon measures and for $\mu\in M(X)$, define
+    \begin{equation*}
+        ||\mu||=|\mu|(X)
+    \end{equation*}
+    Then,$||\cdot||$ is a norm on vector space $M(X)$.
+\end{defn}
+\begin{theo}
+    Let $X$ be an LCH space, and for $\mu \in$ $M(X)$, $I_\mu: f\in C_0(X)\mapsto \int f\text{d}\mu $ is a bounded linear functional on $C_0(X)$. Then
+    $\mu\mapsto I_{\mu}$ is an bijective isometry between $M(X)$ the space of complex Radon measure and space of
+    bounded linear functional on $C_0(X)$.
+\end{theo}
+
+\begin{prop}
+    Suppose $X,Y$ are LCH spaces.
+    \begin{enu}
+        \item $\mathcal{B}_X \otimes \mathcal{B}_Y \subset \mathcal{B}_{X \times Y}$.
+        \item If $X$ and $Y$ are second countable, then $\mathcal{B}_X \otimes \mathcal{B}_Y=\mathcal{B}_{X \times Y}$.
+        \item If $X$ and $Y$ are second countable and $\mu$ and $\nu$ are Radon measures on $X$ and $Y$, then $\mu \times \nu$ is a Radon measure on $X \times Y$.
+        \item If $E \in \mathcal{B}_{X \times Y}$, then $E_x \in \mathcal{B}_Y$ for all $x \in X$ and $E^y \in \mathcal{B}_X$ for all $y \in Y$.
+        \item If $f: X \times Y \rightarrow \mathbb{C}$ is $\mathcal{B}_{X \times Y}$-measurable, then $f_x$ is $\mathcal{B}_Y$-measurable for all $x \in X$ and $f^y$ is $\mathcal{B}_X$-measurable for all $y \in Y$.
+    \end{enu}
+\end{prop}
+\begin{defn}[Radon product]
+    Every $f \in C_c(X \times Y)$ is $\mathcal{B}_X \otimes \mathcal{B}_Y$-measurable. Moreover, if $\mu$ and $\nu$ are $\sigma$-finite Radon measures on $X$ and $Y$,
+    then $C_c(X \times Y) \subset L^1(\mu \times \nu)$, and
+    $$
+        \int f d(\mu \times \nu)=\iint f d \mu d \nu=\iint f d \nu d \mu \quad\left(f \in C_c(X \times Y)\right) \text {. }
+    $$
+
+    The formula $I(f)=\int f d(\mu \times \nu)$ defines a positive linear functional on $C_c(X \times Y)$,
+    so it determines a Radon measure on $X \times Y$ by the Riesz representation theorem. We call this measure the Radon product of $\mu$ and $\nu$ and denote it by $\mu \widehat{\times} \nu$.
+\end{defn}
+\begin{prop}
+    Suppose that $\mu$ and $\nu$ are $\sigma$-finite Radon measures on $X$ and $Y$.
+    If $E \in \mathcal{B}_{X \times Y}$, then the functions $x \mapsto \nu\left(E_x\right)$ and $y \mapsto \mu\left(E^y\right)$ are Borel measurable on $X$ and $Y$, and
+    $$
+        \mu \widehat{\times} \nu(E)=\int \nu\left(E_x\right) d \mu(x)=\int \mu\left(E^y\right) d \nu(y) \text {. }
+    $$
+    Moreover, the restriction of $\mu \hat{\times} \nu$ to $\mathcal{B}_X \otimes \mathcal{B}_Y$ is $\mu \times \nu$.
+\end{prop}
+\begin{theo}
+    Suppose that, for each $\alpha \in A, \mu_\alpha$ is a Radon measure on the compact Hausdorff space $X_\alpha$ such that $\mu_\alpha\left(X_\alpha\right)=1$. Then there is a unique Radon measure $\mu$ on $X=\prod_{\alpha \in A} X_\alpha$ such that for any $\alpha_1, \ldots, \alpha_n \in A$ and any Borel set $E$ in $\prod_1^n X_{\alpha_j}$,
+    $$
+        \mu\left(\pi_{\left(\alpha_1, \ldots, \alpha_n\right)}^{-1}(E)\right)=\left(\mu_{\alpha_1} \widehat{\times} \cdots \widehat{\times} \mu_{\alpha_n}\right)(E) .
+    $$
+    \label{theorem: infinite Radon product}
+\end{theo}
+\chapter{Complex Analysis}
+\section{Line Integration}
+\begin{theo}[Open mapping Theorem]
+    If $f$ is a holomorphic function and non-constant in a connected open set $\Omega\subset \bb{C}$, then $f$ is open.
+\end{theo}
+
+
+\begin{prop}
+    $U$ is an open subset of $\bb{C}$, $f:U\rightarrow \bb{C}$ is a injective holomorphic map, then $f\p(z)\neq 0$ for all $z\in U$. By Open Mapping Theorem, the image of $f$ is still open in $\bb{C}$, we denote it by $V$. Then $f:U\rightarrow V$ is a holomorphic bijective function. $f^{-1}$ is also holomorphic and $(f^{-1})\p(z)=\frac{1}{f(z)}$.
+\end{prop}
+\begin{prop}
+    $f$ holomorphic, $f(a)\neq 0$, then $f$ is local biholomorphic at $a$.
+    \label{proposition:holomorphic injective}
+\end{prop}
+\begin{prooff}
+    By inverse function theorem and Proposition~\ref{proposition:holomorphic injective}.
+\end{prooff}
+
+
+
+
+
+\newpage
+\section{Multiple Variables}
+
+
+\chapter{Functional Analysis}
+
+
+
+
+\section{Foundation}
+\begin{defn}
+    Let $K$ denote either $\mathbb{R}$ or $\mathbb{C}$, and let $X$ be a vector space over $K$. 
+    A seminorm on $X$ is a function $x \mapsto\|x\|$ from $X$ to $[0, \infty)$ such that
+\begin{enu}
+\item  $\|x+y\| \leq\|x\|+\|y\|$ for all $x, y \in X$ (the triangle inequality),
+\item $\|\lambda x\|=|\lambda|\|x\|$ for all $x \in X$ and $\lambda \in K$.
+\end{enu}
+    The second property clearly implies that $\|0\|=0$. A seminorm such that $\|x\|=0$ only when $x=0$ is called a norm, and a vector space equipped with a norm is called a normed vector space (or normed linear space).
+\end{defn}
+\begin{defn}
+    Banach space is a complete normed vector space.
+\end{defn}
+\begin{defn}[quotient space]
+    A related construction is that of quotient spaces. If $\mathcal{M}$ is a vector subspace of the vector space $X$, it defines an equivalence relation on $X$ as follows: $x \sim y$ iff $x-y \in \mathcal{M}$. The equivalence class of $x \in \mathcal{X}$ is denoted by $x+\mathcal{M}$, and the set of equivalence classes, or quotient space, is denoted by $X / \mathcal{M} . X / \mathcal{M}$ is a vector space with vector operations $(x+\mathcal{M})+(y+\mathcal{M})=(x+y)+\mathcal{M}$ and $\lambda(x+\mathcal{M})=(\lambda x)+\mathcal{M}$. If $\mathcal{X}$ is a normed vector space and $\mathcal{M}$ is closed, $X / \mathcal{M}$ inherits a norm from $X$ called the quotient norm, namely
+
+    $$
+    \|x+\mathcal{M}\|=\inf _{y \in \mathcal{M}}\|x+y\|
+    $$    
+\end{defn}
+\begin{prop}
+    A normed vector space is complete if and only if every  absolutely convergent series converges.
+\end{prop}
+\begin{prop}
+    A linear map $T: X \rightarrow y$ between two normed vector spaces is called bounded if there exists $C \geq 0$ such that
+    $$
+    \|T x\| \leq C\|x\| \text { for all } x \in \mathcal{X}
+    $$  
+    If $X$ and $y$ are normed vector spaces and $T: X \rightarrow y$ is a linear map, the following are equivalent:
+\begin{enu} 
+    \item $T$ is continuous.
+    \item $T$ is continuous at 0 .
+    \item $T$ is bounded.
+\end{enu}
+\end{prop}
+\begin{defn}
+    If $X$ and $Y$ are normed vector spaces, we denote the space of all bounded linear maps from $X$ to $Y$ by $L(X,Y)$. It is easily verified that $L(X,Y)$ is a vector space and that the function $T \mapsto\|T\|$ defined by
+    $$
+    \begin{aligned}
+    \|T\| & =\sup \{\|T x\|:\|x\|=1\} \\
+    & =\sup \left\{\frac{\|T x\|}{\|x\|}: x \neq 0\right\} \\
+    & =\inf \{C:\|T x\| \leq C\|x\| \text { for all } x\}
+    \end{aligned}
+    $$
+    is a norm on $L(X, Y)$, called the operator norm.
+\end{defn}
+\begin{prop}
+    If $Y$ is complete, so is $L(X,Y)$.
+\end{prop}
+\begin{coro}
+    Let $X$ be a vector space over $K$, where $K=\mathbb{R}$ or $\mathbb{C}$. A linear map from $X$ to $K$ is called a linear functional on $X$. If $X$ is a normed vector space, the space $L(X, K)$ of bounded linear functionals on $X$ is called the dual space of $X$. Then 
+    $X^*$ is a Banach space with the operator norm.
+\end{coro}
+\begin{prop}
+    Let $X$ be a vector space over $\mathbb{C}$. If $f$ is a complex linear functional on $X$ and $u=\operatorname{Re} f$, then $u$ is a real linear functional, and $f(x)=u(x)-i u(i x)$ for all $x \in X$. Conversely, if $u$ is a real linear functional on $X$ and $f: X \rightarrow \mathbb{C}$ is defined by $f(x)=u(x)-i u(i x)$, then $f$ is complex linear. In this case, if $X$ is normed, we have $\|u\|=\|f\|$.
+\end{prop}
+\begin{defn}
+    If $X$ is a real vector space, a sublinear functional on $X$ is a map $p: X \rightarrow \mathbb{R}$ such that
+    $$
+    p(x+y) \leq p(x)+p(y) \text { and } p(\lambda x)=\lambda p(x) \text { for all } x, y \in X \text { and } \lambda \geq 0
+    $$
+\end{defn}
+\begin{theo}[The Hahn-Banach Theorem]
+    Let $X$ be a real vector space, $p$ a sublinear functional on $\mathcal{X}, \mathcal{M}$ a subspace of $\mathcal{X}$, and $f$ a linear functional on $\mathcal{M}$ such that $f(x) \leq p(x)$ for all $x \in \mathcal{M}$. Then there exists a linear functional $F$ on $\mathcal{X}$ such that $F(x) \leq p(x)$ for all $x \in \mathcal{X}$ and $F \mid \mathcal{M}=f$.
+\end{theo}
+\begin{defn}[complex Hahn-Banach Theorem]
+    Let $X$ be a complex vector space, $p$ a seminorm on $\mathcal{X}, \mathcal{M}$ a subspace of $\mathcal{X}$, and $f$ a complex linear functional on $\mathcal{M}$ such that $|f(x)| \leq p(x)$ for $x \in \mathcal{M}$. Then there exists a complex linear functional $F$ on $X$ such that $|F(x)| \leq p(x)$ for all $x \in \mathcal{X}$ and $F \mid \mathcal{M}=f$.
+\end{defn}
+\begin{coro}
+    Let $X$ be a normed vector space.
+    \begin{enu}
+    \item If $\mathcal{M}$ is a closed subspace of $X$ and $x \in X \backslash \mathcal{M}$, there exists $f \in X^*$ such that $f(x) \neq 0$ and $f \mid \mathcal{M}=0$. In fact, if $\delta=\inf _{y \in \mathcal{M}}\|x-y\|, f$ can be taken to satisfy $\|f\|=1$ and $f(x)=\delta$.
+    \item If $x \neq 0 \in X$, there exists $f \in X^*$ such that $\|f\|=1$ and $f(x)=\|x\|$.
+    \item The bounded linear functionals on $X$ separate points.
+    \item If $x \in X$, define $\widehat{x}: X^* \rightarrow \mathbb{C}$ by $\widehat{x}(f)=f(x)$. Then the map $x \mapsto \widehat{x}$ is a linear isometry from $X$ into $X^{* *}$ (the dual of $X^*$ ).
+    \end{enu}
+\end{coro}
+\begin{theo}[open mapping theorem]
+    Let $X$ and $Y$ be Banach spaces. If $T \in$ $L(X, y)$ is surjective, then $T$ is open.
+\end{theo}
+
+\blue{Now we assume all the Banach spaces are over $\bb{C}$.}
+\begin{defn}
+    If $X$ and $Y$ are normed vector spaces and $T$ is a linear map from $X$ to $Y$, we define the graph of $T$ to be
+    $$
+    \Gamma(T)=\{(x,y) \in X \times Y: y=Tx\}
+    $$
+    which is a subspace of $X \times Y$. We say that $T$ is closed if $\Gamma(T)$ is a closed subspace of $X \times Y$. ClearlY, if $T$ is continuous, then $T$ is closed.
+\end{defn}
+\begin{theo}[The Closed Graph Theorem]
+    If $X$ and $Y$ are Banach spaces and $T: X \rightarrow Y$ is a closed linear map, then $T$ is bounded.
+\end{theo}
+\begin{theo}[The Uniform Boundedness Principle]
+    Suppose that $X$ and $Y$ are normed vector spaces and $\mathcal{A}$ is a subset of $L(X, Y)$.
+If $X$ is a Banach space and $\sup _{T \in \mathcal{A}}\|T x\|<\infty$ for all $x \in X$, then $\sup _{T \in \mathcal{A}}\|T\|<$ $\infty$.
+
+\end{theo}
+
+\section{Topological vector space}
+\begin{defn}
+    A topological vector space is a vector space $X$ over the field $K(=\mathbb{R}$ or $\mathbb{C})$ which is endowed with a topology such that the maps $(x, y) \rightarrow x+y$ and $(\lambda, x) \rightarrow \lambda x$ are continuous from $X \times X$ and $K \times X$ to $X$. A topological vector space is called locally convex if there is a base for the topology consisting of convex sets (that is, sets $A$ such that if $x, y \in A$ then $t x+(1-t) y \in A$ for $0<t<1$ ). Most topological vector spaces that arise in practice are locally convex and Hausdorff.
+\end{defn}
+\begin{prop}
+    Let $\left\{p_\alpha\right\}_{\alpha \in A}$ be a family of seminorms on the vector space $X$. If $x \in X, \alpha \in A$, and $\epsilon>0$, let
+    $$
+    U_{x \alpha \epsilon}=\left\{y \in X: p_\alpha(y-x)<\epsilon\right\}
+    $$
+    and let $\mathcal{T}$ be the topology generated by the sets $U_{x \alpha \epsilon}$.
+    \begin{enu} 
+    \item For each $x \in X$, the finite intersections of the sets $U_{x \alpha \epsilon}(\alpha \in A, \epsilon>0)$ form a neighborhood base at $x$.
+    \item $x_i \rightarrow x$ iff $p_\alpha\left(x_i-x\right) \rightarrow 0$ for all $\alpha \in A$.
+    \item $(X, \mathcal{T})$ is a locally convex topological vector space.
+    \end{enu}
+\end{prop}
+\begin{prop}
+Suppose $X$ and $y$ are vector spaces with topologies defined, respectively, by the families $\left\{p_\alpha\right\}_{\alpha \in A}$ and $\left\{q_\beta\right\}_{\beta \in B}$ of seminorms, and $T: X \rightarrow y$ is a linear map. Then $T$ is continuous iff for each $\beta \in B$ there exist $\alpha_1, \ldots, \alpha_k \in A$ and $C>0$ such that $q_\beta(T x) \leq C \sum_1^k p_{\alpha_j}(x)$
+\end{prop}
+\begin{prop}
+    Let $X$ be a vector space equipped with the topology defined by a family $\left\{p_\alpha\right\}_{\alpha \in A}$ of seminorms. $X$ is Hausdorff iff for each $x \neq 0$ there exists $\alpha \in A$ such that $p_\alpha(x) \neq 0$.
+\end{prop}
+\begin{defn}
+    A topological vector space whose topology is defined by a countable family of seminorms is called a Fréchet space if it is Hausdorff and complete.(every Cauchy sequence converges.)
+\end{defn}
+\section{Hilbert Space}
+\begin{defn}
+    Let $\mathcal{H}$ be a complex vector space. An inner product (or scalar product) on $\mathcal{H}$ is a map $(x, y) \mapsto\langle x, y\rangle$ from $X \times X \rightarrow \mathbb{C}$ such that:
+\begin{enu} 
+    \item $\langle a x+b y, z\rangle=a\langle x, z\rangle+b\langle y, z\rangle$ for all $x, y, z \in \mathcal{H}$ and $a, b \in \mathbb{C}$.
+    \item $\langle y, x\rangle=\overline{\langle x, y\rangle}$ for all $x, y \in \mathcal{H}$.
+    \item $\langle x, x\rangle \in(0, \infty)$ for all nonzero $x \in X$.
+\end{enu}
+A Hilbert space is a vector space over $\bb{C}$ with a inner product such that the norm induced by this inner product is complete.
+\end{defn}
+\begin{prop}
+    If $\mathcal{M}$ is a closed subspace of $\mathcal{H}$, then $\mathcal{H}=\mathcal{M} \oplus \mathcal{M}^{\perp}$; that is, each $x \in \mathcal{H}$ can be expressed uniquelyas $x=y+z$ where $y \in \mathcal{M}$ and $z \in \mathcal{M}^{\perp}$. Moreover, $y$ and $z$ are the unique elements of $\mathcal{M}$ and $\mathcal{M}^{\perp}$ whose distance to $x$ is minimal.
+\end{prop}
+\begin{theo}
+    If $f \in \mathcal{H}^*$, there is a unique $y \in \mathcal{H}$ such that $f(x)=\langle x, y\rangle$ for all $x \in X$.
+\end{theo}
+\begin{defn}
+    If $\mathcal{H}_1$ and $\mathcal{H}_2$ are Hilbert spaces with inner products $\langle\cdot, \cdot\rangle_1$ and $\langle\cdot, \cdot\rangle_2$, a unitary map from $\mathcal{H}_1$ to $\mathcal{H}_2$ is an invertible linear map $U: \mathcal{H}_1 \rightarrow \mathcal{H}_2$ that preserves inner products:
+    $$
+    \langle U x, U y\rangle_2=\langle x, y\rangle_1 \text { for all } x, y \in \mathcal{H}_1
+    $$
+\end{defn}
+
+
+\section{Spectrum of Opertor}
+
+
+\chapter{Harmonic Analysis}
+\section{Fourier Transform}
+\begin{defn}[Schwartz space]
+    The Schwartz space $\mathcal{S}(\mathbb{R}^n)$ consisting of those $C^{\infty}$ functions which, together with all their derivatives, vanish at infinity
+    faster than any power of $|x|$. More precisely, for any nonnegative integer $N$ and any multi-index $\alpha$ we define   
+    $$
+    \|f\|_{(N, \alpha)}=\sup _{x \in \mathbb{R}^n}(1+|x|)^N\left|\partial^\alpha f(x)\right|
+    $$
+    then
+    $$
+    \mathcal{S}=\mathcal{S}(\bb{R}^n)=\left\{f \in C^{\infty}:\|f\|_{(N, \alpha)}<\infty \text { for all } N, \alpha\right\}
+    $$
+\end{defn}
+\begin{prop}
+    $\mathcal{S}(\bb{R}^n)$ is a Fréchet Space and Fourier Transform is a linear bi-continous bijection 
+    between Schwartz space.
+\end{prop}
+\end{document}

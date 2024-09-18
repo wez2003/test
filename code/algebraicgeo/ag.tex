@@ -1,0 +1,719 @@
+\documentclass[12pt,a4paper]{book}
+%宏包
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{geometry}
+\usepackage{natbib}%bibtex
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{quiver}
+\usepackage{float}
+\usepackage{caption}
+\usepackage[colorlinks,linkcolor=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{tabularx}%控制列宽
+\usepackage{xr}%跨文件引用
+\externaldocument{D:/latex/book/algebra/algebra}
+%页面设置
+\linespread{1.2}
+\geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2cm}
+%\geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2cm}
+
+%环境和宏指令
+\newenvironment{prooff}{{\noindent\it\textcolor{cyan!40!black}{Proof}:}\,}{\par}
+\newenvironment{proofff}{{\noindent\it\textcolor{cyan!40!black}{Proof of the lemma}:}\,}{\qed \par}
+\newcommand{\bbrace}[1]{\left\{ #1 \right\} }
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\p}{^{\prime}}
+\renewcommand{\mod}[1]{(\text{mod}\,#1)}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\spec}[1]{\text{Spec}({#1})}
+\newcommand{\rarr}[1]{\xrightarrow{#1}}
+\newcommand{\larr}[1]{\xleftarrow{#1}}
+\newcommand{\emptyy}{\underline{\quad}}
+\newenvironment{enu}{\begin{enumerate}[(1)]}{\end{enumerate}}
+%ctrl+点击文本返回代码  选中代码 ctrl+alt+j 为代码查找文本
+
+
+
+
+%定理环境
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+\newtheorem{coro}[defn]{Corollary}
+\newtheorem{theo}[defn]{Theorem}
+\newtheorem{exer}[defn]{Exercise}
+\newtheorem{rema}[defn]{Remark}
+\newtheorem{lem}[defn]{Lemma}
+\newtheorem{prop}[defn]{Proposition}
+\newtheorem{nota}[defn]{Notation}
+\newtheorem{exam}[defn]{Example}
+
+
+
+\begin{document}
+\title{Algebraic Geometry}
+\author{Erzhuo Wang}
+\date{\today}
+\maketitle % 标题页
+\tableofcontents
+\chapter{Classical Theory}
+\section{Affine Case}
+\begin{defn}
+    We will interpret the elements of $A$ as functions from the affine $n$-space to $k$, by defining $f(P)=f\left(a_1, \ldots, a_n\right)$, where $f \in A$ and $P \in \mathbf{A}^n$. Thus if $f \in A$ is a polynomial, we can talk about the set of zeros of $f$, namely $Z(f)=\left\{P \in \mathbf{A}^n \mid f(P)=0\right\}$. More generally, if $T$ is any subset of $A$, we define the zero set of $T$ to be the common zeros of all the elements of $T$, namely
+    $$
+        Z(T)=\left\{P \in \mathbf{A}^n \mid f(P)=0 \text { for all } f \in T\right\} .
+    $$
+    A subset $Y$ of $\mathbf{A}^n$ is an algebraic set if there exists a subset $T \subseteq A$ such that $Y=Z(T)$.
+\end{defn}
+\begin{prop}
+    The union of two algebraic sets is an algebraic set. The intersection of any family of algebraic sets is an algebraic set. The empty set and the whole space are algebraic sets.
+\end{prop}
+\begin{prooff}
+    If $Y_1=Z\left(T_1\right)$ and $Y_2=Z\left(T_2\right)$, then $Y_1 \cup Y_2=Z\left(T_1 T_2\right)$, where $T_1 T_2$ denotes the set of all products of an element of $T_1$ by an element of $T_2$. Indeed, if $P \in Y_1 \cup Y_2$, then either $P \in Y_1$ or $P \in Y_2$, so $P$ is a zero of every polynomial in $T_1 T_2$. Conversely, if $P \in Z\left(T_1 T_2\right)$, and $P \notin Y_1$ say, then there is an $f \in T_1$ such that $f(P) \neq 0$. Now for any $g \in T_2,(f g)(P)=0$ implies that $g(P)=0$, so that $P \in Y_2$.
+
+
+    If $Y_\alpha=Z\left(T_\alpha\right)$ is any family of algebraic sets, then $\bigcap Y_\alpha=Z\left(\bigcup T_\alpha\right)$, so $\bigcap Y_\alpha$ is also an algebraic set. Finally, the empty set $\varnothing=Z(1)$, and the whole space $\mathbf{A}^n=Z(0)$.
+\end{prooff}
+\begin{defn}
+    We define the Zariski topology on $\mathbf{A}^n$ by taking the open subsets to be the complements of the algebraic sets. This is a topology, because according to the proposition, the intersection of two open sets is open, and the union of any family of open sets is open. Furthermore, the empty set and the whole space are both open.
+\end{defn}
+\begin{defn}
+    For any subset $Y \subseteq \mathbf{A}^n$, let us define the ideal of $Y$ in $A$ by
+    $$
+        I(Y)=\{f \in A \mid f(P)=0 \text { for all } P \in Y\} .
+    $$
+\end{defn}
+\begin{prop}
+    \begin{enu}
+        \item If $T_1 \subseteq T_2$ are subsets of $A$, then $Z\left(T_1\right) \supseteq Z\left(T_2\right)$.
+        \item If $Y_1 \subseteq Y_2$ are subsets of $\mathbf{A}^n$, then $I\left(Y_1\right) \supseteq I\left(Y_2\right)$.
+        \item For any two subsets $Y_1, Y_2$ of $\mathbf{A}^n$, we have $I\left(Y_1 \cup Y_2\right)=I\left(Y_1\right) \cap I\left(Y_2\right)$.
+        \item For any subset $Y \subseteq \mathbf{A}^n, Z(I(Y))=\bar{Y}$, the closure of $Y$.
+        \item an algebraic set $Y$ is irreducible if and only if $I(Y)$ is a prime ideal.
+    \end{enu}
+    \label{proposition:spec of algebraic set}
+\end{prop}
+\begin{prooff}
+    (4): We note that $Y \subseteq Z(I(Y))$, which is a closed set, so clearly $\bar{Y} \subseteq Z(I(Y))$. On the other hand, let $W$ be any closed set containing $Y$. Then $W=Z(\mathfrak{a})$ for some ideal $\mathfrak{a}$. So $Z(\mathfrak{a}) \supseteq Y$, and by (b), $I Z(\mathfrak{a}) \subseteq I(Y)$. But certainly $\mathfrak{a} \subseteq I Z(\mathfrak{a})$, so by (a) we have $W=Z(\mathfrak{a}) \supseteq Z I(Y)$. Thus $Z I(Y)=\bar{Y}$
+
+    (5): If $Y$ is irreducible, we show that $I(Y)$ is prime. Indeed, if $f_g \in I(Y)$, then $Y \subseteq Z(f g)=Z(f) \cup Z(g)$. Thus $Y=$ $(Y \cap Z(f)) \cup(Y \cap Z(g))$, both being closed subsets of $Y$. Since $Y$ is irreducible, we have either $Y=Y \cap Z(f)$, in which case $Y \subseteq Z(f)$, or $Y \subseteq$ $Z(g)$. Hence either $f \in I(Y)$ or $g \in I(Y)$.
+    Conversely, if $Y=Y_1\cap Y_2$, $Y_1,Y_2 \subsetneqq Y$ are closed subset of $A^n$, then by (4), $I(Y_1)\supsetneqq  I(Y)$. Hence take $f\in I(Y_1)$ such that $f\notin I(Y)$. Similarly, we can take $g\in I(Y_2)$ such that $g\notin I(Y)$, then $fg\in I(Y_1\cup Y_2)=I(Y)$. A contradiction!
+\end{prooff}
+
+\blue{From now on, we assumne $k$ is algebracally closed.}
+
+\begin{theo}[Hilbert's Nullstellensatz]
+    If $k$ is algebracally closed, then
+    $$
+        I(V(A))=\sqrt{A} .
+    $$
+\end{theo}
+\begin{theo}
+    If $k$ is algebraically closed, then there is a one-to-one inclusion-reversing correspondence between algebraic sets(irreducible algebraic sets, points) in $\mathbf{A}^n$ and radical ideals(prime ideals, maximal ideals)  in $A$, given by $Y \mapsto I(Y)$ and $\mathfrak{a} \mapsto Z(\mathfrak{a})$.
+\end{theo}
+\begin{theo}
+    Let $\mathfrak{a} \subseteq k\left[T_1, \ldots, T_n\right]$ be a radical ideal, i.e., $\mathfrak{a}=\operatorname{rad}(\mathfrak{a})$. Then $\mathfrak{a}$ is 
+    the intersection of a finite number of prime ideals that do not contain each other. The set of these prime ideals is uniquely determined by $\mathfrak{a}$.
+
+    Equivalently, every algebraic set $V$ can be written uniquely as union of irreducible algebraic sets $V_1,\dots,V_r$ such that $V_i\nsubseteq V_j$.
+\end{theo}
+\begin{defn}
+    Let $X \subseteq \mathbb{A}^m(k)$ and $Y \subseteq \mathbb{A}^n(k)$ be affine algebraic sets. $A$ morphism $X \rightarrow Y$ of affine algebraic sets is a map $f: X \rightarrow Y$ of the underlying sets such that there exist polynomials $f_1, \ldots, f_n \in k\left[T_1, \ldots, T_m\right]$ with $f(x)=\left(f_1(x), \ldots, f_n(x)\right)$ for all $x \in X$.
+\end{defn}
+\begin{prop}
+    Let $X$ be an affine algebraic set. The affine coordinate ring $\Gamma(X)$ is a reduced finitely generated $k$-algebra. Moreover, $X$ is irreducible if and only if $\Gamma(X)$ is an integral domain.
+\end{prop}
+\begin{defn}
+    $X$ be an algebraic set with subspace topology of $\mathbb{A}^m(k)$. Then topology is the same as the topology defined by closed subsets 
+    of the form 
+    \begin{equation*}
+        V(\mathfrak{a})=\{x \in X :\forall f \in \mathfrak{a}: f(x)=0\}=V\left(\pi^{-1}(\mathfrak{a})\right) \cap X
+    \end{equation*}
+    where $\mathfrak{a}$ is an ideal of $\Gamma(X)$.
+\end{defn}
+\begin{defn}[principal open subsets]
+    For $f \in \Gamma(X)$ we set
+    $$
+    D(f):=\{x \in X ; f(x) \neq 0\}=X \backslash V(f)
+    $$
+    These are open subsets of $X$, called principal open subsets. The open sets $D(f), f \in \Gamma(X)$, form a basis of the subspace topology of X.
+\end{defn}
+\begin{prop}
+      Let $f: X \rightarrow Y$ be a morphism of affine algebraic sets. The map
+    $$
+    \Gamma(f): \operatorname{Hom}\left(Y, \mathbb{A}^1(k)\right) \rightarrow \operatorname{Hom}\left(X, \mathbb{A}^1(k)\right), \quad g \mapsto g \circ f
+    $$
+    defines a homomorphism of $k$-algebras. We obtain a functor
+    $$
+    \Gamma: \text { (affine algebraic sets) }{ }^{\text {opp }} \rightarrow \text { (reduced finitely generated } k \text {-algebras). }
+    $$
+    The functor $\Gamma$ induces an equivalence of categories. By restriction one obtains an equivalence of categories
+    $$
+    \Gamma:(\text { irreducible affine algebraic sets })^{\mathrm{opp}} \rightarrow(\text { integral finitely generated } k \text {-algebras }) \text {. }
+    $$
+\end{prop}
+\begin{prooff}
+    We show that $\Gamma$ is fully faithful, i.e., that for affine algebraic sets $X \subseteq \mathbb{A}^m(k)$, $Y \subseteq \mathbb{A}^n(k)$ the map $\Gamma: \operatorname{Hom}(X, Y) \rightarrow \operatorname{Hom}(\Gamma(Y), \Gamma(X))$ is bijective. 
+    We define an inverse map. If $\varphi: \Gamma(Y) \rightarrow \Gamma(X)$ is given, define 
+    $$
+    \bar{\varphi}:X\rightarrow Y, x\mapsto (\varphi(y_1+I(Y))(x),\dots,\varphi(y_n+I(Y))(x))
+    $$
+    and obtain the desired inverse map.
+\end{prooff}
+\begin{prop}
+    Let $f: X \rightarrow Y$ be a morphism of affine algebraic sets and let $\Gamma(f): \Gamma(Y) \rightarrow \Gamma(X)$ be the corresponding homomorphism of the affine coordinate rings. Then $\Gamma(f)^{-1}\left(\mathfrak{m}_x\right)=\mathfrak{m}_{f(x)}$ for all $x \in X$ since $g(f(x))=\Gamma(f)(g)(x)$ for $g \in \Gamma(Y)=\operatorname{Hom}\left(Y, \mathbb{A}^1(k)\right)$.
+\end{prop}   
+\begin{defn}
+    A space with functions over $K$ is a topological space $X$ together with a family $\mathscr{O}_X$ of $K$-subalgebras $\mathscr{O}_X(U) \subseteq \operatorname{Map}(U, K)$ for every open subset $U \subseteq X$ that satisfy the following properties:
+\begin{enu}
+\item If $U^{\prime} \subseteq U \subseteq X$ are open and $f \in \mathscr{O}_X(U)$, the restriction $f_{\mid U^{\prime}} \in \operatorname{Map}\left(U^{\prime}, K\right)$ is an element of $\mathscr{O}_X\left(U^{\prime}\right)$.
+\item (Axiom of Gluing) Given open subsets $U_i \subseteq X, i \in I$, and $f_i \in \mathscr{O}_X\left(U_i\right), i \in I$, with
+$$
+f_{i \mid U_i \cap U_j}=f_{j \mid U_i \cap U_j} \quad \text { for all } i, j \in I \text {, }
+$$
+the unique function $f: \bigcup_i U_i \rightarrow K$ with $f_{\mid U_i}=f_i$ for all $i \in I$ lies in $\mathscr{O}_X\left(\bigcup_i U_i\right)$. 
+\end{enu}
+\end{defn}
+\begin{defn}
+    A morphism $g:\left(X, \mathscr{O}_X\right) \rightarrow\left(Y, \mathscr{O}_Y\right)$ of spaces with functions is a continuous map $g: X \rightarrow Y$ such that for all open subsets $V \subseteq Y$ and functions $f \in \mathscr{O}_Y(V)$ the function $f \circ g_{\mid g^{-1}(V)}: g^{-1}(V) \rightarrow K$ lies in $\mathscr{O}_X\left(g^{-1}(V)\right)$.
+\end{defn} 
+Let $X \subseteq \mathbb{A}^n(k)$ be an irreducible affine algebraic set. 
+It is endowed with the Zariski topology and we want to define for every open subset $U \subseteq X$ a $k$-algebra of functions $\mathscr{O}_X(U)$ such that $\left(X, \mathscr{O}_X\right)$ is a space with functions.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+% \begin{defn}
+%     The field of fractions $K(X):=\operatorname{Frac}(\Gamma(X))$ is called the function field of $X$.
+% \end{defn}
+\begin{lem} 
+    Let $X$ be an irreducible affine algebraic set and let $\frac{f_1}{g_1}$ and $\frac{f_2}{g_2}$ be elements of $K(X)\left(f_1, f_2, g_1, g_2 \in \Gamma(X)\right)$, such that there exists a non-empty open subset $U \subseteq D\left(g_1 g_2\right)$ with:
+    $$
+    \forall x \in U: \frac{f_1(x)}{g_1(x)}=\frac{f_2(x)}{g_2(x)}
+    $$
+    Then $\frac{f_1}{g_1}=\frac{f_2}{g_2}$ in $K(X)$.
+\end{lem}
+\begin{prooff}
+    Notice that $U $ dense in $X$.
+\end{prooff}
+\begin{defn}
+    Let $X$ be an irreducible affine algebraic set and let $\emptyset \neq U \subseteq X$ be open. We denote by $\mathfrak{m}_x$ the maximal ideal of $\Gamma(X)$ corresponding to $x \in X$ and by $\Gamma(X)_{\mathfrak{m}_x}$ the localization of the affine coordinate ring with respect to $\mathfrak{m}_x$. We define
+    $$
+    \mathscr{O}_X(U)=\bigcap_{x \in U} \Gamma(X)_{\mathfrak{m}_x} \subset K(X)
+    $$
+    We let $\mathscr{O}_X(\emptyset)$ be a singleton.、
+
+    To consider $\left(X, \mathscr{O}_X\right)$ as space with functions, 
+    we first have to explain how to identify elements 
+    $f \in \mathscr{O}_X(U)$ with functions $U \rightarrow k$. 
+    Given $x \in U$ the element $f$ is by definition in $\Gamma(X)_{\mathfrak{m}_x}$ and we may write $f=\frac{g}{h}$ with $g, h \in \Gamma(X), h \notin \mathfrak{m}_x$. But then $h(x) \neq 0$ and we may set $f(x):=\frac{g(x)}{h(x)} \in k$. The value $f(x)$ is well defined and this construction defines an injective map $\mathscr{O}_X(U) \rightarrow \operatorname{Map}(U, k)$.
+\end{defn}
+\begin{prop}
+    Let $\left(X, \mathscr{O}_X\right)$ be the space with functions associated to the irreducible affine algebraic set $X$ and let $f \in \Gamma(X)$. Then there is an equality
+    $$
+    \mathscr{O}_X(D(f))=\Gamma(X)_f
+    $$
+    (as subsets of $K(X)$ ). In particular $\mathscr{O}_X(X)=\Gamma(X)($ taking $f=1)$.
+\end{prop}
+\begin{coro}
+    A function $f: U \rightarrow k\in \mathscr{O}_X(U)$ iff for all $x\in U$, there is an open neighborhood $V$ with $x \in V \subseteq U$, and $g, h \in \Gamma(X)$, such that 
+    $h$ is nowhere zero on $V$, and $f=g / h$ on $V$.
+    \label{Corollary:regular function,space with functions}
+\end{coro}
+\begin{theo}
+    Let $X, Y$ be irreducible affine algebraic sets and $f: X \rightarrow Y$ a map. The following assertions are equivalent.
+\begin{enu}   
+    \item The map $f$ is a morphism of affine algebraic sets.
+    \item If $g \in \Gamma(Y)$, then $g \circ f \in \Gamma(X)$.
+    \item The map $f$ is a morphism of spaces with functions, i.e., $f$ is continuous and if $U \subseteq Y$ open and $g \in \mathscr{O}_Y(U)$, then $g \circ f_{\mid f^{-1}(U)} \in \mathscr{O}_X\left(f^{-1}(U)\right)$.
+\end{enu}
+    Proof. The equivalence of (1) and (2) has already been proved. 
+    Moreover, it is clear that (2) is implied by (3) by 
+    taking $U=Y$. 
+    
+Let $\varphi: \Gamma(Y) \rightarrow \Gamma(X)$ be the homomorphism $h \mapsto h \circ f$. For $g \in \Gamma(Y)$ we have
+    $$
+    f^{-1}(D(g))=\{x \in X ; g(f(x)) \neq 0\}=D(\varphi(g))
+    $$
+    As the principal open subsets form a basis of the topology, this shows that $f$ is continuous. The homomorphism $\varphi$ induces a homomorphism of the localizations $\Gamma(Y)_g \rightarrow \Gamma(X)_{\varphi(g)}$. 
+    By definition of $\varphi$ this is the map $\mathscr{O}_Y(D(g)) \rightarrow \mathscr{O}_X(D(\varphi(g))), \quad h \mapsto h \circ f$. This shows the claim if $U$ is principal open. As we can obtain functions on arbitrary open subsets of $Y$ by gluing functions on principal open subsets, this proves (3).
+
+\end{theo}
+Altogether we obtain
+$X \mapsto\left(X, \mathscr{O}_X\right)$
+ defines a fully faithful functor (Irreducible affine algebraic sets) $\rightarrow$ (Spaces with functions over $k)$.
+\begin{defn}
+    We call a space with functions $\left(X, \mathscr{O}_X\right)$ connected, if the underlying topological space $X$ is connected.
+\begin{enu} 
+    \item An affine variety is a space with functions that is isomorphic to a space with functions associated to an irreducible affine algebraic set.
+    \item A prevariety is a connected space with functions $\left(X, \mathscr{O}_X\right)$ with the property that there exists a finite open covering $X=\bigcup_{i=1}^n U_i$ such that the space with functions $\left(U_i, \mathscr{O}_{X \mid U_i}\right)$ is an affine variety for all $i=1, \ldots, n$.
+    \item A morphism of prevarieties is a morphism of spaces with functions.
+\end{enu}
+\end{defn}
+\begin{prop}
+    Let $X \subseteq \mathbb{A}^n(k)$ be any subspace. Then $X$ is noetherian.
+\end{prop}
+\begin{prooff}
+    By Hilbert Basis Theorem, $k[x_1,\dots,x_n]$ is noetherian. Hence $\bb{A}^n(k)$
+    is noetherian.
+\end{prooff}
+\begin{prop}
+    Let $\left(X, \mathscr{O}_X\right)$ be a prevariety. The topological space $X$ is noetherian (in particular quasi-compact) and irreducible.
+\end{prop}
+\begin{prooff}
+    By Algebra\,\ref{proposition: covered by connected open subset}.
+\end{prooff}
+\begin{theo}[principal open subset of affine variety is affine]
+    Let $X$ be an affine variety, $0\neq f \in \Gamma(X)=\mathscr{O}_X(X)$, and let $D(f) \subseteq X$ be the corresponding principal open subset. 
+    Let $\Gamma(X)_f$ be the localization of $\Gamma(X)$ by $f$ and let $\left(Y, \mathscr{O}_Y\right)$ be the affine variety corresponding to this integral finitely generated $k$-algebra. 
+    Then $\left(D(f), \mathscr{O}_{X \mid D(f)}\right)$ and $\left(Y, \mathscr{O}_Y\right)$ are isomorphic spaces with functions. In particular, $\left(D(f), \mathscr{O}_{X \mid D(f)}\right)$ is an affine variety. 
+\end{theo}
+\begin{prooff}
+    Consider $ Y=\left\{\left(x, x_{n+1}\right) \in X \times \mathbb{A}^1(k) ; x_{n+1} f(x)=1\right\}$. We will show that 
+    $$(Y,\mathscr{O}_Y)\simeq \left(D(f), \mathscr{O}_{X}(D(f))\right)$$ as spaces with functions.
+    
+    It's suffice to check the projection $(x,x_{n+1})\mapsto x$ and 
+    $x\mapsto (x, 1/f(x))\in Y$ are morphisms between spaces of functions. 
+    And we only need to check the case when open subsets of $X$ or $Y$ are principal since 
+    we can apply Axiom of Gluing. 
+\end{prooff}
+\begin{coro}[open subspace of prevariety is prevariety]
+    Let $\left(X, \mathscr{O}_X\right)$ be a prevariety and let $U \subseteq X$ be a non-empty open subset. Then $\left(U, \mathscr{O}_{X \mid U}\right)$ is a prevariety and the inclusion $U \rightarrow X$ 
+    is a morphism of prevarieties. Moreover, if $X$ is a prevariety, open affine subsets of $X$
+    form a basis of topology of $X$.
+\end{coro}
+% \begin{defn}[Function spacce of prevariety]
+    
+% \end{defn}
+\begin{defn}[closed subprevarieties]
+    Let $X$ be a prevariety and let $Z \subseteq X$ be an irreducible closed subset. We want to define on $Z$ the structure of a prevariety. For this we have to define functions on open subsets $U$ of $Z$. We define:
+    $$
+    \mathscr{O}_Z^{\prime}(U)=\left\{f \in \operatorname{Map}(U, k) ; \forall x \in U: \exists x \in V \subseteq X \text { open, } g \in \mathscr{O}_X(V): f_{\mid U \cap V}=g_{\mid U \cap V}\right\}
+    $$
+    
+The definition shows that $\left(Z, \mathscr{O}_Z^{\prime}\right)$ is a space with functions and that $\mathscr{O}_X^{\prime}=\mathscr{O}_X$.
+\end{defn}
+\begin{prop}
+Let $X \subseteq \mathbb{A}^n(k)$ be an irreducible affine algebraic set and let $Z \subseteq X$ be an irreducible closed subset. Then the space with functions $\left(Z, \mathscr{O}_Z\right)$ associated to the affine algebraic set $Z$ and the above defined space with functions $\left(Z, \mathscr{O}_Z^{\prime}\right)$ coincide.
+\label{proposition: closed subprevariety of affine variety}
+\end{prop}
+\begin{prooff}
+    By Axiom of Gluing of $\mathscr{O}_Z$, $\mathscr{O}\p_Z(U)\subset \mathscr{O}_Z(U)$ for all $U$ open in $Z$.
+
+    Conversely, let $f \in \mathscr{O}_Z(U)$. For $x \in U$ there exists $h \in \Gamma(Z)$ with $x \in D(h) \subseteq U$. 
+    The restriction $\left.f\right|_{D(h)}\in \mathscr{O}_Z(D(h))=\Gamma(Z)_h$ has the form $f=\dfrac{g}{h^n}, n \geq 0, g \in \Gamma(Z)$. 
+    We lift $g$ and $h$ to elements in $\tilde{g}, \tilde{h} \in \Gamma(X)$, set $V:=D(\tilde{h}) \subseteq X$, 
+    and obtain $\dfrac{\tilde{g}}{\tilde{h}^n} \in \mathscr{O}_X(D(\tilde{h}))$ and 
+    $$\left.f\right|_{U\cap V}=\left.\frac{\tilde{g}}{\tilde{h}^n}\right|_{U\cap V}$$.
+\end{prooff}
+\begin{prop}
+    Let $X$ be a prevariety and let $Z \subseteq X$ be an irreducible closed subset. Let $\mathscr{O}_Z$ be the system of functions defined above. Then $\left(Z, \mathscr{O}_Z\right)$ is a prevariety. The inclusion $Z \hookrightarrow X$ is a morphism of prevarieties.
+\end{prop}
+\begin{prooff}
+    Since $X$ can be covered by affine open subset, this proposition holds by Proposition\,\ref{proposition: closed subprevariety of affine variety}.
+\end{prooff}
+\section{Projective Case}
+\begin{lem}
+    Let $\mathcal{F}$ be the subset of $K\left(X_0, \ldots, X_n\right)$ that consists of those elements $\frac{f}{g}$, where $f, g \in K\left[X_0, \ldots, X_n\right]$ are homogeneous polynomials of the same degree. It is easy to check that $\mathcal{F}$ is a subfield of $K\left(X_0, \ldots, X_n\right)$ and 
+    $$
+    \Phi_i: \mathcal{F} \xrightarrow{\sim} K\left(T_0, \ldots, \widehat{T}_i, \ldots, T_n\right), \quad \frac{f}{g} \mapsto \frac{\Phi_i(f)}{\Phi_i(g)}
+    $$
+    is an isomorphism.
+\end{lem}
+\begin{defn}[projective space]
+    As a set we define for every field $k$ (not necessarily algebraically closed)
+    $$
+    \mathbb{P}^n(k)=\left\{\text { lines through the origin in } k^{n+1}\right\}=\left(k^{n+1} \backslash\{0\}\right) / k^{\times} .
+    $$
+    Here a line through the origin is per definition a 1-dimensional $k$-subspace and we denote by $\left(k^{n+1} \backslash\{0\}\right) / k^{\times}$the set of equivalence classes in $k^{n+1} \backslash\{0\}$ with respect to the equivalence relation
+    $$
+    \left(x_0, \ldots x_n\right) \sim\left(x_0^{\prime}, \ldots, x_n^{\prime}\right) \Leftrightarrow \exists \lambda \in k^{\times}: \forall i: x_i=\lambda x_i^{\prime}
+    $$
+    For $0 \leq i \leq n$ we set
+    $$
+    U_i:=\left\{\left(x_0: \ldots: x_n\right) \in \mathbb{P}^n(k) ; x_i \neq 0\right\} \subset \mathbb{P}^n(k)
+    $$
+    This subset is well-defined and the union of the $U_i$ for $0 \leq i \leq n$ is all of $\mathbb{P}^n(k)$. There are bijections
+$$
+U_i \xrightarrow{\sim} \mathbb{A}^n(k), \quad\left(x_0: \ldots: x_n\right) \mapsto\left(\frac{x_0}{x_i}, \ldots, \frac{\widehat{x_i}}{x_i}, \ldots \frac{x_n}{x_i}\right)
+$$
+Via this bijection we will endow $U_i$ with the structure of a space with functions, isomorphic to $\left(\mathbb{A}^n(k), \mathscr{O}_{\mathbb{A}^n(k)}\right)$, which we denote by $\left(U_i, \mathscr{O}_{U_i}\right)$.
+    
+Topology on $\mathbb{P}^n(k)$: We define the topology on $\mathbb{P}^n(k)$ by calling a subset $U \subseteq \mathbb{P}^n(k)$ open if $U \cap U_i$ is open in $U_i$ for all $i$. This defines a topology on $\mathbb{P}^n(k)$ and with this definition, $\left(U_i\right)_{0 \leq i \leq n}$ is an open covering of $\mathbb{P}^n(k)$. 
+
+$\mathbb{P}^n(k)$ is connected: If $V_1\cup V_2=\mathbb{P}^n(k)$, $V_1\cap V_2=\varnothing$ and $V_1,V_2$ open, we obtain 
+\begin{equation*}
+    (V_1\cap U_i)\cup (V_2\cap U_i)=U_i, i=0,\dots,n.
+\end{equation*} 
+Hence one of them contains $U_i$ for all $i=0,\dots,n$. A contradiction!
+
+Subspace topology on $U_i$ is $U_i$ itself: 
+
+Spaces with functions: We still have to define functions on open subsets $U \subseteq \mathbb{P}^n(k)$. We set
+$$
+\mathscr{O}_{\mathbb{P}^n(k)}(U)=\left\{f \in \operatorname{Map}(U, k) ; \forall i \in\{0, \ldots, n\}: f_{\mid U \cap U_i} \in \mathscr{O}_{U_i}\left(U \cap U_i\right)\right\} .
+$$
+By Corollary\,\ref{Corollary:regular function,space with functions}, we have 
+\begin{align*}
+     \mathscr{O}_{\mathbb{P}^n(k)}(U)=\{f: U \rightarrow k : &\forall x \in U \exists x \in V \subseteq U \text { open and } \\ 
+     &g, h \in k\left[X_0, \ldots, X_n\right] \text{ homogeneous of the same degree}  \\
+     &\text{such that } h(v) \neq 0 \text{ and } f(v)=\frac{g(v)}{h(v)}, \forall v \in V \}.
+\end{align*}
+
+\end{defn}
+\begin{prop}
+    Let $i \in\{0, \ldots, n\}$. The bijection $U_i \xrightarrow{\sim} \mathbb{A}^n(k)$ induces an isomorphism
+    $$
+    \left(U_i, \mathscr{O}_{\mathbb{P}^n(k)} \mid U_i\right) \xrightarrow{\sim} \mathbb{A}^n(k) .
+    $$
+    of spaces with functions. The space with functions $\left(\mathbb{P}^n(k), \mathscr{O}_{\mathbb{P}^n(k)}\right)$ is a prevariety.
+\end{prop}
+\begin{prooff}
+    If $U$ open in $U_i$, it suffice to show $\mathscr{O}_{\mathbb{P}^n(k)}(U)=\mathscr{O}_{U_i}(U)$.
+\end{prooff}
+\begin{prop}
+    The only global functions on $\mathbb{P}^n(k)$ 
+    are the constant functions, i.e., $\mathscr{O}_{\mathbb{P}^n(k)}\left(\mathbb{P}^n(k)\right)=k$. In particular, $\mathbb{P}^n(k)$ is not an affine variety for $n \geq 1$.
+\end{prop}
+\begin{defn}
+    A prevariety is called a projective variety if is isomorphic to a closed 
+    subprevariety of a projective space $\mathbb{P}^n(k)$.
+\end{defn}
+\begin{defn}[affine cone]
+    Affine algebraic sets $X \subseteq \mathbb{A}^{n+1}(k)$ are called affine cones if for all $x \in X$ we have $\lambda x \in X$ for all $\lambda \in k^{\times}$.
+\end{defn}
+\begin{lem}
+    A ideal $I$ in $k[x_0,\dots,x_n]$ generated by homogeneous elements iff for each $g\in I$, its 
+    homogeneous components are in $I$.
+\end{lem}
+\begin{prop}
+    Define for homogeneous polynomials $f_1, \ldots, f_m \in k\left[X_0, \ldots, X_n\right]$ (not necessarily of the same degree) the vanishing set
+    $$
+    V_{+}\left(f_1, \ldots, f_m\right)=\left\{\left(x_0: \ldots: x_n\right) \in \mathbb{P}^n(k) ; \forall j: f_j\left(x_0, \ldots, x_n\right)=0\right\}
+    $$
+    Since 
+    $$
+    V_{+}\left(f_1, \ldots, f_m\right) \cap U_i=V\left(\Phi_i\left(f_1\right), \ldots, \Phi_i\left(f_m\right)\right)
+    $$
+    we have $V_{+}\left(f_1, \ldots, f_m\right)^c\cap U_i$ is open for all $i=0,\dots,n$. Hence 
+    $V_{+}\left(f_1, \ldots, f_m\right)$ is closed.
+\end{prop}
+\begin{prop}
+    Let $X \subseteq \mathbb{A}^{n+1}(k)$ be an affine algebraic set such that $X \neq\{0\}$. $f$ is defined to be   
+    $$
+    f: \mathbb{A}^{n+1}(k)-\{0\} \rightarrow \mathbb{P}^n(k), \quad\left(x_0, \ldots, x_n\right) \mapsto\left(x_0: \cdots: x_n\right)
+    $$
+    which is a morphism of prevarieties. Then the following assertions are equivalent:
+    \begin{enu} 
+    \item $X$ is an affine cone.
+    \item $I(X)$ is generated by homogeneous polynomials.
+    \item There exists a closed subset $Z \subseteq \mathbb{P}^n(k)$ such that $X=\overline{f^{-1}(Z)}$.
+    \end{enu}
+\end{prop}
+\begin{prooff}
+    (3) implies (1): $f^{-1}(Z)=\overline{f^{-1}(Z)}\cap(\mathbb{A}^{n+1}(k)-\bbrace{0})=X\cap (\mathbb{A}^{n+1}(k)-\bbrace{0})$
+    
+    (1) implies (2): To show that $I(X)$ is generated by homogeneous elements, let $g \in I(X)$ and write $g=\sum_d g_d$, where $g_d$ is homogeneous of degree $d$. As $X$ is an affine cone, we have $g(\lambda x)=0$ for all $x=\left(x_0, \ldots, x_n\right) \in X$ and $\lambda \in k^{\times}$. If there existed $g_d \notin I(X)$, we would find $x \in X$ such that $g_d(x) \neq 0$. Then $\sum_d g_d(x) T^d$ is not the zero polynomial and 
+    there exists a $\lambda \in k^{\times}$ with
+    $$
+    0 \neq \sum_d g_d(x) \lambda^d=\sum_d g_d(\lambda x)=g(\lambda x)=0
+    $$
+    Contradiction!
+
+    (2) implies (3): If $I(X)$ generated by $(f_1,\dots,f_m)$, where $f_i$ be homogeneous polynomials with degree $\ge 1$, 
+    then $0\in X=V(f_1,\dots,f_2)$. Hence $X\cap \mathbb{A}^{n+1}(k)-\{0\}=f^{-1}(V_{+}(f_1,\dots,f_2))$. It suffices to show $f^{-1}(V_{+}(f_1,\dots,f_2))$
+    is not closed. Take $0\neq x\in X$, if there's $0\in D(g)$ such that $D(g)\cap f^{-1}(V_{+}(f_1,\dots,f_2))=\varnothing$.
+    Again consider $\lambda\in k^*$, we have 
+    $$
+    0 \neq \sum_d g_d(x) \lambda^d=\sum_d g_d(\lambda x)=g(\lambda x)=0
+    $$
+    A contradiction! Hence $X=\overline{f^{-1}(Z)}$
+\end{prooff}
+\begin{prop}
+    A closed subset in $\bb{P}(k)$ is of the form $V_{+}(f_1,\dots,f_m)$ where $f_i$ are homogeneous polynomial.
+\end{prop}
+\begin{prooff}
+    If $Z$ closed in $\bb{P}(k)$, $\overline{f^{-1}(Z)}=f^{-1}(Z)+0 =V(f_1,\dots,f_n)$. Hence, $Z=V_{+}(f_1,\dots,f_n)$. 
+
+\end{prooff}
+
+
+
+
+\chapter{Theory of Scheme}
+\section{Sheaf Theory}
+\begin{defn}[presheaf]
+    Let $\left(\operatorname{Ouv}_X\right)$ be the category whose objects are the open sets of $X$ and, for two open sets $U, V \subseteq X, \operatorname{Hom}(U, V)$ is empty if $U \nsubseteq V$, and consists of the inclusion map $U \rightarrow V$ if $U \subseteq V$ (composition of morphisms being the composition of the inclusion maps).
+    A presheaf is a contravariant functor $\mathscr{F}$ from the category $\left(\mathrm{Ouv}_X\right)$ to the category of category $\mathcal{C}$(such as the category of abelian groups, the category of rings, the category of $R$-modules, or the category of $R$-algebras)
+\end{defn}
+\begin{defn}
+    Let $\mathscr{F}$ be a presheaf on a topological space $X$, let $U$ be an open set in $X$ and let $\mathscr{U}=\left(U_i\right)_{i \in I}$ be an open covering of $U$. We define maps (depending on $\mathscr{U}$ )
+    $$
+        \begin{gathered}
+            \rho: \mathscr{F}(U) \rightarrow \prod_{i \in I} \mathscr{F}\left(U_i\right), \quad s \mapsto\left(s_{\mid U_i}\right)_i \\
+            \sigma: \prod_{i \in I} \mathscr{F}\left(U_i\right) \rightarrow \prod_{(i, j) \in I \times I} \mathscr{F}\left(U_i \cap U_j\right), \quad\left(s_i\right)_i \mapsto\left(s_{i \mid U_i \cap U_j}\right)_{(i, j)}, \\
+            \sigma^{\prime}: \prod_{i \in I} \mathscr{F}\left(U_i\right) \rightarrow \prod_{(i, j) \in I \times I} \mathscr{F}\left(U_i \cap U_j\right), \quad\left(s_i\right)_i \mapsto\left(s_{j \mid U_i \cap U_j}\right)_{(i, j)} .
+        \end{gathered}
+    $$
+
+    The presheaf $\mathscr{F}$ is called a sheaf, if it satisfies for all $U$ and all coverings $\left(U_i\right)$ as above the following condition:
+
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCIgXFxtYXRoc2Nye0Z9KFUpICJdLFsxLDAsIlxccHJvZFxcbGltaXRzX3tpIFxcaW4gSX0gXFxtYXRoc2Nye0Z9XFxsZWZ0KFVfaVxccmlnaHQpIl0sWzIsMCwiXFxwcm9kXFxsaW1pdHNfeyhpLCBqKSBcXGluIEkgXFx0aW1lcyBJfSBcXG1hdGhzY3J7Rn1cXGxlZnQoVV9pIFxcY2FwIFVfalxccmlnaHQpIl0sWzAsMSwiXFxyaG8iXSxbMSwyLCJcXHNpZ21hIiwwLHsib2Zmc2V0IjotMn1dLFsxLDIsIlxcc2lnbWFee1xccHJpbWV9IiwyLHsib2Zmc2V0IjoxfV1d
+    \[\begin{tikzcd}
+            { \mathscr{F}(U) } & {\prod\limits_{i \in I} \mathscr{F}\left(U_i\right)} & {\prod\limits_{(i, j) \in I \times I} \mathscr{F}\left(U_i \cap U_j\right)}
+            \arrow["\rho", from=1-1, to=1-2]
+            \arrow["\sigma", shift left=2, from=1-2, to=1-3]
+            \arrow["{\sigma^{\prime}}"', shift right, from=1-2, to=1-3]
+        \end{tikzcd}\]
+    is exact. This means that the map $\rho$ is injective and that its image is the set of elements $\left(s_i\right)_{i \in I} \in \prod_{i \in I} \mathscr{F}\left(U_i\right)$ such that $\sigma\left(\left(s_i\right)_i\right)=\sigma^{\prime}\left(\left(s_i\right)_i\right)$.
+
+    In other words, a presheaf $\mathscr{F}$ is a sheaf if and only if for all open sets $U$ in $X$ and every open covering $U=\bigcup_i U_i$ the following two conditions hold:
+    \begin{enu}
+        \item (Sh1) Let $s, s^{\prime} \in \mathscr{F}(U)$ with $s_{\mid U_i}=s^{\prime}{ }_{\mid U_i}$ for all $i$. Then $s=s^{\prime}$.
+        \item (Sh2) Given $s_i \in \mathscr{F}\left(U_i\right)$ for all $i$ such that $s_{i \mid U_i \cap U_j}=s_{j \mid U_i \cap U_j}$ for all $i, j$. Then there exists an $s \in \mathscr{F}(U)$ such that $s_{\mid U_i}=s_i$ (note that $s$ is unique by (Sh1)).
+    \end{enu}
+    \begin{defn}[restriction of sheaf]
+        If $\mathscr{F}$ is a presheaf on a topological space $X$ and $U$ is an open subspace of $X$,
+        we obtain a presheaf $\mathscr{F}\mid_U$ on $U$ by setting $\mathscr{F}\mid_U(V)=\mathscr{F}(V)$ for every open subset $V$ in $U$.
+        If $\mathscr{F}$ is a sheaf, $\mathscr{F}\mid_U$ is a sheaf on $U$. We call $\mathscr{F} \mid_U$ the restriction of $\mathscr{F}$ to $U$.
+    \end{defn}
+\end{defn}
+\begin{defn}
+    The inductive limit
+    $$
+        \mathscr{F}_x:=\underset{\overrightarrow{U \ni x}}{\lim } \mathscr{F}(U)
+    $$
+    is called the stalk of $\mathscr{F}$ in $x$.
+    In other words, $\mathscr{F}_x$ is the set of equivalence classes of pairs $(U, s)$, where $U$ is an open neighborhood of $x$ and $s \in \mathscr{F}(U)$. Here two such pairs $\left(U_1, s_1\right)$ and $\left(U_2, s_2\right)$ are equivalent, if there exists an open neighborhood $V$ of $x$ with $V \subseteq U_1 \cap U_2$ such that $s_{1 \mid V}=s_{2 \mid V}$.
+    For each open neighborhood $U$ of $x$ we have a canonical map
+    $$
+        \mathscr{F}(U) \rightarrow \mathscr{F}_x, \quad s \mapsto s_x
+    $$
+    which sends $s \in \mathscr{F}(U)$ to the class of $(U, s)$ in $\mathscr{F}_x$. We call $s_x$ the germ of $s$ in $x$.
+    If $\varphi: \mathscr{F} \rightarrow \mathscr{G}$ is a morphism of presheaves on $X$, we have an induced map
+    $$
+        \mathscr{F}_x\rightarrow \mathscr{G}_x
+    $$
+    of the stalks in $x$ by Proposition~\ref{proposition:morphism induced by direct system}. We obtain a functor $\mathscr{F} \mapsto \mathscr{F}_x$ from the category of presheaves on $X$ to the category of sets.
+
+    If $\mathscr{F}$ is a presheaf with values in $\mathcal{C}$, where $\mathcal{C}$ is the category of abelian groups, of rings, or any category in which filtered inductive limits exist, then the stalk $\mathscr{F}_x$ is an object in $\mathcal{C}$ and we obtain a functor $\mathscr{F} \mapsto \mathscr{F}_x$ from the category of presheaves on $X$ with values in $\mathcal{C}$ to the category $\mathcal{C}$.
+\end{defn}
+\begin{prop}
+    Let $X$ be a topological space, $\mathscr{F}$ and $\mathscr{G}$ presheaves on $X$, and let $\varphi, \psi: \mathscr{F} \rightarrow \mathscr{G}$ be two morphisms of presheaves.
+    \begin{enu}
+        \item Assume that $\mathscr{F}$ is a sheaf. Then the induced maps on stalks $\varphi_x: \mathscr{F}_x \rightarrow \mathscr{G}_x$ are injective for all $x \in X$ if and only if $\varphi_U: \mathscr{F}(U) \rightarrow \mathscr{G}(U)$ is injective for all open subsets $U \subseteq X$.
+        \item If $\mathscr{F}$ and $\mathscr{G}$ are both sheaves, the maps $\varphi_x$ are bijective for all $x \in X$ if and only if $\varphi_U$ is bijective for all open subsets $U \subseteq X$.
+        \item If $\mathscr{F}$ and $\mathscr{G}$ are both sheaves, the morphisms $\varphi$ and $\psi$ are equal if and only if $\varphi_x=\psi_x$ for all $x \in X$.
+    \end{enu}
+    \label{proposition:characterizations of morphism between sheaves}
+\end{prop}
+\begin{prooff}
+    For $U \subseteq X$ open consider the map
+    $$
+        \mathscr{F}(U) \rightarrow \prod_{x \in U} \mathscr{F}_x, \quad s \mapsto\left(s_x\right)_{x \in U}
+    $$
+
+    We claim that this map is injective if $\mathscr{F}$ is a sheaf. Indeed let $s, t \in \mathscr{F}(U)$ such that $s_x=t_x$ for all $x \in U$. Then for all $x \in U$ there exists an open neighborhood $V_x \subseteq U$ of $x$ such that $s_{\mid V_x}=t_{\mid V_x}$. Clearly, $U=\bigcup_{x \in U} V_x$ and therefore $s=t$ by sheaf condition (Sh1).
+    Using the commutative diagram
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXG1hdGhzY3J7Rn0oVSkiXSxbMSwwLCJcXHByb2RcXG1hdGhzY3J7Rn1feCJdLFsxLDEsIlxccHJvZFxcbWF0aHNjcntHfV94Il0sWzAsMSwiXFxtYXRoc2Nye0d9KFUpIl0sWzAsMV0sWzEsMiwiXFxwcm9kXFx2YXJwaGlfeCJdLFswLDMsIlxcdmFycGhpX1UiXSxbMywyXV0=
+    \[\begin{tikzcd}
+            {\mathscr{F}(U)} & {\prod\mathscr{F}_x} \\
+            {\mathscr{G}(U)} & {\prod\mathscr{G}_x}
+            \arrow[from=1-1, to=1-2]
+            \arrow["{\prod\varphi_x}", from=1-2, to=2-2]
+            \arrow["{\varphi_U}", from=1-1, to=2-1]
+            \arrow[from=2-1, to=2-2]
+        \end{tikzcd}\]
+    and Proposition~\ref{proposition:exact sequnce induced by direct system}, (1) and (3) hold.
+
+    (2): By proposition~\ref{proposition:exact sequnce induced by direct system},  it suffice to show the bijectivity of $\varphi_x$ for all $x \in U$ implies the surjectivity of $\varphi_U$. Let $t \in \mathscr{G}(U)$. For all $x \in U$ we choose an open neighborhood $U^x$ of $x$ in $U$ and $s^x \in \mathscr{F}\left(U^x\right)$ such that $\left(\varphi_{U^x}\left(s^x\right)\right)_x=t_x$. Then there exists an open neighborhood $V^x \subseteq U^x$ of $x$ with $\varphi_{V^x}\left(s^x{ }_{\mid V^x}\right)=t_{\mid V^x}$. Then $\left(V^x\right)_{x \in U}$ is an open covering of $U$ and for $x, y \in U$
+    $$
+        \varphi_{V^x \cap V^y}\left(s^x{ }_{\mid V^x \cap V^y}\right)=t_{\mid V^x \cap V^y}=\varphi_{V^x \cap V^y}\left(s^y \mid V^x \cap V^y\right) .
+    $$
+
+    As we already know that $\varphi_{V^x \cap V^y}$ is injective, this shows $s^x\left|V^x \cap V^y=s^y\right| V^x \cap V^y$ and the sheaf condition (Sh2) ensures that we find $s \in \mathscr{F}(U)$ such that $s_{\mid V^x}=s^x{ }_{\mid V^x}$ for all $x \in U$. Clearly, we have $\varphi_U(s)_x=t_x$ for all $x \in U$ and hence $\varphi_U(s)=t$.
+\end{prooff}
+\begin{defn}
+    A morphism $\varphi: \mathscr{F} \rightarrow \mathscr{G}$ of sheaves injective (resp. surjective, resp. bijective) if $\varphi_x: \mathscr{F}_x \rightarrow \mathscr{G}_x$ is injective (resp. surjective, resp. bijective) for all $x \in X$.
+\end{defn}
+\begin{rema}
+    If $\varphi: \mathscr{F} \rightarrow \mathscr{G}$ is a morphism of sheaves, $\varphi$ is surjective if and only if for all open subsets $U \subseteq X$ and every $t \in \mathscr{G}(U)$ there exist an open covering $U=\bigcup_i U_i$ (depending on $t$ ) and sections $s_i \in \mathscr{F}\left(U_i\right)$ such that $\varphi_{U_i}\left(s_i\right)=t_{\mid U_i}$, i.e., locally we can find a preimage of $t$. But the surjectivity of $\varphi$ does not imply that $\varphi_U: \mathscr{F}(U) \rightarrow \mathscr{G}(U)$ is surjective for all open sets $U$ of $X$
+\end{rema}
+\begin{defn}
+    If $\mathscr{F}, \mathscr{G}$ are (pre-)sheaves on $X$ such that $\mathscr{F}(U) \subseteq \mathscr{G}(U)$ for all $U \subseteq X$ open, and such that the following diagram commute
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXG1hdGhzY3J7Rn0oVSkiXSxbMSwwLCJcXG1hdGhzY3J7R30oVSkiXSxbMCwxLCJcXG1hdGhzY3J7Rn0oVikiXSxbMSwxLCJcXG1hdGhzY3J7R30oVikiXSxbMCwxLCJcXHN1YnNldCJdLFsyLDAsIlxcdGV4dHtyZXN9X1VeViJdLFsyLDMsIlxcc3Vic2V0IiwyXSxbMywxLCJcXHRleHR7cmVzfV9VXlYiLDJdXQ==
+    \[\begin{tikzcd}
+            {\mathscr{F}(U)} & {\mathscr{G}(U)} \\
+            {\mathscr{F}(V)} & {\mathscr{G}(V)}
+            \arrow["\subset", from=1-1, to=1-2]
+            \arrow["{\text{res}_U^V}", from=2-1, to=1-1]
+            \arrow["\subset"', from=2-1, to=2-2]
+            \arrow["{\text{res}_U^V}"', from=2-2, to=1-2]
+        \end{tikzcd}\]
+    we call $\mathscr{F}$ sub(pre-)sheaf of $\mathscr{G}$.
+\end{defn}
+\begin{defn}[sheafification]
+    Let $\mathscr{F}$ be a presheaf on a topological space $X$. Then there exists a $\operatorname{pair}\left(\tilde{\mathscr{F}}, \iota_{\mathscr{F}}\right)$, where $\tilde{\mathscr{F}}$ is a sheaf on $X$ and $\iota_{\mathscr{F}}: \mathscr{F} \rightarrow \tilde{\mathscr{F}}$ is a morphism of presheaves, such that the following holds: If $\mathscr{G}$ is a sheaf on $X$
+    and $\varphi: \mathscr{F} \rightarrow \mathscr{G}$ is a morphism of presheaves, then there exists a unique morphism of sheaves $\tilde{\varphi}: \tilde{\mathscr{F}} \rightarrow \mathscr{G}$ with $\tilde{\varphi} \circ \iota_\mathscr{F}=\varphi$.
+    And the following properties hold:
+    \begin{enu}
+        \item For all $x \in X$ the map on stalks $\iota_{\mathscr{F}, x}: \mathscr{F}_x \rightarrow \tilde{\mathscr{F}}_x$ is bijective.
+        \item For every presheaf $\mathscr{G}$ on $X$ and every morphism of presheaves $\varphi: \mathscr{F} \rightarrow \mathscr{G}$ there exists a unique morphism $\tilde{\varphi}: \tilde{\mathscr{F}}\rightarrow \tilde{\mathscr{G}}$ making the diagram
+        % https://q.uiver.app/#q=WzAsNCxbMCwwLCIgXFxtYXRoc2Nye0Z9Il0sWzEsMCwiXFx0aWxkZXtcXG1hdGhzY3J7Rn19Il0sWzAsMSwiIFxcbWF0aHNjcntHfSJdLFsxLDEsIlxcdGlsZGV7XFxtYXRoc2Nye0d9fSJdLFswLDEsIlxcaW90YV97XFxtYXRoc2Nye0Z9fSJdLFswLDIsIlxcdmFycGhpIiwyXSxbMiwzLCJcXGlvdGFfe1xcbWF0aHNjcntHfX0iLDJdLFsxLDMsIlxcdGlsZGV7XFx2YXJwaGl9Il1d
+        \[\begin{tikzcd}
+                { \mathscr{F}} & {\tilde{\mathscr{F}}} \\
+                { \mathscr{G}} & {\tilde{\mathscr{G}}}
+                \arrow["{\iota_{\mathscr{F}}}", from=1-1, to=1-2]
+                \arrow["\varphi"', from=1-1, to=2-1]
+                \arrow["{\iota_{\mathscr{G}}}"', from=2-1, to=2-2]
+                \arrow["{\tilde{\varphi}}", from=1-2, to=2-2]
+            \end{tikzcd}\]
+        commutative.
+        \item $\varphi$ is injective(surjective, bijective) if and only if $\tilde{\varphi}$ is injective(surjective, bijective).
+    \end{enu}
+    In particular, $\mathscr{F} \mapsto \tilde{\mathscr{F}}$ is a functor from the category of presheaves on $X$ to the category of sheaves on $X$.
+    \label{proposition:sheafification}
+\end{defn}
+\begin{prooff}
+    For $U \subseteq X$ open, elements of $\tilde{\mathscr{F}}(U)$ are by definition families of elements in the stalks of $\mathscr{F}$ which locally give rise to sections of $\mathscr{F}$. More precisely, we define
+    \begin{align*}
+        \tilde{\mathscr{F}}(U):=\left\{\left(s_x\right) \in \prod_{x \in U} \mathscr{F}_x : \forall x \in U, \exists  \text { an open neighborhood } W \subseteq U \text { of } x,\right. \\
+        \text { and } \left.t \in \mathscr{F}(W) \text{ s.t. } \forall w \in W: s_w=t_w\right\} .
+    \end{align*}
+    For $U \subseteq V$ the restriction map $\tilde{\mathscr{F}}(V) \rightarrow \tilde{\mathscr{F}}(U)$ is induced by the natural projection $\prod_{x \in V} \mathscr{F}_x \rightarrow \prod_{x \in U} \mathscr{F}_x$. Then it is easy to check that $\tilde{\mathscr{F}}$ is a sheaf.
+
+    For $U \subseteq X$ open, we define $\iota_{\mathscr{F}, U}: \mathscr{F}(U) \rightarrow \tilde{\mathscr{F}}(U)$ by $s \mapsto\left(s_x\right)_{x \in U}$. The definition of $\tilde{\mathscr{F}}$ shows that $\iota_{\mathscr{F}, x}: \mathscr{F}_x \rightarrow \tilde{\mathscr{F}}_x$ is bijective.
+
+    Now let $\mathscr{G}$ be a presheaf on $X$ and let $\varphi: \mathscr{F} \rightarrow \mathscr{G}$ be a morphism. Sending $\left(s_x\right)_x \in \tilde{\mathscr{F}}(U)$ to $\left(\varphi_x\left(s_x\right)\right)_x \in \tilde{\mathscr{G}}(U)$ defines a morphism $\tilde{\mathscr{F}} \rightarrow \tilde{\mathscr{G}}$. By Proposition~\ref{proposition:characterizations of morphism between sheaves}, this is the unique morphism making the diagram commutative.
+
+    If we assume in addition that $\mathscr{G}$ is a sheaf, then the morphism of sheaves $\iota_{\mathscr{G}}: \mathscr{G} \rightarrow \tilde{\mathscr{G}}$, which is bijective on stalks, is an isomorphism by Proposition~\ref{proposition:characterizations of morphism between sheaves}(3). Composing the morphism $\tilde{\mathscr{F}} \rightarrow \tilde{\mathscr{G}}$ with $\iota_{\mathscr{G}}^{-1}$, we obtain the morphism $\tilde{\varphi}: \tilde{\mathscr{F}} \rightarrow \mathscr{G}$. Finally, the uniqueness of $\left(\tilde{\mathscr{F}}, \iota_{\mathscr{F}}\right)$ is a formal consequence.
+\end{prooff}
+
+
+
+
+\begin{defn}[direct image]
+    Let $f: X \rightarrow Y$ be a continuous map of topological spaces. Let $\mathscr{F}$ be a presheaf on $X$. We define a presheaf $f_* \mathscr{F}$ on $Y$ by
+    $$
+        \left(f_* \mathscr{F}\right)(V)=\mathscr{F}\left(f^{-1}(V)\right)
+    $$
+    the restriction maps given by the restriction maps for $\mathscr{F}$. We call $f_* \mathscr{F}$ the direct image of $\mathscr{F}$ under $f$. Whenever $\varphi: \mathscr{F}_1 \rightarrow \mathscr{F}_2$ is a morphism of presheaves, the family of maps $f_*(\varphi)_V:=\varphi_{f^{-1}(V)}$ for $V \subseteq Y$ open is a morphism $f_*(\varphi): f_* \mathscr{F}_1 \rightarrow f_* \mathscr{F}_2$. Therefore $f_*$ is a functor from the category of presheaves on $X$ to the category of presheaves on $Y$.
+\end{defn}
+\begin{prop}
+    \begin{enu}
+        \item If $\mathscr{F}$ is a sheaf on $X, f_* \mathscr{F}$ is a sheaf on $Y$. Therefore $f_*$ also defines a functor $f_*:(\operatorname{Sh}(X)) \rightarrow(\operatorname{Sh}(Y))$.
+        \item If $g: Y \rightarrow Z$ is a second continuous map, there exists an identity $g_*\left(f_* \mathscr{F}\right)=(g \circ f)_* \mathscr{F}$ which is functorial in $\mathscr{F}$.
+    \end{enu}
+\end{prop}
+\begin{defn}[inverse image]
+    Let $f: X \rightarrow Y$ be a continuous map and let $\mathscr{G}$ be a presheaf on $Y$. Define a presheaf on $X$ by
+    $$
+        U \mapsto \varinjlim_{V \supseteq f(U)} \mathscr{G}(V),
+    $$
+    the restriction maps being induced by the restriction maps of $\mathscr{G}$ and the universal property of direct limit:
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXHZhcmluamxpbV97ViBcXHN1cHNldGVxIGYoVSl9IFxcbWF0aHNjcntHfShWKSJdLFsxLDEsIlxcbWF0aHNjcntHfShWXzEpIl0sWzEsMiwiXFxtYXRoc2Nye0d9KFZfMikiXSxbMiwwLCJcXHZhcmluamxpbV97ViBcXHN1cHNldGVxIGYoVyl9IFxcbWF0aHNjcntHfShWKSJdLFsxLDBdLFsxLDJdLFsyLDBdLFsxLDNdLFsyLDNdLFswLDMsIlxcdGV4dHtyZXN9XntVfV97V30iLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+    \[\begin{tikzcd}
+            {\varinjlim_{V \supseteq f(U)} \mathscr{G}(V)} && {\varinjlim_{V \supseteq f(W)} \mathscr{G}(V)} \\
+            & {\mathscr{G}(V_1)} \\
+            & {\mathscr{G}(V_2)}
+            \arrow[from=2-2, to=1-1]
+            \arrow[from=2-2, to=3-2]
+            \arrow[from=3-2, to=1-1]
+            \arrow[from=2-2, to=1-3]
+            \arrow[from=3-2, to=1-3]
+            \arrow["{\text{res}^{U}_{W}}"', dashed, from=1-1, to=1-3]
+        \end{tikzcd}\]
+    We denote this presheaf by $f^{+} \mathscr{G}$. Let $f^{-1} \mathscr{G}$ be the sheafification of $f^{+} \mathscr{G}$. We call $f^{-1} \mathscr{G}$ the inverse image of $\mathscr{G}$ under $f$.
+\end{defn}
+% \begin{prop}
+%     If $X$ is an open subspace of $Y$, and $f:X\rightarrow Y$ is the inclusion map, $\mathscr{G}$ is a sheaf on $Y$, then $f^{-1}\mathscr{G}\simeq \mathscr{G}|_X$.
+% \end{prop}
+\begin{prop}
+    $f^{-1}$ is a functor from categroy of presheaf on $Y$ to categroy of sheaf on $X$.
+\end{prop}
+\begin{prooff}
+    If $\varphi:\mathscr{G}_1\rightarrow \mathscr{G}_2$ is a morphism of presheaf on $Y$, then $f^{-1}\varphi: f^{-1}\mathscr{G}_1\rightarrow  f^{-1}\mathscr{G}_1$ is induced by universal property of direct limit and Proposition~\ref{proposition:sheafification}.
+\end{prooff}
+\begin{prop}[stalks of inverse image]
+    Notice that
+    $$
+        \left(f^{-1} \mathscr{G}\right)_x \cong\left(f^{+} \mathscr{G}\right)_x=\varinjlim_{x \in U}\left(f^{+}\mathscr{G}\right)(U)
+    $$
+    Since $f$ is continous,
+    $$
+        \varinjlim_{x\in U}\varinjlim_{f(U)\subset V}\mathscr{G}(V)  \cong \varinjlim_{f(x)\in V}\mathscr{G}(V)
+    $$
+    \label{stalks of direct image}
+\end{prop}
+\begin{prop}
+    Now let $g: Y \rightarrow Z$ be a second continuous map and let $\mathscr{H}$ be a presheaf on $Z$. Fix an open subset $U$ in $X$. An open subset $W \subseteq Z$ contains $g(f(U))$ if and only if it contains a subset of the form $g(V)$, where $V \subseteq Y$ is an open set containing $f(U)$.This implies that $f^{+}\left(g^{+} \mathscr{H}\right)\cong (g \circ f)^{+} \mathscr{H}$.
+    Furthermore, Proposition~\ref{proposition:sheafification} and Proposition~\ref{stalks of direct image} implies that the natural morphism $f^{-1}\left(g^{+} \mathscr{H}\right) \rightarrow f^{-1}\left(g^{-1} \mathscr{H}\right)$ induces isomorphisms on all stalks. Hence
+    $$
+        f^{-1}\left(g^{-1} \mathscr{H}\right) \cong(g \circ f)^{-1} \mathscr{H},
+    $$
+\end{prop}
+\begin{theo}[adjoint pair $(f^{-1},f_*)$]
+    Let $f: X \rightarrow Y$ be a continuous map, let $\mathscr{F}$ be a sheaf on $X$ and let $\mathscr{G}$ be a presheaf on $Y$. Then there is a bijection
+    $$
+        \begin{aligned}
+            \operatorname{Hom}_{(\operatorname{Sh}(X))}\left(f^{-1} \mathscr{G}, \mathscr{F}\right) & \leftrightarrow \operatorname{Hom}_{(\operatorname{PreSh}(Y))}\left(\mathscr{G}, f_* \mathscr{F}\right), \\
+            \varphi                                                                                 & \rightarrow \varphi^b,                                                                                       \\
+            \psi^{\sharp}                                                                           & \leftarrow \psi
+        \end{aligned}
+    $$
+    and $(f^{-1},f_*)$ is an adjoint pair between $\operatorname{PreSh}(Y)$ and $\operatorname{Sh}(X)$.
+
+    \label{theorem:f-1,f_* is an adjoint pair}
+\end{theo}
+% \begin{prooff}
+%     Let $\varphi: f^{-1} \mathscr{G} \rightarrow \mathscr{F}$ be a morphism of sheaves on $X$, and let $V \subseteq Y$ be open. Since $f\left(f^{-1}(V)\right) \subseteq V$, we have a map $\mathscr{G}(V) \rightarrow f^{+} \mathscr{G}\left(f^{-1}(V)\right)$, and we define $\varphi_V^b$ as the composition
+%     $$
+%         \mathscr{G}(V) \rightarrow f^{+} \mathscr{G}\left(f^{-1}(V)\right) \longrightarrow f^{-1} \mathscr{G}\left(f^{-1}(V)\right) \xrightarrow{\varphi_{f^{-1}(V)}} \mathscr{F}\left(f^{-1}(V)\right)=f_* \mathscr{F}(V) .
+%     $$
+
+%     Conversely, let $\psi: \mathscr{G} \rightarrow f_* \mathscr{F}$ be a morphism of presheaves on $Y$. To define the morphism $\psi^{\sharp}$ it suffices to define a morphism of presheaves $f^{+} \mathscr{G} \rightarrow \mathscr{F}$, which we call again $\psi^{\sharp}$. Let $U$ be open in $X$, and $s \in f^{+} \mathscr{G}(U)$. If $V$ is some open neighborhood of $f(U), U$ is contained in $f^{-1}(V)$. Let $V$ be such a neighborhood such that there exists $s_V \in \mathscr{G}(V)$ representing $s$. Then $\psi_V\left(s_V\right) \in f_* \mathscr{F}(V)=\mathscr{F}\left(f^{-1}(V)\right)$. Let $\psi_U^{\sharp}(s) \in \mathscr{F}(U)$ be the restriction of the section $\psi_V\left(s_V\right)$ to $U$.
+% \end{prooff}
+\begin{prop}
+    Let $f: X \rightarrow Y$ be a continuous map, let $\mathscr{F}$ be a sheaf on $X$ and let $\mathscr{G}$ be a presheaf on $Y$, and a morphism of presheaves $\psi: \mathscr{G} \rightarrow f_* \mathscr{F}$. Then for each $x \in X$, the map
+    $$
+        \psi_x^{\sharp}: \mathscr{G}_{f(x)} \cong \left(f^{-1} \mathscr{G}\right)_x \longrightarrow \mathscr{F}_x
+    $$
+    induced by $\psi^{\sharp}: f^{-1} \mathscr{G} \rightarrow \mathscr{F}$ on stalks can be described in terms of $\psi$ as follows:
+    For every open neighborhood $V \subseteq Y$ of $f(x)$, we have maps
+    $$
+        \mathscr{G}(V) \xrightarrow{\psi_V} \mathscr{F}\left(f^{-1}(V)\right) \longrightarrow \mathscr{F}_x,
+    $$
+    and taking the inductive limit over all $V$ we obtain the map $\psi_x^{\sharp}: \mathscr{G}_{f(x)} \rightarrow \mathscr{F}_x$.
+\end{prop}
+\section{Ringed Space} 
+\begin{defn}
+    A ringed space is a pair $\left(X, \mathscr{O}_X\right)$, where $X$ is a topological space and where $\mathscr{O}_X$ is a sheaf of (commutative) rings on $X$.
+
+    If $\left(X, \mathscr{O}_X\right)$ and $\left(Y, \mathscr{O}_Y\right)$ are ringed spaces, we define a morphism of ringed spaces $\left(X, \mathscr{O}_X\right) \rightarrow\left(Y, \mathscr{O}_Y\right)$ as a pair $\left(f, f^b\right)$, where $f: X \rightarrow Y$ is a continuous map and where $f^b: \mathscr{O}_Y \rightarrow f_* \mathscr{O}_X$ is a homomorphism of sheaves of rings on $Y$.
+
+\end{defn}
+\begin{defn}
+    If $A$ is a local ring, we denote by $\mathfrak{m}_A$ its maximal ideal and by $\kappa(A)=A / \mathfrak{m}_A$ its residue field. A homomorphism of local rings $\varphi: A \rightarrow B$ is called local, if $\varphi\left(\mathfrak{m}_A\right) \subseteq \mathfrak{m}_B$
+    A morphism $\left(f, f^b\right): X \rightarrow Y$ of ringed spaces induces morphisms on the stalks as follows. Let $x \in X$. 
+    Let $f^{\sharp}: f^{-1} \mathscr{O}_Y \rightarrow \mathscr{O}_X$ be the morphism corresponding to $f^b$ by adjointness. Using the identification $\left(f^{-1} \mathscr{O}_Y\right)_x=\mathscr{O}_{Y, f(x)}$, we get
+    $$
+    f_x^{\sharp}: \mathscr{O}_{Y, f(x)} \rightarrow \mathscr{O}_{X, x}
+    $$
+    A locally ringed space is a ringed space $\left(X, \mathscr{O}_X\right)$ such that for all $x \in X$ the stalk $\mathscr{O}_{X, x}$ is a local ring.
+    
+    A morphism of locally ringed spaces $\left(X, \mathscr{O}_X\right) \rightarrow\left(Y, \mathscr{O}_Y\right)$ is a morphism of ringed spaces $\left(f, f^b\right)$ such that for all $x \in X$ the induced homomorphism on stalks
+    
+    $$
+    f_x^{\sharp}:\left(f^{-1} \mathscr{O}_Y\right)_x=\mathscr{O}_{Y, f(x)} \rightarrow \mathscr{O}_{X, x}
+    $$
+    is a local ring homomorphism.
+\end{defn}
+\begin{defn}
+    Let $\left(X, \mathscr{O}_X\right)$ be a locally ringed space and $x \in X$. We call the stalk $\mathscr{O}_{X, x}$ the local ring of $X$ in $x$, denote by $\mathfrak{m}_x$ the maximal ideal of $\mathscr{O}_{X, x}$, and by $\kappa(x)=\mathscr{O}_{X, x} / \mathfrak{m}_x$ the residue field. If $U$ is an open neighborhood of $x$ and $f \in \mathscr{O}_X(U)$, we denote by $f(x) \in \kappa(x)$ the image of $f$ under the canonical homomorphisms $\mathscr{O}_X(U) \rightarrow \mathscr{O}_{X, x} \rightarrow \kappa(x)$.
+\end{defn}
+
+
+
+\end{document}

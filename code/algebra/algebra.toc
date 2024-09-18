@@ -1,0 +1,28 @@
+\contentsline {chapter}{\numberline {1}Abstract Algebra}{5}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Linear Algebra}{5}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Group Theory}{7}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Field Theory}{12}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Basic Concept}{12}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Separable}{14}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Normal}{17}{subsection.1.3.3}%
+\contentsline {subsection}{\numberline {1.3.4}Galios}{18}{subsection.1.3.4}%
+\contentsline {chapter}{\numberline {2}Commutative Algebra}{21}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Basic Definition in Ring Thoery}{21}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Basic Definition in Module}{25}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Specturm}{36}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Chain conditions}{40}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Localization}{42}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Intergral Extension and Dedekind Domain}{48}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Flatness}{51}{section.2.7}%
+\contentsline {section}{\numberline {2.8}Dimension Theory and Hilbert's Nullstellensatz}{52}{section.2.8}%
+\contentsline {section}{\numberline {2.9}Completion}{57}{section.2.9}%
+\contentsline {chapter}{\numberline {3}Homological Algerba}{59}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Basic Definition in Category}{59}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Abelian Category}{66}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Derived Functor}{70}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Ext and Tor}{73}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Group Cohomology}{75}{section.3.5}%
+\contentsline {chapter}{\numberline {4}Representation Theory}{81}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Definition}{81}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Character}{87}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Induced representation}{90}{section.4.3}%
