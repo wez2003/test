@@ -1,0 +1,399 @@
+\documentclass[a4paper,12pt]{article}
+%宏包
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{geometry}
+\usepackage{natbib}%bibtex
+\usepackage[dvipsnames]{xcolor}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{caption}
+\usepackage[colorlinks,linkcolor=cyan!40!black]{hyperref}
+\usepackage{enumerate}
+
+%页面设置
+\linespread{1.1}
+\geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2cm}
+
+%环境和宏指令
+\newenvironment{prooff}{{\noindent\it\textcolor{cyan!40!black}{Proof}:}\quad}{\par}
+\newcommand{\bbrace}[1]{\left\{ #1 \right\} }
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\p}{^{\prime}}
+\renewcommand{\mod}[1]{(\text{mod}\,#1)}
+%ctrl+点击文本返回代码  选中代码 ctrl+alt+j 为代码查找文本
+
+
+%定理环境
+\newtheorem{defn}{Definition}
+\newtheorem{coro}[defn]{Corollary}
+\newtheorem{theo}[defn]{Theorem}
+\newtheorem{exer}[defn]{Exercise}
+\newtheorem{rema}[defn]{Remark}
+\newtheorem{lem}[defn]{Lemma}
+\newtheorem{prop}[defn]{Proposition}
+\newtheorem{ques}{Question}
+
+\begin{document}
+\begin{ques}
+    assume $n\ge 2$ is positive integer,conside $n\times n$ matrix $X=(a_{ij}),a_{ij}\in \bbrace{0,1}$
+    \begin{enumerate}
+        \item there exists $X$ such that $\det X=n-1$
+        \item $2\le n \le 4$,then $\det  X\le n-1$
+        \item $n\ge 2023$,there exists $X$ such that $\det X>n^{\frac{n}{4}}$
+    \end{enumerate}
+
+\end{ques}
+\begin{prooff}
+    (1)
+    \begin{lem}
+        let \begin{equation*}
+            A_n=\begin{bmatrix}
+                x      & y     & y & \dots  & y      \\
+                z      & x     & y &        & \vdots \\
+                z      & z     & x &        &        \\
+                \vdots &       &   & \ddots & y      \\
+                z      & \dots &   & z      & x
+            \end{bmatrix}
+        \end{equation*}
+        then
+        \begin{equation*}
+            D_n=\det A_n=\begin{cases}
+                \dfrac{(x-z)^ny-(x-y)^nz}{y-z} \quad & \text{如果\,} y\neq z \\
+                (x+(n-1)y)(x-y)^{n-1} \quad          & \text{如果\,} y= z
+            \end{cases}
+        \end{equation*}
+    \end{lem}
+    By above lemma,take $x=0,y=z=1$, we have $D_n=(n-1)(-1)^{n-1}$,and we can exchange the row of $A_n$ to make its determinant to be positive.Hence there's a matrix X whose elements in $\bbrace{0,1}$ such that $\det X=n-1$.
+
+    Proof of the lemma:We only need to deal with the second case.Notice that
+    \begin{align*}
+          & \begin{vmatrix}
+            x      & y     & y & \dots  & y      \\
+            y      & x     & y &        & \vdots \\
+            y      & y     & x &        &        \\
+            \vdots &       &   & \ddots & y      \\
+            y      & \dots &   & y      & x
+        \end{vmatrix}  =(x+(n-1)y)\begin{vmatrix}
+            1      & y     & y & \dots  & y      \\
+            1      & x     & y &        & \vdots \\
+            1      & y     & x &        &        \\
+            \vdots &       &   & \ddots & y      \\
+            1      & \dots &   & y      & x
+        \end{vmatrix} \\
+        = & (x+(n-1)y)\begin{vmatrix}
+            1      & 0     & 0   & \dots  & 0      \\
+            1      & x-y   & 0   &        & \vdots \\
+            1      & 0     & x-y &        &        \\
+            \vdots &       &     & \ddots & 0      \\
+            1      & \dots &     & 0      & x-y
+        \end{vmatrix}
+        =(x+(n-1)y)(x-y)^{n-1}
+    \end{align*}
+
+    (2)
+    let $f(n)$ be the maximal determinant of $X$,it suffices to show $f(2)=1,f(3)=2,f(4)=3$.
+    %let $g(n)$ be the maximal determinant of matrix of order n whose elements $\in \bbrace{-1,1}$
+    % \begin{lem}[\cite{10.2307/2034278},Theorem 2]
+    %         \begin{equation*}
+    %             g(n)=2^{n-1}f(n-1)
+    %         \end{equation*}
+    %     \end{lem}
+    % \end{prooff}
+    let $\begin{bmatrix}
+            a & b \\
+            c & d \\
+        \end{bmatrix}$ be the $2\times 2$ matrix who reaches to the maximal determinant.
+    $f(2)=\begin{vmatrix}
+            a & b \\
+            c & d \\
+        \end{vmatrix}=ac-bd\le 1-0=1$. In (1) we have proved that $f(n)\ge n-1$.Hence $f(2)=1$.
+    let $\begin{bmatrix}
+            a & b & c \\
+            d & e & f \\
+            p & q & r
+        \end{bmatrix}$ be the $3\times 3$ matrix who reaches to the maximal determinant.We may assume one of $a,b,c$ to be zero($c$ for example) since
+    if $a=b=c=1$, we can minius the first row by the second row or third row without changing the determinant.Hence,
+    $f(3)=a\begin{vmatrix}
+            e & f \\
+            q & r
+        \end{vmatrix}-b\begin{vmatrix}
+            d & f \\
+            p & r
+        \end{vmatrix}\le 2$,which means $f(3)=2$
+
+    For $n=4$, let $g(n)$ be the maximal determinant of matrix of order n whose elements $\in \bbrace{-1,1}$
+    \begin{lem}[\cite{10.2307/2034278},Theorem 2]
+        \begin{equation*}
+            g(n)=2^{n-1}f(n-1)
+        \end{equation*}
+    \end{lem}
+    \begin{lem}[Hadamard’s inequality]
+        \begin{equation*}
+            g(n)\le n^{\frac{n}{2}}
+        \end{equation*}
+    \end{lem}
+    let $G=AA^T$,$\lambda_i,i=1,2\dots,n$ be its non-negative real eigenvalues
+    \begin{equation*}
+        |g(n)|^\frac{2}{n}=|\det A|^{\frac{2}{n}}=(\det G)^{\frac{1}{n}}=(\prod_{i=1}^n \lambda_i)^{\frac{1}{n}} \le \frac{ \sum_{i=1}^{n}\lambda_i}{n}=n
+    \end{equation*}
+    Hence,
+    \begin{equation*}
+        g(n)\le n^{\frac{n}{2}}
+    \end{equation*}
+
+    By lemma 2 and 3,\begin{equation*}
+        f(4)=\frac{g(5)}{2^4}\le \frac{5^{2.5}}{16}\le 3.5
+    \end{equation*}
+    Since $f(4)\in \bb{Z}$,we have $f(4)\le 3$,hence $f(4)=3$ by (1)
+
+    (3)
+    It suffices to show that $f(n)>n^{\frac{n}{4}}$ for $n\ge 2023$.
+    By lemma 2, we need to show that $g(n)>2^n n^\frac{n}{4}$ for $n\ge 2023$, i.e
+    \begin{equation*}
+        \log g(n)> \frac{n}{4}\log n+n\log 2
+    \end{equation*}
+    \begin{lem}[\cite{10.2307/2034695},Corollary of Theorem 2]
+        \begin{equation*}
+            g(n)>n^{\frac{n}{2}(1-\frac{\log \frac{4}{3}}{\log n}  )}
+        \end{equation*}
+    \end{lem}
+    Hence by lemma 4,
+    \begin{equation*}
+        \log g(n)>(\frac{n}{2}-\frac{n}{2}\frac{\log \frac{4}{3}}{\log n})\log n=\frac{n}{2}\log n-\frac{n}{2}\log \frac{4}{3}\ge \frac{n}{4}\log n+n\log 2
+    \end{equation*}
+    when $n\ge 2023$
+\end{prooff}
+
+\bibliography{ail}
+\bibliographystyle{alpha}
+
+\newpage
+\begin{ques}
+    \begin{enumerate}
+        \item Is there non-zero real number$s$ such that:
+              \begin{equation*}
+                  \lim_{n\to \infty}||(\sqrt{2}+1)^n s||=0
+              \end{equation*}
+        \item Is there non-zero real number$s$ such that:
+              \begin{equation*}
+                  \lim_{n\to \infty}||(\sqrt{2}+3)^n s||=0
+              \end{equation*}
+    \end{enumerate}
+\end{ques}
+\begin{prooff}
+    (1) take $s=1$,we show that
+    \begin{equation*}
+        \lim_{n\to \infty}||(\sqrt{2}+1)^n||=0
+    \end{equation*}
+    \begin{lem}
+        \begin{equation*}
+            a_n=(1+\sqrt{2})^n+(1-\sqrt{2})^n\in \bb{Z}
+        \end{equation*}
+        \begin{equation*}
+            b_n=\sqrt{2}((1+\sqrt{2})^n-(1-\sqrt{2})^n)\in \bb{Z}
+        \end{equation*}
+    \end{lem}
+    we prove this lemma by induction,when $n=1,a_1=2\in\bb{Z},b_1=4\in\bb{Z}$,and notice that:
+    \begin{align*}
+        a_{n} & =(1+\sqrt{2})^n+(1-\sqrt{2})^n                                                                                \\
+              & =((1+\sqrt{2})^{n-1}+(1-\sqrt{2})^{n-1})(1+\sqrt{2}+1-\sqrt{2})-
+        (1-\sqrt{2})(1+\sqrt{2})^{n-1}-(1+\sqrt{2})(1-\sqrt{2})^{n-1}                                                         \\
+              & =2a_{n-1}-(a_{n-1}+b_{n-1})\in \bb{Z}                                                                         \\
+        b_n   & = \sqrt{2}((1+\sqrt{2})^n-(1-\sqrt{2})^n)                                                                     \\
+              & =4((1+\sqrt{2})^{n-1}+\dots +(1-\sqrt{2})^{n-1})                                                              \\
+              & =4((1+\sqrt{2})^{n-1}+(1-\sqrt{2})^{n-1}+(1+\sqrt{2})^{n-2}(1-\sqrt{2})+(1-\sqrt{2})^{n-2}(1+\sqrt{2})+\dots) \\
+              & =4(a_{n-1}-a_{n-3}+\dots)\in \bb{Z}
+    \end{align*}
+    Hence $a_n,b_n\in \bb{Z}$ for all $n$.
+    Notice that
+    \begin{equation*}
+        ||(\sqrt{2}+1)^n||= ||(1+\sqrt{2})^n+(1-\sqrt{2})^n-(1-\sqrt{2})^n||=||-(1-\sqrt{2})^n||=||1-(1-\sqrt{2})^n||
+    \end{equation*}
+    when $n$ sufficiently large,we have
+    \begin{equation*}
+        ||(\sqrt{2}+1)^n||=||1-(1-\sqrt{2})^n||=1-(1-\sqrt{2})^n
+    \end{equation*}
+    Hence,
+    \begin{equation*}
+        \lim_{n\to \infty}||(\sqrt{2}+1)^n||=0
+    \end{equation*}
+
+    (2) there's no such $s\in \bb{R}$. If there's $s\neq 0$,such that
+    \begin{equation*}
+        \lim_{n\to \infty}||(\sqrt{2}+3)^n s||=0
+    \end{equation*}
+    let $\bbrace{x_n}$ to be the positive integer sequence such that $||(\sqrt{2}+3)^n s||=|(\sqrt{2}+3)^n s-x_n|$,then
+    \begin{equation*}
+        \lim_{n\to \infty}|(\sqrt{2}+3)^n s-x_n|=0
+    \end{equation*}
+    Also we have
+    \begin{equation*}
+        s=\lim_{n\to \infty}\frac{x_n}{(3+\sqrt{2})^n}
+    \end{equation*}
+    we assume for all $n>N$,$|(\sqrt{2}+3)^n s-x_n|<\dfrac{1}{1000}$
+    let $\bbrace{a_n},\bbrace{b_n}$ to be the postive integer sequence such $a_n+b_n\sqrt{2}=(\sqrt{2}+3)^n$,
+    Notice that $(3+\sqrt{2})^{n+1}=3a_n+b_n+(a_n+3b_n)\sqrt{2}$, we have
+    \begin{equation*}
+        a_{n+1}=3a_n+2b_n,b_{n+1}=a_n+3b_n
+    \end{equation*}
+    Hence
+    \begin{equation*}
+        a_{n+2}=3a_{n+1}+2b_{n+1}=3a_{n+1}+2a_n+6b_n=6a_{n+1}-7a_n
+    \end{equation*}
+    In the same approach,
+    \begin{equation*}
+        b_{n+2}=6b_{n+1}-7b_n
+    \end{equation*}
+    When $n>N$
+    \begin{align*}
+         & |(\sqrt{2}+3)^{n+2} s-6x_{n+1}+7x_{n}|=|(a_{n+2}+\sqrt{2}b_{n+2})s-6x_{n+1}+7x_{n}|                       \\
+         & \le 6|(a_{n+1}+b_{n+1}\sqrt{2})s-x_{n+1}|+7|(a_{n}+b_{n}\sqrt{2})s-x_{n}|\le \frac{6+7}{1000}<\frac{1}{2}
+    \end{align*}
+    so we can get
+    \begin{equation*}
+        x_{n+2}=6x_n-7x_{n-1}
+    \end{equation*}
+    Hence for sufficiently large $n$,
+    \begin{equation*}
+        x_n=A(3+\sqrt{2})^n+B(3-\sqrt{2})^n
+    \end{equation*}
+    Since
+    \begin{equation*}
+        s=\lim_{n\to \infty}\frac{x_n}{(3+\sqrt{2})^n}
+    \end{equation*}
+    we have $A=s$, by the definition of $\bbrace{x_n}$
+    \begin{equation*}
+        \lim_{n\to \infty}B(3-\sqrt{2})^n=0
+    \end{equation*}
+    we have $B=0$.Hence $s(3+\sqrt{2})^n\in \bb{Z}$ for all $n$ sufficiently large, we assume that
+    \begin{equation*}
+        s=\frac{t}{(3+\sqrt{2})^m}, t\in \bb{Z} \text{ and m sufficiently large}
+    \end{equation*}
+    we have
+    \begin{equation*}
+        s(3+\sqrt{2})^{2m}=t(3+\sqrt{2})^{m}\in \bb{Z}
+    \end{equation*}
+    A contradiction!
+
+    \newpage
+    \begin{ques}
+
+        \begin{enumerate}
+            \item prove the existence of $m_N$
+            \item $\lim_{n\to \infty} \frac{m_N}{N} $ when $p=1$.
+            \item $\lim_{n\to \infty} \frac{m_N}{N}$ when $p\in (0,1)$.
+        \end{enumerate}
+    \end{ques}
+    (a) denote the probability of finding the best candidate by $P(m,N)$,first we fix N and let $f(m)=P(m,N)$.
+    Notice that
+    \begin{align*}
+        f(m)= & \frac{p}{N}+\frac{p}{N}(\frac{m+1-p}{m+1})+\frac{p}{N}(\frac{m+1-p}{m+1})(\frac{m+2-p}{m+2})+\dots \\
+        +     & \frac{p}{N}(\frac{m+1-p}{m+1})(\frac{m+2-p}{m+2})\dots (\frac{N-1-p}{N-1})
+    \end{align*}
+    Since there's some of $1\le m\le N$ such that $f(m)$ reaches to maximal,we prove the existence of $m_N$.
+
+    (b)  we consider $f(m)-f(m+1)$
+    \begin{equation}
+        f(m)-f(m+1)=\frac{p}{N}(1-\frac{p}{m+1}-\frac{p}{m+1}\frac{m+2-p}{m+2}-\dots-\frac{p}{m+1}\frac{m+2-p}{m+2}\dots \frac{N-1-p}{N-1}\, )
+    \end{equation}
+    Notice the solution of the following equation(not necessarily be unique)
+    \begin{align*}
+        f(m)-f(m+1)\ge 0 \\
+        f(m-1)-f(m)\le 0
+    \end{align*}
+    can be $m_N$, i.e. $f(m)$ reaches to maximal at the solution of above equation.
+    By (1), above equation is equivalent to
+    \begin{align*}
+         & \frac{p}{m+1}+\frac{p}{m+1}\frac{m+2-p}{m+2}+\dots+\frac{p}{m+1}\frac{m+2-p}{m+2}\dots \frac{N-1-p}{N-1} \le 1 \\
+         & \frac{p}{m}+\frac{p}{m}\frac{m+1-p}{m+1}+\dots+\frac{p}{m}\frac{m+1-p}{m+1}\dots \frac{N-1-p}{N-1} \ge 1
+    \end{align*}
+    Since
+    \begin{align*}
+         & 1>\frac{p}{m+1}+\frac{p}{m+1}\frac{m+2-p}{m+2}+\dots+\frac{p}{m+1}\frac{m+2-p}{m+2}\dots \frac{N-1-p}{N-1} \\
+         & \ge  \frac{p}{m+1}+\frac{p}{m+2}+\dots +\frac{p}{N-1}                                                      \\
+         & \ge p\int_{m+1}^N\frac{1}{x}\text{d}x                                                                      \\
+         & \ge p \log \frac{N}{m+1}
+    \end{align*}
+    we have
+    \begin{equation*}
+        \frac{m_N}{N}\ge e^{-1/p}-\frac{1}{N}
+    \end{equation*}
+    On the other side,
+    \begin{align*}
+        1 & \le \frac{p}{m}+\frac{p}{m}\frac{m+1-p}{m+1}+\dots+\frac{p}{m}\frac{m+1-p}{m+1}\dots \frac{N-1-p}{N-1} \\
+          & =(\frac{1}{m}+\frac{1}{m+1}+\dots +\frac{1}{N-1})                                                      \\
+          & =\int_{m-1}^{N-1}\frac{1}{x}\text{d}x=\log \frac{N-1}{m-1}                                             \\
+    \end{align*}
+    Hence,
+    \begin{equation*}
+        e^{-1}-\frac{1}{N}\le \frac{m_N}{N}\le e^{-1}
+    \end{equation*}
+    so we have
+    \begin{equation*}
+        \lim_{n\to \infty}\frac{m_N}{N}=\frac{1}{e}
+    \end{equation*}
+
+    (c)  Still conside
+    \begin{align*}
+         & \frac{p}{m+1}+\frac{p}{m+1}\frac{m+2-p}{m+2}+\dots+\frac{p}{m+1}\frac{m+2-p}{m+2}\dots \frac{N-1-p}{N-1} \le 1 \\
+         & \frac{p}{m}+\frac{p}{m}\frac{m+1-p}{m+1}+\dots+\frac{p}{m}\frac{m+1-p}{m+1}\dots \frac{N-1-p}{N-1} \ge 1
+    \end{align*}
+    by Bernoulli inequality
+    \begin{align*}
+        1 & \ge  \frac{p}{m+1}+\frac{p}{m+1}\frac{m+2-p}{m+2}+\dots+\frac{p}{m+1}\frac{m+2-p}{m+2}\dots \frac{N-1-p}{N-1}      \\
+          & \ge \frac{p}{m+1}+\frac{p}{m+1}(\frac{m+1}{m+2})^p+\dots+\frac{p}{m+1}(\frac{m+1}{m+2})^p\dots (\frac{N-2}{N-1})^p \\
+          & =\frac{p}{m+1}(\frac{m+1}{m+1})^p+\frac{p}{m+1}(\frac{m+1}{m+2})^p+\dots +\frac{p}{m+1}(\frac{m+1}{N-1})^p         \\
+          & \ge p\frac{1}{(m+1)^{1-p}}(\int_{m+1}^{N}\frac{1}{x^p}\text{d}x)                                                   \\
+          & = p\frac{1}{(m+1)^{1-p}}\frac{N^{1-p}-(m+1)^{1-p}}{1-p}
+    \end{align*}
+    Hence
+    \begin{equation}
+        \frac{m_N}{N}\ge p^{\frac{1}{1-p}}-\frac{1}{N}
+    \end{equation}
+    by Bernoulli inequality,
+    \begin{equation*}
+        \frac{k+1-p}{k+1}=\frac{1}{1+\dfrac{p}{k+1-p}}\le \frac{1}{(1+\dfrac{1}{k+1-p})^p}=(\frac{k+1-p}{k+2-p})^p
+    \end{equation*}
+    Hence on the other side,we have
+    \begin{align*}
+        1 & \le \frac{p}{m}+\frac{p}{m}\frac{m+1-p}{m+1}+\dots+\frac{p}{m}\frac{m+1-p}{m+1}\dots \frac{N-1-p}{N-1}                  \\
+          & \le \frac{p}{m}+\frac{p}{m}(\frac{m+1-p}{m+2-p})^p+\dots +\frac{p}{m}(\frac{m+1-p}{m+2-p})^p\dots (\frac{N-1-p}{N-p})^p \\
+          & =\frac{p}{m}+\frac{p}{m}(\frac{m+1-p}{m+2-p})^p+\dots +\frac{p}{m}(\frac{m+1-p}{N-p})^p                                 \\
+          & =\frac{p}{m}(m+1-p)^p((\frac{1}{m+1-p}))^p+\dots+(\frac{1}{N-p})^p )                                                    \\
+          & \le  \frac{p}{m+1-p}(m+1-p)^p(\int_{m+1-p}^{N+1-p}\frac{1}{x^p}\text{d}x)                                               \\
+          & \le \frac{p}{(m+1-p)^{1-p}}(\frac{(N+1-p)^{1-p}-(m+1-p)^{1-p}}{1-p})
+    \end{align*}
+    Hence
+    \begin{equation}
+        \frac{m_N}{N}\le p^{\frac{1}{1-p}}+\frac{p^{\frac{1}{1-p}}(1-p)+(p-1)}{N}
+    \end{equation}
+    by (2) and (3) we have
+    \begin{align*}
+        \varlimsup_{n\to \infty} \frac{m_N}{N}\le p^{\frac{1}{1-p}} \\
+        \varliminf_{n\to \infty} \frac{m_N}{N}\ge p^{\frac{1}{1-p}}
+    \end{align*}
+    Hence,$$\lim_{n\to \infty}\frac{m_N}{N}=p^{\frac{1}{1-p}}$$
+
+\end{prooff}
+\begin{ques}
+    There's infinitely many Galois totally real field of degree d.
+\end{ques}
+\begin{prooff}
+    \begin{lem}
+        \label{subfield}
+        Subfield of totally real field is totally real.
+    \end{lem}
+    Proof of the lemma: Let $K$ be a totally real field and $L$ be a subfield of $K$.Since every embedding from $L$ to $\bb{C}$ can be extended to $K$, $L$ is naturally be a totally real field.
+
+    Consider infinitely many prime number $p$ such that $p\equiv 1\mod{2d}$. $\bb{Q}(\cos(2\pi/p))$ is a totally real subfield of degree $\frac{p-1}{2}$ of $p$-th cyclotomic field. Since $d$ divides $\frac{p-1}{2}$, which is the order
+    of the Galois group of $\bb{Q}(\cos(2\pi/p))$(circle group of order $\frac{p-1}{2}$), by Fundmental theorem in Galois theory, there's a Galois subfield $L_p$ of $\bb{Q}(\cos(2\pi/p))$ which is a totaly real field by lemma \ref*{subfield}, such that
+    $[L_p:\bb{Q}]=d$.
+
+    It suffice to show that $L_p\neq L_{p\p}$ if $p\neq p\p$. If $L_p=L_{p\p}$ and $p\neq p\p$, $L_p\subset \bb{Q}(\zeta_p)\cap (\zeta_p\p)=\bb{Q}$ which is a contradiction.
+\end{prooff}
+
+
+\end{document}

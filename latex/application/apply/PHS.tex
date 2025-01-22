@@ -1,0 +1,95 @@
+\documentclass[12pt]{article}
+%宏包
+\usepackage{amsmath}%数学符号
+\usepackage{amssymb}%数学符号
+\usepackage{amsthm}%数学符号
+\usepackage{geometry}%界面布局
+\usepackage{natbib}%bibtex
+\usepackage{tikz}%交换图
+\usepackage{tikz-cd}%交换图
+\usepackage{quiver}%交换图
+\usepackage{float}%浮动体固定
+\usepackage{caption}%图片标题
+\usepackage[colorlinks,linkcolor=blue]{hyperref}%超链接
+\usepackage{enumerate}%计数列表
+\usepackage{tabularx}%控制列宽
+\usepackage{CTEX}
+\usepackage{caption}%字体
+\ctexset{today=old}
+   
+%页面设置
+\linespread{1.2}
+\geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2cm}
+%\geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2cm}
+%环境和宏指令
+\newenvironment{prooff}{{\noindent\it\textcolor{cyan!40!black}{Proof}:}\,}{\par \vskip 1cm}
+\newenvironment{proofff}{{\noindent\it\textcolor{cyan!40!black}{Proof of the lemma}:}\,}{\qed \par}
+\newcommand{\bbrace}[1]{\left\{ #1 \right\} }
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\p}{^{\prime}}
+\renewcommand{\mod}[1]{(\text{mod}\,#1)}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\spec}[1]{\text{Spec}({#1})}
+\newcommand{\rarr}[1]{\xrightarrow{#1}}
+\newcommand{\larr}[1]{\xleftarrow{#1}}
+\newcommand{\emptyy}{\underline{\quad}}
+\newenvironment{enu}{\begin{enumerate}[(1)]}{\end{enumerate}}
+%ctrl+点击文本返回代码  选中代码 ctrl+alt+j 为代码查找文本
+
+%定理环境
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+\newtheorem{coro}[defn]{Corollary}
+\newtheorem{theo}[defn]{Theorem}
+\newtheorem{exer}[defn]{Exercise}
+\newtheorem{rema}[defn]{Remark}
+\newtheorem{lem}[defn]{Lemma}
+\newtheorem{prop}[defn]{Proposition}
+\newtheorem{nota}[defn]{Notation}
+\newtheorem{exam}[defn]{Example}
+\title{Personal History Statement}
+\author{Erzhuo Wang}
+\date{}
+\begin{document}
+\maketitle
+\section{Experiences}
+I discovered my passion for Number Theory in high school because of a magic theorem says an odd prime number 
+$p \equiv 1\mod{4}$ if and only if it can be written as the sum of two perfect squares. 
+After entering campus, I began to learn number theory in a structured way.
+
+During my bachelor's degree,
+I read the initial two chapters and final chapter (Algebraic number field, local field and L-functions) of Neukirch's Algebraic Number Theory, 
+the first three chapters of Fred Diamond's A First Course in Modular Form (basic concepts in Modular Form, dimension formula)
+and Tate's thesis (analytic continuation of Hecke L-functions).  
+
+In my first year on campus, I focused on studying foundational subjects in Mathematics such as Linear Algebra and Analysis.
+I attended a seminar Professor Xi organized that year. 
+We discussed the first few chapters of GTM 84, covering propositions of Gauss Sum and some results about the number of 
+solutions of some special
+Diophantus equations over finite field. 
+
+During the second year summer vacation, 
+I successfully completed the written test and interview to participate in a summer school held by the Chinese Academy of Sciences. 
+At the school, I learned basic concepts in Algebraic Geometry, Algebraic Number Theory, and Representation Theory. 
+
+In the third year, I enrolled in the Analytic Number Theory course taught by Professor Xi. 
+I learned about classical ideas about exponential sums, Sieve method and the Prime Number Theorem. 
+After that, I began reading Tate's thesis and obtained a comprehensive understanding of Hecke L-functions. 
+
+\section{How These Experiences Contribute to Academic Study}
+These experiences have profoundly shaped my academic development in several ways:
+\begin{enu} 
+\item Solid Foundation: Over three years of focused study in Number Theory have equipped me with a robust understanding of classical results in the field. I am well-prepared to explore advanced topics and engage with classical papers on automorphic forms.
+
+\item Motivation for Further Exploration: The diverse and in-depth exposure to topics such as Modular Forms and Hecke 
+L-functions has fueled my passion for Number Theory. I am particularly excited by the rich landscape of problems in automorphic forms that remain to be explored, and I am eager to delve deeper into this area in my future studies.
+\end{enu}
+
+
+
+
+
+
+
+
+\end{document}

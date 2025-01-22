@@ -1,0 +1,79 @@
+\documentclass[12pt]{article}
+%宏包
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{geometry}
+\usepackage{natbib}%bibtex
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{quiver}
+\usepackage{float}
+\usepackage{caption}
+\usepackage[colorlinks,linkcolor=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{tabularx}%控制列宽
+
+%页面设置
+% \linespread{1.2}
+% \geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2cm}
+%\geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2cm}
+
+%环境和宏指令
+\newenvironment{prooff}{{\noindent\it\textcolor{cyan!40!black}{Proof}:}\,}{\par}
+\newenvironment{proofff}{{\noindent\it\textcolor{cyan!40!black}{Proof of the lemma}:}\,}{\qed \par}
+\newcommand{\bbrace}[1]{\left\{ #1 \right\} }
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\p}{^{\prime}}
+\renewcommand{\mod}[1]{(\text{mod}\,#1)}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\spec}[1]{\text{Spec}({#1})}
+\newcommand{\rarr}[1]{\xrightarrow{#1}}
+\newcommand{\larr}[1]{\xleftarrow{#1}}
+\newcommand{\emptyy}{\underline{\quad}}
+\newenvironment{enu}{\begin{enumerate}[(1)]}{\end{enumerate}}
+%ctrl+点击文本返回代码  选中代码 ctrl+alt+j 为代码查找文本
+
+
+
+
+%定理环境
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+\newtheorem{coro}[defn]{Corollary}
+\newtheorem{theo}[defn]{Theorem}
+\newtheorem{exer}[defn]{Exercise}
+\newtheorem{rema}[defn]{Remark}
+\newtheorem{lem}[defn]{Lemma}
+\newtheorem{prop}[defn]{Proposition}
+\newtheorem{nota}[defn]{Notation}
+\newtheorem{exam}[defn]{Example}
+\title{Recommendation Letter}
+\begin{document}
+\maketitle
+Dear Admissions Committee,
+
+I am writing to highly recommend Erzhuo Wang for admission to the Mathematics PhD program. I am the professor for the courses Topology and Abstract Algebra, and Erzhuo has been an exceptional student in both.
+
+In Abstract Algebra, we cover fundamental concepts such as groups, rings, fields, and modules, along with the proof of the Fundamental Theorem of Galois Theory. In Topology, we focus on point-set topology, the fundamental group, and covering spaces. Erzhuo has demonstrated a deep understanding of both subjects, earning impressive grades (94/100) in each course. This success is a direct result of his well-organized homework and thorough proofs in the final exams—an achievement only a few students attain.
+
+Beyond excelling in the classroom, Erzhuo frequently engages with me in thoughtful discussions after class. For instance, 
+when we discussed the classification of closed surfaces, he asked interesting questions regarding the definition of orientability for topological manifolds without a differential structure. 
+
+Additionally, Erzhuo has shown a strong self-driven interest in advanced algebraic concepts. He has independently studied more advanced material from standard textbooks such as 
+Dummit and Foote's Abstract Algebra and Matsumura's Commutative Ring Theory.
+
+Given his strong analytical skills, intellectual curiosity, and exceptional academic record, I am confident that Erzhuo has the potential to be an outstanding PhD candidate.
+
+\vskip 1cm
+\noindent Qiang Zhang,\par
+\noindent Associate Professor, \par
+\noindent Department of Mathematics, School of Mathematics and Statistics, \par
+\noindent Xi'an Jiaotong University
+
+
+\end{document}

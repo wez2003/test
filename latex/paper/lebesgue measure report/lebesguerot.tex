@@ -1,0 +1,112 @@
+\documentclass[a4paper,12pt]{ctexart}
+%宏包
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{geometry}
+\usepackage{natbib}%bibtex
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{caption}
+\usepackage[colorlinks,linkcolor=cyan!40!black]{hyperref}
+\usepackage{enumerate}
+
+%页面设置
+\linespread{1.1}
+\geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2cm}
+
+%环境和宏指令
+\newenvironment{prooff}{{\noindent\it\textcolor{cyan!40!black}{Proof}:}\quad}{\par}
+\newcommand{\bbrace}[1]{\left\{ #1 \right\} }
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\p}{^{\prime}}
+\renewcommand{\mod}[1]{(\text{mod}\,#1)}
+%ctrl+点击文本返回代码  选中代码 ctrl+alt+j 为代码查找文本
+
+
+%定理环境
+\newtheorem{defn}{Definition}
+\newtheorem{coro}[defn]{Corollary}
+\newtheorem{theo}[defn]{Theorem}
+\newtheorem{exer}[defn]{Exercise}
+\newtheorem{rema}[defn]{Remark}
+\newtheorem{lem}[defn]{Lemma}
+\newtheorem{prop}[defn]{Proposition}
+
+
+
+\title{Lebesgue测度的旋转不变性}
+\author{王尔卓\quad 强基数学2101}
+\begin{document}
+\maketitle
+本文我们将证明如下命题:
+\begin{theo}
+    $f$是$\mathbb{R}^n$上的Lebesgue可积函数，$T$是$\mathbb{R}^n$上的可逆线性变换,则$f\circ T$也可积且有
+    \begin{equation*}
+        \int_{\mathbb{R}^n} f(x) dx=|\det T|\int_{\mathbb{R}^n} f\circ T(x)dx
+    \end{equation*}
+\end{theo}
+其推论正是Lebesgue测度的旋转不变性(取$f(x)$为特征函数).
+\begin{coro}
+    记$\mathcal{L}^n$为$\mathbb{R}^n$中Lebesgue可测集全体，$m$为Lebesgue测度，
+    如果$E\in \mathcal{L}^n$,$T$是$\mathbb{R}^n$上的可逆线性变换,则$m(T(E))=|\det T|m(E)$
+\end{coro}
+我们将采取Folland实分析中的证明思路,通过Fubini定理分别证明三种初等变换对该结论成立，再将$T$拆成初等变换的乘积，从而证明该结论.
+\begin{lem}[Fubini定理]
+    考虑$\sigma$-finite的测度空间$(X,\mathcal{M},\mu)$和$(Y,\mathcal{N},\nu )$,两个测度空间的乘积记为$(X\times Y,\mathcal{M}\otimes\mathcal{N},\mu\times \nu)$
+    ，$f(x,y)$为$(X\times Y,\mathcal{M}\otimes\mathcal{N},\mu\times \nu)$上的可积函数，则$f_x(y)=f(x,y)$对几乎处处的$x$,有$f_x(y)$为$Y$中的可积函数，定义
+    \begin{equation*}
+        g(x)=\begin{cases}
+            \int f_x(y) & f_x(y) \text{在x处可积} \\
+            0 \quad     & Otherwise
+        \end{cases}
+    \end{equation*}
+    则$g(x)$在$X$上可积，且有
+    \begin{equation*}
+        \int f(x,y)d\mu d\nu =\int g(x) d\mu
+    \end{equation*}
+\end{lem}
+该定理对多个测度空间取乘积仍然成立.
+我们还需要一个$\mathbb{R}$上的Lebesgue可测集的结论.
+\begin{lem}
+    \label{平移不变性}
+    $E$上$\mathbb{R}$上的Lebesgue可测集，$s,r\in \bb{R}$,则$s+E,rE$均为Lebesgue可测集，且$m(s+E)=m(E),m(rE)=|r|m(E)$
+\end{lem}
+\begin{prooff}
+    由于$x\mapsto x+s,x\mapsto rx$为连续函数，因此$s+E,rE$均为Lebesgue可测集，我们可以在$\mathbb{R}$上对所有Borel集合定义测度$\tau_s(E)=m(E+s),\tau_r(E)=m(rE)$,
+    这个测度在左开右闭的区间上分别与测度$m,|r|m$相等，由测度延拓的唯一性，命题得证.
+\end{prooff}
+接下来我们对定理1作证明，由于Lebesgue可积函数和Borel可积函数只差一个Lebesgue零测集，
+我们不妨设$f$为Borel可积函数，接下来我们对初等变换$T_1$(两行交换),$T_2$(一行的倍数加到另一行)，$T_3$(某一行乘一个非零倍数$c$)分别证明该定理.
+
+不妨设$T_1(x_1,x_2,\dots,x_n)=(x_2,x_1,\dots,x_n)$,则
+\begin{equation*}
+    \int_{\mathbb{R}^n} f\circ T_1(x_1,x_2,\dots,x_n)dx= \int_{\mathbb{R}^n} f(x_2,x_1,\dots,x_n)dx
+\end{equation*}
+右边交换$x_1,x_2$的积分顺序以后可以得到
+\begin{equation*}
+   \int_{\mathbb{R}^n} f(x_2,x_1,\dots,x_n)dx=\int_{\mathbb{R}^n} f(x_1,x_2,\dots,x_n)dx
+\end{equation*}
+注意到$\det T_1=-1$,则对$T_1$定理1成立.
+考虑$T_2$,不妨设$T_2(x_1,x_2,\dots,x_n)=(x_1,x_2+\lambda x_1,\dots,x_n)$,则$\det T_2=1$,由于对$\bb{R}$上Borel可积函数$g$,将$g$写成简单函数的极限的形式，由控制收敛定理和Lemma~\ref*{平移不变性}
+\begin{equation*}
+    \int_{\mathbb{R}} g(x+c)dx= \lim_{n\to\infty} \int_{\mathbb{R}}\phi_n(x+c)dx= \lim_{n\to\infty}\int_{\mathbb{R}}\phi_n(x) dx= \int_{\mathbb{R}} g(x)dx
+\end{equation*}
+则由Fubini定理,
+\begin{equation*}
+    \int_{\mathbb{R}^n} f\circ T_2(x_1,x_2,\dots,x_n)dx= \int_{\mathbb{R}^n} f(x_1,x_2+\lambda x_1,\dots,x_n)dx= \int_{\mathbb{R}^n} f(x_1,x_2,\dots,x_n)dx
+\end{equation*}
+考虑$T_3$,不妨设$T_3=(x_1,x_2,\dots,x_n)=(cx_1,x_2,\dots,x_n)$,则$\det T_3=c$,由于对$\bb{R}$上Borel可积函数$g$,将$g$写成简单函数的极限的形式,由控制收敛定理和Lemma~\ref*{平移不变性}
+\begin{equation*}
+    \int_{\mathbb{R}} g(rx)dx= \lim_{n\to\infty} \int_{\mathbb{R}}\phi_n(rx)dx= \lim_{n\to\infty}\int_{\mathbb{R}}|r|\phi_n(x) dx= |r|\int_{\mathbb{R}} g(x)dx
+\end{equation*}
+则由Fubini定理,
+\begin{equation*}
+    \int_{\mathbb{R}^n} f\circ T_3(x_1,x_2,\dots,x_n)dx= \int_{\mathbb{R}^n} f(cx_1,x_2,\dots,x_n)dx= |c|\int_{\mathbb{R}^n} f(x_1,x_2,\dots,x_n)dx
+\end{equation*}
+证毕.
+
+\end{document}

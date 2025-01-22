@@ -1,0 +1,274 @@
+\documentclass[12pt,a4paper]{ctexart}
+%宏包
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{geometry}
+\usepackage{natbib}%bibtex
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{float}
+\usepackage{caption}
+\usepackage[colorlinks,linkcolor=blue]{hyperref}
+\usepackage{enumerate}
+\usepackage{tabularx}%控制列宽
+
+%页面设置
+\linespread{1.2}
+\geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2cm}
+%\geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2cm}
+
+%环境和宏指令
+\newenvironment{prooff}{{\noindent\it\textcolor{cyan!40!black}{Proof}:}\,}{\par}
+\newenvironment{proofff}{{\noindent\it\textcolor{cyan!40!black}{Proof of the lemma}:}\,}{\qed \par}
+\newcommand{\bbrace}[1]{\left\{ #1 \right\} }
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\p}{^{\prime}}
+\renewcommand{\mod}[1]{(\text{mod}\,#1)}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\spec}[1]{\text{Spec}({#1})}
+\newcommand{\rarr}[1]{\xrightarrow{#1}}
+\newcommand{\larr}[1]{\xleftarrow{#1}}
+\newcommand{\emptyy}{\underline{\quad}}
+\newenvironment{enu}{\begin{enumerate}[(1)]}{\end{enumerate}}
+%ctrl+点击文本返回代码  选中代码 ctrl+alt+j 为代码查找文本
+
+
+
+
+%定理环境
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+\newtheorem{coro}[defn]{Corollary}
+\newtheorem{theo}[defn]{Theorem}
+\newtheorem{exer}[defn]{Exercise}
+\newtheorem{rema}[defn]{Remark}
+\newtheorem{lem}{Lemma}
+\newtheorem{prop}[defn]{Proposition}
+\newtheorem{nota}[defn]{Notation}
+\newtheorem{exam}[defn]{Example}
+\newtheorem{ques}[defn]{Question}
+
+
+
+\begin{document}
+\begin{ques}
+    $6$种, 注意到$A,B,C,D$中任选两个点, 考虑一个人被这两个点遮挡, 那么这个人一定位于$AE$和$BF$的交点或者$AF$和$BE$的交点, 排除交点在四边形内部的情况, 得到最多有6种。
+\end{ques}
+\newpage
+\begin{ques}
+    设击落第$n$个飞机时, 累计积分期望为$E_n$.
+    等待第$i$个飞机的事件设为$t_i,i=1,\dots,n$.
+
+\end{ques}
+\newpage
+\begin{ques}
+    (1): 设
+    \begin{equation*}
+        A=\begin{bmatrix}
+            a & b  \\
+            c & -a
+        \end{bmatrix}
+    \end{equation*}
+    则
+    \begin{equation*}
+        A^2=\begin{bmatrix}
+            -\det(A) & 0        \\
+            0        & -\det(A)
+        \end{bmatrix}
+    \end{equation*}
+    从而
+    \begin{equation*}
+        A^{2n}=\begin{bmatrix}
+            (-\det(A))^n & 0            \\
+            0            & (-\det(A))^n
+        \end{bmatrix}
+    \end{equation*}
+    \begin{equation*}
+        A^{2n+1}=\begin{bmatrix}
+            (-\det(A))^n & 0            \\
+            0            & (-\det(A))^n
+        \end{bmatrix}\begin{bmatrix}
+            a & b  \\
+            c & -a
+        \end{bmatrix}
+    \end{equation*}
+    现在我们设$M=\max\bbrace{|a|,|b|,|c|,|d|}$, $A^n=\begin{bmatrix}
+            a_n & b_n \\
+            c_n & d_n
+        \end{bmatrix}$.
+    任取一个Lattice $\bb{Z}w_1\oplus\bb{Z}w_2$, 其中$w_1,w_2$为线性无关的复数. 如果平面上有一点$P=a_1w_1+a_2w_2, w_1/w_2\in \bb{H}$, 其中$a_1,a_2\in\bb{R}$,
+    则$P$与Lattice上最近点的距离不会超过$\max\bbrace{||w_1+w_2||,||w_1-w_2||}$. 这是因为由Lattice的周期性, 不妨设$0\le a_1<1,0\le a_2<1$. 那么最近的点只能是$0,w_1,w_2,w_1+w_2$,
+    不妨取$w_1,w_2$夹角为锐角(否则令$w_2=-w_2$, Lattice不变), 那么$P$与原点的距离不会超过$||w_1+w_2||$, 故原结论成立.
+    
+
+    对原问题, 根据先前的叙述, 注意到$A^n\bb{Z}^2=A^ne_1 \oplus A^n e_2$我们可以将问题转化成证明:
+    \begin{equation*}
+        \max\bbrace{||\begin{bmatrix}
+                a_n+b_n \\  c_n+d_n
+            \end{bmatrix}||,||\begin{bmatrix}
+                a_n-b_n \\  c_n-d_n
+            \end{bmatrix}||
+        }=\mathcal{O}(|\det(A)|^{n/2})
+    \end{equation*}
+    $n=2k$为偶数时,
+    \begin{equation*}
+        \max\bbrace{||\begin{bmatrix}
+                a_n+b_n \\  c_n+d_n
+            \end{bmatrix}||,||\begin{bmatrix}
+                a_n-b_n \\  c_n-d_n
+            \end{bmatrix}||
+        }\le 2|\det(A)|^k=2|\det(A)|^{n/2}
+    \end{equation*}
+    $n=2k+1$为奇数时,
+    \begin{equation*}
+        \max\bbrace{||\begin{bmatrix}
+                a_n+b_n \\  c_n+d_n
+            \end{bmatrix}||,||\begin{bmatrix}
+                a_n-b_n \\  c_n-d_n
+            \end{bmatrix}||
+        }\le 2M |\det(A)|^k =\mathcal{O}(|\det(A)|^{n/2})
+    \end{equation*}
+    证毕.
+
+    (2):我们证明一个弱一点的结论, 如果特征多项式在$\bb{R}$上不可约, 则(1)中结论仍然成立.
+
+    首先$A$的特征多项式为$x^2-\text{tr}(A)x+\det(A)$, 在$\bb{R}$上不可约说明有两个不同的复根:
+    \begin{equation*}
+        (\text{Tr}(A)\pm \sqrt{\text{tr}(A)^2-4\det(A)})/2
+    \end{equation*}
+    这两个复根模长均为$\sqrt{|\det(A)|}$. 又因为:
+    \begin{equation*}
+        \max\bbrace{||\begin{bmatrix}
+                a_n+b_n \\  c_n+d_n
+            \end{bmatrix}||,||\begin{bmatrix}
+                a_n-b_n \\  c_n-d_n
+            \end{bmatrix}||
+        }\le C\max\bbrace{|a_n|,|b_n|,|c_n|,|d_n|}, C>0\text{常数}
+    \end{equation*}
+    设特征多项式两个根为$\lambda_1,\lambda_2$, 对$A$作对角化
+    $A^n=\begin{bmatrix}
+            a_n & b_n \\
+            c_n & d_n
+        \end{bmatrix}=P\begin{bmatrix}
+            \lambda_1^n & 0           \\
+            0           & \lambda_2^n
+        \end{bmatrix}P^{-1}$.
+    从而,
+    $\max\bbrace{|a_n|,|b_n|,|c_n|,|d_n|}=\mathcal{O}(|\lambda_1|^n+|\lambda_2|^n)=\mathcal{O}(|\det(A)|^{n/2}  )$
+
+
+
+
+
+
+
+
+
+
+\end{ques}
+
+
+\newpage
+\begin{ques}
+    (1): 考虑递推数列$a_{n+1}=a_n/n,a_1=2$. 则$(a_1,\dots,a_{2d+1})$为该线性变换服从特征值$d$的特征向量.
+    这是因为该线性变换在$v_i$这组基下矩阵$A$为一个三对角矩阵, 对角线上元素为0, 对角线斜上方一行为$(i-1)(2d+2-i)/2,i=2,\dots,2d+1$, 斜下方一行为$1/2$.
+
+    故只需证明$(a_1,\dots,a_{2d+1})$为$A-dI$对应方程组的解, 这等价于验证:
+    \begin{equation*}
+        1/2a_k-da_{k+1}+((k+1)(2d-k)/2)a_{k+2}=0, k=1,\dots,2d-1
+    \end{equation*}
+    和
+    \begin{equation*}
+        (1/2)a_{2d}=da_{2d+1}
+    \end{equation*}
+    用递推关系拆开验证即可, 对于找特征值$-d$的特征向量, 令$b_{n+1}=-b_n/n,b_1=2$, 同理验证$(b_1,\dots,b_{2d+1})$为特征向量.因此$\pm d$为$A$的特征值
+\end{ques}
+\newpage
+\begin{ques}
+
+\end{ques}
+
+\newpage
+\begin{ques}
+    (1): 考虑实数$a,b$, 对$(a+b)^n,(-a+b)^n$用二项式定理得到:
+    \begin{equation*}
+        (a+b)^n=\sum_{k=0}^n\binom{n}{k}a^kb^{n-k}
+    \end{equation*}
+    \begin{equation*}
+        (-a+b)^n=\sum_{k=0}^n(-1)^k\binom{n}{k}a^kb^{n-k}
+    \end{equation*}
+
+    两式相加有:
+    \begin{equation*}
+        (a+b)^n+(-a+b)^n=2\sum_{k\text{ even}}\binom{n}{k}a^kb^{n-k}
+    \end{equation*}
+    带入$a=1/3,b=2/3$得到:
+    \begin{equation*}
+        \mathbb{P}(X_n\text{为偶数})=\frac{1+(1/3)^n}{2}
+    \end{equation*}
+    令$n\to \infty$得答案为$1/2$
+
+    (2):记$\bb{P}\left(X_{2 n}^{(i)}, i=1,2, \cdots, 5 \text { 全部为偶数 }\right)=S_n$,
+    考虑函数
+    \begin{equation*}
+        \cosh(z)=\frac{e^z+e^{-z}}{2}=\sum_{n=0}^\infty \frac{z^{2n}}{(2n)!}, \quad z\in\bb{C}
+    \end{equation*}
+    令$f_i(z)=\cosh(p_iz),i=1,2,3,4,5$, 则
+    \begin{equation*}
+        f_i(z)=\sum_{n=0}^\infty \frac{p_1^{2n}}{(2n)!}z^{2n}
+    \end{equation*}
+    则考虑这些函数乘积$f(z)$的幂级数展开:
+    \begin{equation*}
+        f(z)=\prod_{i=1}^5 f_i(z)=\sum_{n=0}^\infty a_n z^n
+    \end{equation*}
+    其中:
+    \begin{equation*}
+        a_{2n}=\frac{1}{(2n)!}\sum_{2(k_1+\dots+k_5)=2n} \frac{(2n)!}{(2k_1)!\dots(2k_5)!}p_1^{2k_1}\dots p_5^{2k_5}=\frac{1}{(2n)!}S_n
+    \end{equation*}
+    从而
+    \begin{equation*}
+        f(z)=\prod_{i=1}^5 f_i(z)=\sum_{n=0}^\infty \frac{S_n}{(2n)!}z^{2n}=\sum_{n=0}^\infty \frac{f^{(n)}(0)}{n!}z^n
+    \end{equation*}
+    又因为
+    \begin{equation*}
+        f(z)=\frac{(e^{p_1z}+e^{-p_1z})\dots (e^{p_5z}+e^{-p_5z})}{32}=\frac{e^z+e^{-z}+\sum_j e^{a_jz}}{32}
+    \end{equation*}
+    其中$a_j$是一些绝对值小于$1$的实数, 因此除了$e^z$和$e^{-z}$以外, 其余项$e^{a_jz}$在$z=0$处的$n$阶导数会随着$n$趋于无穷而趋于$0$, 从而
+    \begin{equation*}
+        \lim_{n\to \infty }S_n=\frac{1}{32}(e^z+e^{-z})^{(2n)}|_{z=0}=\frac{1}{16}
+    \end{equation*}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{ques}
+\newpage
+\begin{ques}
+
+
+\end{ques}
+\newpage
+\begin{ques}
+
+
+\end{ques}
+\newpage
+
+
+
+
+
+\end{document}

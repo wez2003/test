@@ -1,0 +1,150 @@
+\documentclass[12pt]{article}
+%宏包
+\usepackage{amsmath}%数学符号
+\usepackage{amssymb}%数学符号
+\usepackage{amsthm}%数学符号
+\usepackage{geometry}%界面布局
+\usepackage{natbib}%bibtex
+\usepackage{tikz}%交换图
+\usepackage{tikz-cd}%交换图
+\usepackage{quiver}%交换图
+\usepackage{float}%浮动体固定
+\usepackage{caption}%图片标题
+\usepackage[colorlinks,linkcolor=blue]{hyperref}%超链接
+\usepackage{enumerate}%计数列表
+\usepackage{tabularx}%控制列宽
+\usepackage{CTEX}
+\usepackage{caption}%字体
+\ctexset{today=old}
+   
+%页面设置
+\linespread{1.2}
+\geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2cm}
+%\geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2cm}
+%环境和宏指令
+\newenvironment{prooff}{{\noindent\it\textcolor{cyan!40!black}{Proof}:}\,}{\par \vskip 1cm}
+\newenvironment{proofff}{{\noindent\it\textcolor{cyan!40!black}{Proof of the lemma}:}\,}{\qed \par}
+\newcommand{\bbrace}[1]{\left\{ #1 \right\} }
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\p}{^{\prime}}
+\renewcommand{\mod}[1]{(\text{mod}\,#1)}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\spec}[1]{\text{Spec}({#1})}
+\newcommand{\rarr}[1]{\xrightarrow{#1}}
+\newcommand{\larr}[1]{\xleftarrow{#1}}
+\newcommand{\emptyy}{\underline{\quad}}
+\newenvironment{enu}{\begin{enumerate}[(1)]}{\end{enumerate}}
+%ctrl+点击文本返回代码  选中代码 ctrl+alt+j 为代码查找文本
+
+%定理环境
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+\newtheorem{coro}[defn]{Corollary}
+\newtheorem{theo}[defn]{Theorem}
+\newtheorem{exer}[defn]{Exercise}
+\newtheorem{rema}[defn]{Remark}
+\newtheorem{lem}[defn]{Lemma}
+\newtheorem{prop}[defn]{Proposition}
+\newtheorem{nota}[defn]{Notation}
+\newtheorem{exam}[defn]{Example}
+\title{Courses Description}
+\author{Erzhuo Wang}
+\date{}
+\begin{document}
+\maketitle 
+Functions of Real Variable(Real Analysis):
+\begin{enu}
+    \item Textbook: Folland's Real Analysis
+    \item Grades: 97/100
+    \item Content: Measure Space, Lebesgue Measure, $L^p$ Space, Radon Measure 
+    \item Instructor: Professor Shuangliang Di
+\end{enu}
+
+Theory of One Complex Variable: 
+\begin{enu}
+    \item Textbook: Stein's Complex Analysis
+    \item Grades: 99/100
+    \item Content: Holomorphic and Meromorphic functions, Residue Forumula, 
+    Classification of Singularity, Entire Functions, Elliptic Functions. 
+    \item Instructor: Professor Zhenyu Guo
+\end{enu}
+
+Functional Analysis: 
+\begin{enu}
+    \item Textbook: Functional Analysis written by Gongqing Zhang
+    \item Grade: 90/100
+    \item Content: Banach space, Open mapping theorem and closed image theorem, Hilbert space, Specturm of compact operator. 
+    \item Instructor: Professor Xiaoxu Xu
+
+\end{enu}
+
+Algebra Seminar: 
+\begin{enu}
+    \item Textbook: A Course in Commutative Algebra(GTM 256)
+    \item Grade: 90/100
+    \item Content: Zariski topology, Specturm of Commutative Ring, Localization, Integral Extension, Princial Ideal Theorem.   
+    \item Instructor: Professor Shuangliang Di
+\end{enu}
+
+Analytic Number Theory: 
+\begin{enu}
+    \item Textbook: Lecture notes written by Professor Ping Xi. 
+    \item Grade: 83/100
+    \item Content: Dirchlet L-functions, Serberg Sieve Method, Large Sieve Method Inequality, 
+    Prime Number Theorem, Exponential Sums, Circle Method. 
+    \item Instructor: Professor Ping Xi
+\end{enu}
+
+Differential Manifold: 
+\begin{enu}
+    \item Textbook: Loring Tu's Smooth Manifold 
+    \item Grade: 95/100
+    \item Content: Smooth Maps, Immersion and Submersion, Submanifold, Vector Field, Differential Form. 
+    \item Instructor: Professor Zhouli Wang
+\end{enu}
+
+Topology: 
+\begin{enu}
+    \item Textbook: Topology written by Chengye You
+    \item Grade: 94/100
+    \item Content: Fundemental Group, Covering Space, Classification of Closed Surfaces.
+    \item Instructor: Professor Qiang Zhang
+
+\end{enu}
+
+Abstract Algebra: 
+\begin{enu}
+    \item Textbook: Abstract written by Weisheng Qiu
+    \item Grade: 94/100
+    \item Content: Group Theory, Ring Theory, Galois Theory
+    \item Instructor: Professor Qiang Zhang
+
+\end{enu}
+
+
+\blue{The following three courses were taken in a summer school holded by Chinese
+Academy of Sciences rather than Xi'an Jiaotong University, so they don't appear on my transcript.} 
+
+Algebraic Geometry: 
+\begin{enu}
+    \item Textbook: Lecture notes written by Professor Shizhang Li(李时璋)
+    \item Content: Sheaf Theory, Basic Propositions of Scheme(like integral, finite-type, fiber product), Immersion
+    \item Instructor: Shizhang Li
+\end{enu}
+
+Algebraic Number Theory: 
+\begin{enu}
+    \item Textbook: Lecture notes written by Professor Jingren Chi(迟敬人) 
+    \item Content: Minkowski Theory, Ramification Theory, Density Theorem, 
+    basic L-functions and Class Field Theory.
+    \item Instructor: Jingren Chi
+\end{enu}
+
+Representation Theory: 
+\begin{enu}
+    \item Textbook: Lecture notes written by Professor Hang Xue(薛航) 
+    \item Content: Group Algebra, characters of Representation, calulation of table of characters for some certain groups 
+    , Induced Representation.
+    \item Instructor: Chen Wan
+\end{enu}
+\end{document}

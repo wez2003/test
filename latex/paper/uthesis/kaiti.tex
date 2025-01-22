@@ -1,0 +1,505 @@
+\documentclass[12pt,a4paper]{ctexart}
+%宏包
+\usepackage{amsmath}%数学符号
+\usepackage{amssymb}%数学符号
+\usepackage{amsthm}%数学符号
+\usepackage{geometry}%界面布局
+\usepackage{natbib}%bibtex
+\usepackage{tikz}%交换图
+\usepackage{tikz-cd}%交换图
+\usepackage{quiver}%交换图
+\usepackage{float}%浮动体固定
+\usepackage{caption}%图片标题
+\usepackage[colorlinks,linkcolor=blue]{hyperref}%超链接
+\usepackage{enumerate}%计数列表
+\usepackage{tabularx}%控制列宽
+\usepackage{xr}%跨文件引用
+\externaldocument{D:/latex/book/algebra/algebra}
+\externaldocument{D:/latex/book/analysis/analysis}
+% \usepackage{CTEX}
+% \ctexset{today=old,contentsname=Contents}
+   
+%页面设置
+\linespread{1.2}
+\geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2cm}
+%\geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2cm}
+
+%环境和宏指令
+\newenvironment{prooff}{{\noindent\it\textcolor{cyan!40!black}{Proof}:}\,}{\par \vskip 1cm}
+\newenvironment{proofff}{{\noindent\it\textcolor{cyan!40!black}{Proof of the lemma}:}\,}{\qed \par}
+\newcommand{\bbrace}[1]{\left\{ #1 \right\} }
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\p}{^{\prime}}
+\renewcommand{\mod}[1]{(\text{mod}\,#1)}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\spec}[1]{\text{Spec}({#1})}
+\newcommand{\rarr}[1]{\xrightarrow{#1}}
+\newcommand{\larr}[1]{\xleftarrow{#1}}
+\newcommand{\emptyy}{\underline{\quad}}
+\newenvironment{enu}{\begin{enumerate}[(1)]}{\end{enumerate}}
+%ctrl+点击文本返回代码  选中代码 ctrl+alt+j 为代码查找文本
+
+%定理环境
+\theoremstyle{definition}
+\newtheorem{defn}{定义}[section]
+\newtheorem{coro}[defn]{推论}
+\newtheorem{theo}[defn]{定理}
+\newtheorem{exer}[defn]{Exercise}
+\newtheorem{rema}[defn]{Remark}
+\newtheorem{lem}[defn]{引理}
+\newtheorem{prop}[defn]{性质}
+\newtheorem{nota}[defn]{Notation}
+\newtheorem{exam}[defn]{例子}
+
+
+\title{开题报告: Hecke L-函数的解析延拓}
+\author{王尔卓}
+\begin{document}
+\maketitle 
+\tableofcontents 
+\newpage 
+\section{课题动机背景}
+Riemann zeta 函数$\zeta(s)$ 和Dirchlet L-函数$L(s,\chi)$ 是数论中两个非常重要的研究对象. 
+$\zeta(s)$ 最初的定义为
+\begin{equation*}
+    \zeta(s)=\sum_{n=1}^{\infty}\frac{1}{n^s}, \quad \text{Re}(s)>1.  
+\end{equation*}
+这是一个定义在实部大于$1$的复平面上的全纯函数. 在1859年, 
+Riemann 本人证明了这个函数可以通过一些手段亚纯延拓到整个复平面, 
+且仅在$s=1$处有单极点. 具体来说, 定义$\xi(s)=\pi^{-s/2}\Gamma(s/2)\zeta(s)$,
+Riemann 通过Possion Summation Formula 证明了
+$\xi(s)$ 可以延拓为整个复平面上的亚纯函数, 
+且仅在$s=0$和$s=1$有留数为$1$的
+单极点. 与此同时$\xi(s)$满足函数方程$\xi(s)=\xi(1-s), s\in\bb{C}$. 
+通过延拓后的Riemann zeta 函数$\zeta(s)$的解析性质以及复变函数的工具,  
+Riemann证明了素数定理
+\begin{equation*}
+    \pi(x)\sim \text{Li}(x).
+\end{equation*}
+Riemann 对$\zeta(s)$的研究是一个承上启下的里程碑式的工作, 
+不但在处理素数定理上与高斯在多年前通过数值计算得到的猜测相符, 
+而且展现了数论与分析工具的深刻联系, 激发出更多深刻的理论.
+
+与Riemann zeta函数类似的是, Dirchlet L-函数 $L(s,\chi)$也有类似的性质与函数方程.
+具体来说, 有如下结论: 
+\begin{theo} 
+    设 $\chi$ 为模 $N$ 的本原特征. 令
+    $$
+    \begin{gathered}
+    \delta(\chi)=\delta=\left\{\begin{array}{l}
+    0, \text { 若 } \chi(-1)=1 ; \\
+    1, \text { 若 } \chi(-1)=-1,
+    \end{array}\right. \\
+    \xi(s, \chi)=\left(\frac{N}{\pi}\right)^{s / 2} \Gamma\left(\frac{s+\delta}{2}\right) L(s, \chi),
+    \end{gathered}
+    $$ 
+    则 $L(s, \chi)$ 可以解析延拓到整个复平面上并且满足如下的函数方程 
+    $$
+    \xi(s, \chi)=\frac{G(1, \chi)}{i^\delta \sqrt{N}} \xi(1-s, \bar{\chi}) .
+    $$
+\end{theo}
+Dirchlet L-函数在一些数论问题上也发挥着巨大的作用, 例如所谓的Dirchlet大定理: 
+\begin{theo}
+    如果$a,b$互素, 则有无穷多$an+b$型素数. 
+\end{theo}
+在这个问题的处理上, 分析方法仍然拥有着无可比拟的优势. 
+尽管通过初等数论的方法可以解决这个问题一
+系列的特殊情况, 通过分析分圆多项式$\Phi(x)$的代数性质, 我们可以解决$b=1$的情况, 
+但终究没人能给出这个定理的一个纯代数证明.
+然而, 通过分析Dirchlet L函数的一些解析性质, 
+具体来说是证明$L(1,\chi)\neq 0$, 再结合特征标的正交性, 我们就可以给出Dirchlet大定理的一个完整的证明. 
+
+随着研究的深入, 数学家们将研究的兴趣从$\bb{Q}$本身转变为更一般的代数数域, 也就是$\bb{Q}$的有限次扩张. 
+而对于一般的代数数域的研究, 原有的Riemann zeta函数$\zeta(s)$
+以及Dirchlet L-函数这些工具显得有些捉襟见肘.
+这时我们需要推广zeta函数和L函数的定义, 使得其成为
+更一般的, 能刻画一个代数数域性质的L函数.
+\subsection{Artin L-函数}
+从历史上来看, L-函数的推广分为两个支流.第一侧是所谓“伽罗瓦侧”的Artin L-函数. 
+这里我们参考\cite{MR1697859}. 
+要定义Artin L-函数, 我们需要熟悉伽罗瓦理论以及代数数论里的分歧理论.
+考虑一个代数数域的伽罗瓦扩张
+$L/K$, 记伽罗瓦群为$\text{Gal}(L/K)$. 考虑一个$\mathcal{O}_L$中的素理想$\mathfrak{P}$, 
+其分解群, 惯性群, 分解域, 惯性域按如下对应排开: 
+\[\begin{tikzcd}
+        & L & 1 & {\mathfrak{P}} & {} \\
+        {\text{Galois}} & {T_{\mathfrak{P}}} & { I_{\mathfrak{P}} } & {\mathfrak{P}_T} \\
+        {\text{Galois}} & {Z_{\mathfrak{P}}} & { G_{\mathfrak{P}} } & {\mathfrak{P}_Z} \\
+        & K & {\text{Gal}(L/K)} & {\mathfrak{p}}
+        \arrow["{\text{index}=e}", from=1-3, to=2-3]
+        \arrow[""{name=0, anchor=center, inner sep=0}, "e"', from=2-2, to=1-2]
+        \arrow["{\text{index}=f}", from=2-3, to=3-3]
+        \arrow["{g_3=1,e_3=e,f_3=1}"', from=2-4, to=1-4]
+        \arrow[""{name=1, anchor=center, inner sep=0}, "f"', from=3-2, to=2-2]
+        \arrow["{\text{index}=g}", from=3-3, to=4-3]
+        \arrow["{g_2=1,e_2=1,f_2=f}"', from=3-4, to=2-4]
+        \arrow["g"', from=4-2, to=3-2]
+        \arrow["{e(\mathfrak{P}_Z/\mathfrak{p})=f(\mathfrak{P}_Z/\mathfrak{p})=1}"', from=4-4, to=3-4]
+        \arrow[shorten <=4pt, Rightarrow, from=0, to=2-1]
+        \arrow[shorten <=4pt, Rightarrow, from=1, to=3-1]
+    \end{tikzcd}\]
+并且有典范同构
+$$
+G_{\mathfrak{P}} / I_{\mathfrak{P}}\simeq \text{Gal}(\kappa(\mathfrak{P})/\kappa(\mathfrak{p}))
+$$
+因此, $G_{\mathfrak{P}} / I_{\mathfrak{P}}$ 由所谓的Frobenius Automorphism 
+$\varphi_{\mathfrak{P}}$生成.
+其在$\text{Gal}(\kappa(\mathfrak{P})/\kappa(\mathfrak{p}))$的像为
+$x \mapsto x^q$, 其中$q=|\kappa(\mathfrak{p})|$.注意到因为我们没有假设
+$\mathfrak{p}$非分歧, 此时Frobenius Automorphism 依赖于代表元的选取. 
+
+考虑伽罗瓦群的一个有限维复表示
+$\rho: \text{Gal}(L/K)\rightarrow \text{GL}(V)$, 注意到Frobenius Automorphism 
+$\varphi_{\mathfrak{P}}$ 以及这个伽罗瓦群的表示自然诱导出一个$V^{I_\mathfrak{P}}$($I_\mathfrak{P}$作用下的不变子空间)
+上的有限阶可逆线性映射. 具体定义为
+\begin{equation*}
+    \varphi_{\mathfrak{P}}: V^{I_\mathfrak{P}}\rightarrow V^{I_\mathfrak{P}}, v\mapsto \rho(\varphi_{\mathfrak{P}})v 
+\end{equation*} 
+注意到这个线性映射的特征多项式
+$$
+    \operatorname{det}\left(1-\varphi_{\mathfrak{P}}t; V^{I_{\mathfrak{P}}}\right)\in \bb{C}[t]
+$$   
+并不依赖于$\mathfrak{P}$以及代表元的选取, 且可以展开成
+\begin{equation}
+    \operatorname{det}\left(1-\varphi_{\mathfrak{P}}t ; V^{I_{\mathfrak{P}}}\right)=\prod_{i=1}^d\left(1-\varepsilon_i t\right)
+    \label{equation: characteristic polynomial, Frobenious Automorphism}
+\end{equation}
+其中 $\varepsilon_i$ 为一些单位根.
+因此我们定义一个伽罗瓦群表示$\rho$的Artin L-函数为 
+$$
+\mathcal{L}(L/K, \rho, s)=\prod_{\mathfrak{p}} \frac{1}{\operatorname{det}(1-\varphi_{\mathfrak{P}}
+\mathfrak{N}(\mathfrak{p})^{-s} ; V^{I_{\mathfrak{P}}}) },\text{Re}(s)>1
+$$
+从(\ref{equation: characteristic polynomial, Frobenious Automorphism})式
+可以看出上式在实部大于$1$里内闭一致收敛
+且全纯. 
+
+下面我们证明上面定义的Artin L-函数确实能复现原始的Dirchlet L-函数.
+考虑$\chi:(\bb{Z}/m\bb{Z})^\times\rightarrow \bb{C}^\times$是一个本原特征, 可以将其自然的视为
+分圆扩张$\bb{Q}(\zeta_m)/\bb{Q}$的伽罗瓦群的一个表示. 当$p\nmid m$是, $p$非分歧, 从而惯性群退化$1$, 
+此时Artin L-函数$p$处的Local Factor 变为
+\begin{equation*}
+    \frac{1}{1-\chi(p)p^{-s}}
+\end{equation*}
+这与Dirchlet L-函数Euler乘积中的Local Factor相同. 
+
+当$p|m$时情况变得略微复杂, 
+这里我们不加证明的给出一个素数$p$在分圆域$\bb{Q}(\zeta_m)$, 其中$m=p^{\alpha}n$, 
+的分解群、惯性群的构成, 如下图所示: 
+    % https://q.uiver.app/#q=WzAsOCxbMCwwLCJcXG1hdGhiYntRfShcXHpldGFfbSkiXSxbMCwxLCJcXG1hdGhiYntRfShcXHpldGFfbikiXSxbMCwzLCJaX3AiXSxbMCw0LCJcXG1hdGhiYntRfSJdLFszLDAsIjEiXSxbMyw0LCIoXFxtYXRoYmJ7Wn0vbVxcbWF0aGJie1p9KV5cXHRpbWVzIl0sWzMsMywiRF9wPVxcbGVmdFxce2E6IChhLHApPTEsYVxcZXF1aXYgcF5rXFxtb2R7bn1cXHJpZ2h0XFx9Il0sWzMsMSwiSV9wPVxcbGVmdFxce2E6IChhLHApPTEsYVxcZXF1aXYgMVxcbW9ke259XFxyaWdodFxcfSJdLFsxLDAsIlxcdmFycGhpKHBeXFxhbHBoYSkiXSxbMiwxLCJcXHRleHR7b3JkfV9uKHApIiwyXSxbMywyLCJcXHZhcnBoaShuKS9cXHRleHR7b3JkfV9uKHApIiwyXSxbNiw1XSxbNyw2XSxbNCw3XV0=
+    \[\begin{tikzcd}
+        {\mathbb{Q}(\zeta_m)} &&& 1 \\
+        {\mathbb{Q}(\zeta_n)} &&& {I_p=\left\{a: (a,p)=1,a\equiv 1\mod{n}\right\}} \\
+        \\
+        {Z_p} &&& {D_p=\left\{a: (a,p)=1,a\equiv p^k\mod{n}\right\}} \\
+        {\mathbb{Q}} &&& {(\mathbb{Z}/m\mathbb{Z})^\times}
+        \arrow[from=1-4, to=2-4]
+        \arrow["{\varphi(p^\alpha)}", from=2-1, to=1-1]
+        \arrow[from=2-4, to=4-4]
+        \arrow["{\text{ord}_n(p)}"', from=4-1, to=2-1]
+        \arrow[from=4-4, to=5-4]
+        \arrow["{\varphi(n)/\text{ord}_n(p)}"', from=5-1, to=4-1]
+    \end{tikzcd}\]
+我们只需要证明$p|m$时, $V^{I_{\mathfrak{P}}}$会退化为$0$即可, 如果$V^{I_{\mathfrak{P}}}=\bb{C}$, 这说明
+$\chi(I_{\mathfrak{P}})\equiv 1$, 根据上图构造, 就与$\chi$是本原特征矛盾. 
+从而, 
+\begin{equation*}
+    \mathcal{L}(\bb{Q}(\zeta_m)/\bb{Q},\chi,s)=L(s,\chi)
+\end{equation*}
+
+因此, 在“伽罗瓦侧” 我们得到了本原Dirchlet L函数的一个推广: Artin L-函数. 
+那么Artin L函数有没有与Dirchelet L-函数类似的函数方程, 这个问题被Artin本人解决了. 
+按现代的语言来讲, Artin通过Artin L函数关于表示的可加性, 关于诱导表示的不变性, 类域论中的Artin互反律, 
+以及表示论中深刻的Brauer定理, 将Artin L函数函数方程构建的问题转化为已经被解决的\blue{Hecke L-函数的函数方程}, 
+也就是本文的主人公.
+更确切的说, 对任意伽罗瓦群的表示, 通过Brauer定理, 可以将他转化为一些$1$维表示诱导出来的表示的和, 而
+$1$维表示Artin L函数通过Artin互反律写成Hecke L-函数, 
+这样就将Artin L函数的函数方程构建
+转化到Hecke L-函数的函数方程.
+
+
+
+\subsection{Hecke L-函数}
+Dirchlet L-函数推广的第二条支流是所谓“自守侧”的Hecke L-函数.
+Hecke L-函数有两种定义方式, 第一种比较古典的定义方式 Weber 在研究类域论是借助
+narrow ray class group的特征定义的Weber L-函数. 这一部分我们参考\cite{MR2462595}. 
+首先我们引入一个代数数域中元素totally real的定义: 
+\begin{defn} 
+考虑一个代数数域$F$, 如果 $\alpha\in F$ 在所有实嵌入里都大于$0$, 则称$\alpha$ 
+totally real. 
+\end{defn}
+接下来我们定义narrow ray class group. 
+\begin{defn}[narrow ray class group]
+考虑一个代数数域$F$, $\mathfrak{m}$为$\mathcal{O}_F$中的非零整理想, 定义 
+\begin{enu} 
+   \item $\mathcal{I}_F(\mathfrak{m})=\left\{\mathfrak{a} \in \mathcal{I}_F: \text { ord }_{\mathfrak{p}} \mathfrak{a}=0 \text { for all } \mathfrak{p} \mid \mathfrak{m}\right\}$  
+   \item $\mathcal{P}_{F,\mathfrak{m}}^+=\bbrace{(\alpha): \alpha\in F-\bbrace{0} , v_{\mathfrak{p}}(\alpha-1)\ge \text{ord}_{\mathfrak{p}}(\mathfrak{m}) \text{ for all }\mathfrak{p}|\mathfrak{m}, \alpha \text{ totally real}}$
+   \item $\mathcal{R}_{F, \mathfrak{m}}^{+}=\mathcal{I}_F(\mathfrak{m}) / \mathcal{P}_{F, \mathfrak{m}}^{+}$ 为narrow ray class group. 
+\end{enu}
+\end{defn}
+可以证明narrow ray class group是一个有限Abel群, 
+下面我们说明这个群的特征确实能复现Dirchlet 特征. 
+这其实有一个简单的理解, 
+在Dirchlet 特征里我们实际上考虑的是$(\bb{Z}/m\bb{Z})^\times$, 
+而$\bb{Z}$中的非零元商取正负号自动得到了$\bb{Z}$这个主理想整环的全部整理想, 
+但是在一般代数数域的代数整数环上, 考虑 $\mathcal{I}_F(\mathfrak{m})$这个群时相当于商去了正负号, 
+所以再取商不能直接取主分式理想, 否则会多商一部分.
+应该加上totally real条件的限制, 这样就复现一个Dirchlet 特征.
+\begin{prop}
+    令 $F=\mathbb{Q}, \mathfrak{m}=m \mathbb{Z}$. 
+    如果 $\langle r\rangle \in \mathcal{I}(\mathfrak{m})$, 则我们可以假设 $r>0$ 且 $r=a / b$, 
+    其中 $(a, m)=(b, m)=1$. 可以验证由$\langle r\rangle \mapsto a b^{-1}\mod{m}$ 给出的映射
+$$
+\mathcal{I}_{\mathbb{Q}}(\mathfrak{m}) \longrightarrow(\mathbb{Z} / m \mathbb{Z})^{\times}
+$$
+是良定义的, 且为满射. 而Kernel恰好为 
+$\{\langle r\rangle: r>0, r=a / b,(a, m)=(b, m)=1, a \equiv b(\bmod m)\}=\mathcal{P}_{\mathbb{Q}, \mathfrak{m}}^{+}$. 
+因此我们有, 
+$$
+\mathcal{I}_{\mathbb{Q}}(\mathfrak{m}) / \mathcal{P}_{\mathbb{Q}, \mathfrak{m}}^{+} \cong(\mathbb{Z} / m \mathbb{Z})^{\times}
+$$
+\end{prop}
+\begin{defn}[Weber L-Function]
+    我们定义narrow ray class group $\mathcal{R}^+_{F,\mathfrak{m}}$ 的特征$\chi$的L-函数为 
+    $$
+    L_{\mathfrak{m}}(s, \chi)=\sum_{\substack{\text { integral ideals } \\ \mathfrak{a} \text { of } \mathcal{O}_F \\(\mathfrak{a}, \mathfrak{m})=1}} \chi(\mathfrak{a}) N \mathfrak{a}^{-s},
+    $$
+\end{defn}
+在上述同构下, 可以验证 Weber L-Function 复现了Dirchlet L-函数.
+
+
+借助高维的Possion Summation Formula, 
+我们可以给出Weber L函数的解析延拓以及函数方程, 
+但这种证明缺乏对解析延拓中所用到的Local Facotr的解释性
+以及理论的可推广性, 
+这两点不足的改善
+就是Tate重新定义的Hecke L-函数的重要意义.
+
+第二种由Tate引入的比较现代的定义方式是借助了1940年 
+通过Chevalley定义的 
+idele class group $\bb{I}_K/K^\times$.
+在1950年, 由Tate在他的博士论文通过idele class group的特征推广了
+narrow ray class group的特征, 
+从而给出了Weber L-函数的一种推广, 称为Hecke L-函数.  
+Tate的证明借助了抽象调和分析, 代数数论里的深刻理论, 通过
+Adele上的Possion Summation Formula, 
+得到了Hecke L-函数的解析延拓与函数方程.
+与此同时, 
+他给出任意Hecke L-函数在$s=1$处留数的计算公式, 
+将Dedekind zeta函数$\zeta_K(s)$在$s=1$处留数的计算转化计算
+紧群$\bb{I}_F^1/F^\times$的Haar测度, 这个Haar测度最终的计算结果吻合于解析类数公式.
+
+本文的主要内容就是梳理Tate 1950年博士论文\cite{MR217026}的证明过程, 补全一些证明细节, 
+并挖掘出这篇文章结论的直接应用
+以及探讨其如何孵化出现代的自守形式理论. 
+
+
+
+\newpage 
+\section{课题内容概述}
+课题内容概述部分主要参考\cite{MR1680912}
+\subsection{局部域特征的分类}
+我们之前提到Tate这篇文章借助了抽象调和分析的工具, 要在局部域和Adele上作调和分析, 
+我们首先要分类这两个对象上的特征, 然而根据Restricted Direct Product of Topological Group 的性质, 
+本质上我们只需要看局部域的情况.一个局部域是指$\bb{R},\bb{C}$ 以及finite extension of $\bb{Q}_p$.
+当然这里我们对函数域上的东西不作任何讨论. 分类局部域上乘法群和加法群的特征是Tate这篇文章的第一部分.
+
+首先我们来看加法群的情况, 事实上根据拓扑群上的技术, 某种程度上所有
+加性特征都可以由一个我们任意
+给定的非平凡加性特征特征“生成”. 具体来说有如下定理: 
+\begin{theo}[additive character of local field]
+    $F$是一个局部域, $\hat{F}$是局部域的unitary character 并赋予紧开拓扑, 任取一个非平凡unitary character $\psi$, 
+    则有如下拓扑群同构
+    \begin{equation*}
+        F\rightarrow \hat{F}, a\rightarrow (x\mapsto \psi(ax))
+    \end{equation*}
+\end{theo}
+一般这个选定的非平凡加性特征由如下方式构造:
+\begin{defn}
+    We will now construct the standard non-trivial additive characters for each of the local fields.
+    \begin{enu}
+    \item $(F=\mathbb{R})$. Let $\psi(x)=e^{-2 \pi i x}$. 
+    \item $(F=\mathbb{C})$. Set $\psi(x)=e^{-2 \pi i \operatorname{Tr}_{\mathbb{C} / \mathbb{R}}(x)}$.
+    \item ($F$ non-Archimedean). First, we will define a non-trivial character on $\mathbb{Q}_p$. 
+    Recall that every $x \in \mathbb{Q}_p$ can be represented in the form
+    $$
+    x=x_{-r} p^{-r}+x_{1-r} p^{1-r}+\cdots+x_{-1} p^{-1}+x_0+x_1 p+\cdots
+    $$
+    Define $\lambda(x)=x_{-r} p^{-r}+x_{1-r} p^{1-r}+\cdots+x_{-1} p^{-1}$. Then $\psi_p$ is defined to be 
+    \begin{equation*}
+        \psi_p: \bb{Q}_p \rightarrow S^1,x\mapsto e^{2\pi i\lambda(x)}.
+    \end{equation*}
+    Now, for finite extension $F$ of $\bb{Q}_p$, we define $\psi(x)=\psi_p(\text{Tr}_{F/\bb{Q}_p}(x))$.
+    \end{enu}
+\end{defn}
+
+
+再来看乘法群的情况, 我们定义一个局部域乘法群到$\bb{C}$乘法群的连续同态为quasi-character, 
+如果一个quasi-character在如下子群
+\begin{equation*}
+    u=\begin{cases}
+        \bbrace{\pm 1}, &F=\bb{R} \\ 
+        \bb{S}^1,  &F=\bb{C} \\ 
+        \mathcal{O}_F^\times, &F\text{ be p-adic field}
+    \end{cases}
+\end{equation*}
+上平凡, 我们称该特征为unramified character(非分歧特征).
+事实上一个局部域的quasi-characte特征一定可以写成一个unitary character和一个unramified character的乘积, 
+非分歧特征由如下定理分类: 
+\begin{prop}
+    对任意非分歧特征$\chi$, 存在一个复数$s$使得 
+    $\chi(\alpha)=|\alpha|_F^s$.
+\end{prop}
+再通过一些技术手段我们分类uniatry character, 从而得到局部域上quasi-character的完整分类: 
+\begin{theo}
+    We can classify quasi-characters of $F^\times$ as follow: 
+    \begin{enu}
+        \item Let $F=\mathbb{R}$. A quasi-character of $\mathbb{R}^\times$ is either of the form $|\cdot|^s$ or $\text{sgn}|\cdot|^s $.
+        \item Let $F=\mathbb{C}$. 
+        Every quasi-character of $\mathbb{C}^\times$ takes the form  
+        $$
+        \chi_{s, n}: r e^{i \theta} \mapsto r^s e^{i n \theta},s\in\bb{C}, n\in\bb{Z}
+        $$
+        \item Let $F$ be non-Archimedean and $\mathfrak{p}$ be the unique prime ideal in $F$.
+        There exists an $n \in \mathbb{N}$ such that $\chi_0\left(1+\mathfrak{p}^n\right)=\{1\}$. For the smallest $n$ with this property, we call $\mathfrak{p}^n$ the conductor of $\chi_0$. 
+        If $\chi_0$ is trivial $(n=0)$, then we say the conductor is $\mathfrak{p}^0=\mathfrak{o}_F^{\times}$. Consequently, $\chi_0$ is induced by a character on the finite group $\mathfrak{o}_F^{\times} /\left(1+\mathfrak{p}^n\right)$. 
+        
+        In addition, if we fix $\pi_F$ a generator $\mathfrak{p}$, we can find a unique unitary character $\chi_0$ with  
+        $\chi_0(\pi_F)=1$ and a unique $s\in \bb{C}/\dfrac{2\pi i}{\log q}\bb{Z}$ such that $\chi=\chi_0|\cdot|^s$.
+    \end{enu}
+\end{theo}
+
+
+
+\subsection{局部函数方程}
+要做局部函数方程, 我们首先要知道局部的zeta函数是如何定义的, 这就要牵扯到Haar测度的选取问题. 
+我们的首要目标是选取合适的Haar测度使得Fourier Inversion Theorem成立. 
+这一部分要用到的拓扑群内容参考\cite{MR1397028}. 
+
+局部域上的Haar测度采用如下构造: 
+\begin{defn}
+    Now we will fix a Haar measure for each completion of $K$. 
+\begin{enu} 
+    \item If $F=\mathbb{R}$, then let $d x$ be the standard Lesbesgue measure.
+    \item IF $F=\mathbb{C}$, then let $d x$ be twice the standard Lebesgue measure.
+    \item If $F$ is non-Archimedean, then let $d x$ be such that $\operatorname{Vol}\left(\mathfrak{o}_F, d x\right)=N\left(\mathfrak{D}_F\right)^{-1 / 2}$, where $\mathfrak{D}_F$ denotes the different of $F$, which is an integral ideal of 
+    $\mathfrak{o}_F$.
+\end{enu}
+\end{defn}
+可以证明对上述Haar测度, Fourier Inversion Theoerm成立, 
+其中前两部分是直白但不平凡的数学分析, 只需取特定函数作检测, non-archimedean
+也是取特定函数作检测, 而且会用到特征标的正交性, Haar测度的平移不变性的相关结论.
+
+有了Haar测度, 我们可以定义局部上的zeta函数:
+\begin{defn}[local zeta function]
+    For $f \in S(F)$ and $\chi \in \operatorname{Hom}_{\text {cont }}\left(F^{\times}, \mathbb{C}^{\times}\right)$, we define the associated local zeta function to be
+    $$
+    Z(f, \chi)=\int_{F^{\times}} f(x) \chi(x) d^* x
+    $$
+    Note that $Z(f, \chi)$ is dependent on the multiplicative measure $d^* x$. If we fix an additive measure $d x$ and choose $d^* x=c_Fd x /|x|_F$, then $Z(f, \chi)$ is dependent on $d x$.
+\end{defn}
+以及局部L-函数:
+\begin{defn}[local L-function]
+    Let $\chi \in \operatorname{Hom}_{\text {cont }}\left(F^{\times}, \mathbb{C}^{\times}\right)$.
+\begin{enu} 
+    \item If $F=\mathbb{C}$, then let
+    $$
+    L\left(\chi_{s, n}\right)=\Gamma_{\mathbb{C}}\left(s+\frac{|n|}{2}\right)=(2 \pi)^{-\left(s+\frac{|n|}{2}\right)} \Gamma\left(s+\frac{|n|}{2}\right)
+    $$
+    \item If $F=\mathbb{R}$ and $\chi=|\cdot|^s$ or $\chi=\text{sgn}|\cdot|^s$, then let
+    $$
+    L(\chi)= \begin{cases}\Gamma_{\mathbb{R}}(s)=\pi^{-s / 2} \Gamma(s / 2) & \text { if } \chi=|\cdot|^s \\ \Gamma_{\mathbb{R}}(s+1) & \text { if } \chi=\text{sgn}|\cdot|^s\end{cases}
+    $$
+    \item If $F$ is non-Archimedean, then let
+    $$
+    L(\chi)= \begin{cases}\left(1-\chi\left(\pi_F\right)\right)^{-1} & \text { if } \chi \text { is unramified } \\ 1 & \text { otherwise }\end{cases}
+    $$
+\end{enu}
+Then $L(\chi)$ be a meromorphic function on $\bb{C}$.
+\end{defn} 
+并得到局部上的zeta函数的函数方程: 
+\begin{prop}
+    Let $f \in S(F)$, and $\chi=\chi_0|\cdot|^s$ where $\chi_0$ is the unitary part of the quasicharacter $\chi$. Let $\sigma=\Re(s)$. Then the following statements hold:
+    \begin{enu}
+        \item $Z(f, \chi)$ is holomorphic and absolutely convergent if $\sigma>0$.
+        \item There exists a nonvanishing holomorphic function $\epsilon(\chi, \psi, d x)$ such that
+        $$
+        \frac{Z(\hat{f}, \chi^{\vee})}{L\left(\chi^{\vee}\right)}=\epsilon(\chi, \psi, d x) \frac{Z(f, \chi)}{L(\chi)}
+        $$
+        for all $f \in S(F)$. Hence $Z(f,\chi)$ has a meromorphic continuation to the whole complex plane. 
+    \end{enu}
+    \label{theorem: functional equation, local version}
+\end{prop}
+其中$\epsilon$-factor是一个比较复杂的量, 取决于不同quasi-character的选取. 
+
+
+
+
+
+
+
+
+
+
+\subsection{整体函数方程}
+这一部分比较复杂, 首先是用类似的方法定义 Schwartz-Bruhat 函数的整体zeta函数$Z(f,\chi)$, 然后通过大概思路是通过Adele上的Poisson Summation Formula
+以及一些傅里叶分析的运算, 可以构造出Global Zeta Function的函数方程: 
+\begin{theo}
+    For all idele-class characters $\chi=\chi_0|\cdot|^s$ and $f \in S\left(\mathbb{A}_K\right)$, the global zeta function $Z(f, \chi)$ is 
+    uniformly convergent in every compact subset of $\sigma=\Re(s)>1$, hence holomorphic in $\sigma=\Re(s)>1$. 
+    Furthermore, $Z(f, \chi)$ extends to a meromorphic function of $s$ and satisfies the functional equation
+    $$
+    Z(f, \chi)=Z(\hat{f}, \chi^{\vee})
+    $$ 
+
+    For $\chi=\chi_0|\cdot|^{s}$, if $\chi_0$ is non-trivial, 
+    the continuation of $Z(f, \chi)$ is entire.  
+    If $\chi_0$ is trivial, the continuation of $Z(f, \chi)$
+    has simple poles at $s=0$ and $s=1$, with corresponding residues given by 
+    $$
+    -\operatorname{Vol}\left(C_K^1\right) f(0) \quad \text { and } \quad \operatorname{Vol}\left(C_K^1\right) \hat{f}(0)
+    $$
+    respectively. The volume of $C_K^1$ is taken with respect to the quotient measure on $C_K$ defined by both $d^* x$ and the counting measure on $K^*$. 
+\end{theo}
+再建立Global Zeta Function与Hecke L-函数的联系, 我们可以得到Hecke L-函数的函数方程, 
+注意到Hecke L-函数的平凡情况为Dekekind zeta函数, 
+这样解析类数公式的证明就转化为一个纯粹的Haar测度计算问题. 
+
+通过分析Idele上分解的结构, 以及从两个方向分别计算对比Haar测度, 我们可以知道
+\begin{theo}[Analytic Class Number Formula]
+    $$
+    \operatorname{Vol}\left(C_K^1\right)=\frac{2^{r_1}(2\pi)^{r_2}h_K R_K}{\omega_K \sqrt{|d_K|}}
+    $$
+\end{theo}
+通过计算Haar测度得到解析类数公式的证明
+可以参考Weil的Basic Number Theory\cite{MR427267}, 
+目前看来这是最好的文献资料.
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage 
+\section{课题执行方案}
+目前已经通过Tate的原文以及其他数学工作者的笔记了解了原文的脉络和技术, 后续主要
+阅读一些与Tate's thesis相关的应用, 以及尽可能了解高维情况的自守形式 L-函数.
+\begin{enu}
+    \item 12月-2月: 完成文献翻译, 完整阅读Artin L-函数函数方程的建立, 初步整理Tate's thesis的证明.
+    \item 2月-5月 : 完善Tate's thesis的证明梳理, 
+    阅读Bump的自守形式与自守表示以及其他材料了解高维情况的结果并将部分内容整理至毕业论文中.
+\end{enu}
+
+\newpage 
+\bibliography{renwu}
+\bibliographystyle{plain}%终端输入bibtex+文件名再ctrl+s两次
+
+
+\end{document}

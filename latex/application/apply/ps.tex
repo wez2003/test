@@ -1,0 +1,108 @@
+\documentclass[12pt]{article}
+%宏包
+\usepackage{amsmath}%数学符号
+\usepackage{amssymb}%数学符号
+\usepackage{amsthm}%数学符号
+\usepackage{geometry}%界面布局
+\usepackage{natbib}%bibtex
+\usepackage{tikz}%交换图
+\usepackage{tikz-cd}%交换图
+\usepackage{quiver}%交换图
+\usepackage{float}%浮动体固定
+\usepackage{caption}%图片标题
+\usepackage[colorlinks,linkcolor=blue]{hyperref}%超链接
+\usepackage{enumerate}%计数列表
+\usepackage{tabularx}%控制列宽
+\usepackage{CTEX}
+\usepackage{caption}%字体
+\ctexset{today=old}
+   
+%页面设置
+\linespread{1.2}
+\geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2cm}
+%\geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2cm}
+%环境和宏指令
+\newenvironment{prooff}{{\noindent\it\textcolor{cyan!40!black}{Proof}:}\,}{\par \vskip 1cm}
+\newenvironment{proofff}{{\noindent\it\textcolor{cyan!40!black}{Proof of the lemma}:}\,}{\qed \par}
+\newcommand{\bbrace}[1]{\left\{ #1 \right\} }
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\p}{^{\prime}}
+\renewcommand{\mod}[1]{(\text{mod}\,#1)}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\spec}[1]{\text{Spec}({#1})}
+\newcommand{\rarr}[1]{\xrightarrow{#1}}
+\newcommand{\larr}[1]{\xleftarrow{#1}}
+\newcommand{\emptyy}{\underline{\quad}}
+\newenvironment{enu}{\begin{enumerate}[(1)]}{\end{enumerate}}
+%ctrl+点击文本返回代码  选中代码 ctrl+alt+j 为代码查找文本
+
+%定理环境
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+\newtheorem{coro}[defn]{Corollary}
+\newtheorem{theo}[defn]{Theorem}
+\newtheorem{exer}[defn]{Exercise}
+\newtheorem{rema}[defn]{Remark}
+\newtheorem{lem}[defn]{Lemma}
+\newtheorem{prop}[defn]{Proposition}
+\newtheorem{nota}[defn]{Notation}
+\newtheorem{exam}[defn]{Example}
+\title{Personal Statement}
+\author{Erzhuo Wang(王尔卓)}
+\date{}
+\begin{document}
+\maketitle 
+\section{Basic Information}
+I am a senior student at Xi'an Jiaotong University majoring in Mathematics. 
+My research interest is number theory, especially Modular Forms, Automorphic Forms and their L-functions. 
+\section{Experiences}
+I discovered my passion for Number Theory in high school because of a magic theorem says an odd prime number 
+$p \equiv 1\mod{4}$ if and only if it can be written as the sum of two perfect squares. 
+After entering campus, I began to learn number theory in a structured way.
+
+During my bachelor's degree,
+I read the initial two chapters and final chapter (Algebraic number field, local field and L-functions) of Neukirch's Algebraic Number Theory, 
+the first three chapters of Fred Diamond's A First Course in Modular Form (basic concepts in Modular Form, dimension formula)
+and Tate's thesis (analytic continuation of Hecke L-functions).  
+
+In my first year on campus, I focused on studying foundational subjects in Mathematics such as Linear Algebra and Analysis.
+I attended a seminar Professor Xi organized that year. 
+We discussed the first few chapters of GTM 84, covering propositions of Gauss Sum and some results about the number of 
+solutions of some special
+Diophantus equations in finite field. 
+
+During the second year summer vacation, 
+I successfully completed the written test and interview to participate in a summer school held by the Chinese Academy of Sciences. 
+At the school, I learned basic concepts in Algebraic Geometry, Algebraic Number Theory, and Representation Theory. 
+
+In the third year, I enrolled in the Analytic Number Theory course taught by Professor Xi. 
+I learned about classical ideas about exponential sums, Sieve method and the Prime Number Theorem. 
+After that, I began reading Tate's thesis and obtained a comprehensive understanding of Hecke L-functions. 
+\section{Future Picture}
+In my future study and research, what I really want to do is to 
+discover the deep connection between number theory and other areas in mathematics such as Representation Theory 
+and Dynamic System. 
+For example, I really appreciate Professor Venkatesh and Nelson's work since they apply many different 
+methods from Lie Group, Microlocal Analysis and Dynamic System to study subconvex bound problem. 
+But I cannot understand them completely at the moment. 
+
+Furthermore, I truly want to know how special values of different 
+L-functions reflect the information of different arithmetic objects. 
+The reason is that 
+I find the Analytic Class Formula
+$$
+\lim_{s\rightarrow 1}(s-1)\zeta_K(s)=\operatorname{Vol}\left(\bb{I}_K^1/K^\times\right)=\frac{2^{r_1}(2\pi)^{r_2}h_K R_K}{\omega_K \sqrt{|d_K|}}
+$$
+has many useful and powerful corollaries. I want to learn and discover more results like that.
+
+\section{Something About My Transcript}
+\begin{enu} 
+    \item There's a non-accurate translation in my transcript.
+    “Functions of Real Variable” should be “Real Analysis” since in this course, we mainly studyed the basic 
+    propositions of measure space, Lebesgue measure, $L^p$ space and Radon measure.
+    \item In the course called “Algebra Seminar”, we mainly discuss the first few chapters of 
+    GTM 256(A Course in Commutative Algebra).
+    \item I took several programming and algorithm courses because I was interested in computer science, but now I am more interested in doing research in pure mathematics.
+    \item The average score 87.43/100 is printed on page $7$ of my transcript.
+\end{enu}
+\end{document}

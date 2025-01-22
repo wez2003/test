@@ -1,0 +1,397 @@
+\documentclass[a4paper,12pt]{ctexart}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{geometry}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox}
+\usepackage{enumerate}
+\newenvironment{prooff}{{\noindent\it\textcolor{cyan!40!black}{Proof}:}\quad}{\par}
+\usepackage[colorlinks,linkcolor=cyan!40!black]{hyperref}
+\usepackage{enumerate}
+\geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2cm}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{color}
+\newtheorem{defn}{Definition}[section]
+\newtheorem{coro}[defn]{Corollary}
+\newtheorem{theo}[defn]{Theorem}
+\newtheorem{exer}[defn]{Exercise}
+\newtheorem{rema}[defn]{Remark}
+\newtheorem{lem}[defn]{Lemma}
+\newtheorem{prop}[defn]{Proposition}
+
+\newcommand{\bbrace}[1]{\left\{ #1 \right\} }
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\p}{^{\prime}}
+\renewcommand{\mod}[1]{(\text{mod}\,#1)}
+
+\title{浅谈矩阵范数}
+\author{王尔卓}
+\begin{document}
+\maketitle
+\begin{abstract}
+    本文主要参考于品的数学分析和丘维生的高等代数上册,从矩阵范数的定义出发，讨论了矩阵指数函数的可微性，并给出了Cayley-Hamilton定理的拓扑解释。
+\end{abstract}
+\tableofcontents
+\newpage
+\section{基本性质}
+\begin{defn}
+    $V$是$\mathbb{R}$上的线性空间，$||\cdot||:V\rightarrow \mathbb{R}_{\ge 0}$是一个函数，满足：
+    \begin{enumerate}
+        \item $||x||=0$当且仅当$x=0$
+        \item $x\in V,\lambda\in \mathbb{R}$有$||\lambda x||=|\lambda||x||$
+        \item $||x+y||\le ||x||+||y||$
+    \end{enumerate}
+    则称这个线性空间为\textcolor{blue}{赋范线性空间}，如果以度量$d(x,y)=||x-y||$诱导出的拓扑空间完备，则称这个这个线性空间为\textcolor{blue}{Banach空间}。
+\end{defn}
+我们考虑所有$\mathbb{R}$上$n$级矩阵构成的集合$\text{M}_n(\mathbb{R})$，其关于通常的加法和数乘法显然构成一个线性空间，
+现在对其上任意元素$A=(a_{ij})$赋予范数:
+\begin{equation*}
+    ||A||=\sqrt{\sum_{i=1}^{n}\sum_{j=1}^{n}a_{ij}^2}
+\end{equation*}
+根据欧式空间本身的完备性，该范数使$\text{M}_n(\mathbb{R})$构成一个Banach空间，我们现在证明该范数的一个简单性质。
+\begin{prop}
+    \label{prop:|AB|<=C|A||B|}
+    $||AB||\le C||A||||B||$
+\end{prop}
+\begin{prooff}
+    设$A=(a_{ij})，B=(b_{ij}),C=(c_{ij})$,令$C=n^2$,则有：\begin{equation*}
+        ||AB||=||C||\le n\max_{1\le i,j \le n}|c_{ij}|
+        \le n^2 \max_{1 \le i,j \le n} |a_{ij}| \max_{1\le i,j\le n}|b_{ij}| \le C||A||||B||
+    \end{equation*}
+\end{prooff}
+我们定义赋范线性空间中的收敛为以度量$d(x,y)=||x-y||$诱导出的拓扑空间中的收敛，并定义一个赋范线性空间空间中的
+级数$\sum_{n=1}^{\infty}u_n$绝对收敛为级数$\sum_{n=1}^{\infty}||u_n||$收敛，
+不难由柯西列的定义得到，对于一个Banach空间，
+其上绝对收敛的级数一定收敛。
+
+接下来，我们不加证明的将数学分析中
+绝对收敛级数性质搬运到$\text{M}_n(\mathbb{R})$，其证明的精神与数学分析相同，但在证明过程中需要抛弃掉
+一切有关序关系的工具，因为我们并未对$\text{M}_n(\mathbb{R})$赋予序结构。
+
+\begin{prop}
+    $\text{M}_n(\mathbb{R})$中绝对收敛的级数收敛。
+\end{prop}
+\begin{prop}
+    $\text{M}_n(\mathbb{R})$中绝对收敛的级数在对其进行重排后依然绝对收敛，且取值相同。
+\end{prop}
+\begin{prop}
+    $\text{M}_n(\mathbb{R})$中绝对收敛的级数任意加括号后也绝对收敛，且取值相同。
+\end{prop}
+\begin{prop}
+    $\text{M}_n(\mathbb{R})$绝对收敛的两级数的柯西乘积也绝对收敛，且其值等于两级数取值得乘积。
+\end{prop}
+有了上述性质，我们可以研究矩阵级数了。
+\section{矩阵级数\label{section:Cayly-Hamilton}}
+\begin{defn}
+    我们定义\textcolor{blue}{指数矩阵函数}为\begin{align*}
+        \exp : \text{M}_n(\mathbb{R})\rightarrow \text{M}_n(\mathbb{R}) \\
+        A\rightarrow e^{A}=\sum_{n=0}^{\infty} \frac{A^n}{n!}
+    \end{align*}
+\end{defn}
+要证明这个定义是良定义，由完备性，只需证$\forall \varepsilon>0$，存在$N>0$，任意$m>n>N$,有：\begin{equation*}
+    ||\sum_{k=n}^{m}\frac{A^k}{k!}||<\varepsilon
+\end{equation*}
+事实上注意到：\begin{equation*}
+    ||\sum_{k=n}^{m}\frac{A^k}{k!}||\le  \sum_{k=n}^{m}||\frac{A^k}{k!}||\le \sum_{k=n}^{m}C^{k-1}\frac{||A||^k}{k!}
+\end{equation*}
+则由$e^x$幂级数展开的收敛域与柯西收敛准则可判断出指数矩阵函数的收敛性。
+接下来我们阐明几条矩阵级数的性质。
+\begin{prop}
+    \label{prop:e^{A+B}=e^{A}e^{B}}
+    $A,B\in \text{M}_n(\mathbb{R})$,$A$与$B$可交换，则：\begin{equation*}
+        e^{A+B}=e^Ae^B
+    \end{equation*}
+\end{prop}
+\begin{prooff}
+    \begin{align*}
+        e^Ae^B & =(\sum_{n=0}^{\infty} \frac{A^n}{n!})(\sum_{n=0}^{\infty} \frac{B^n}{n!})=\sum_{n=0}^{\infty}\sum_{j+i=n}\frac{B^j}{j!} \frac{A^i}{i!} \\
+               & =\sum_{n=0}^{\infty}\sum_{j+i=n}\frac{B^j}{j!}\frac{A^i}{i!}\frac{(i+j)!}{n!}                                                          \\
+               & =\sum_{n=0}^{\infty} \frac{(A+B)^n}{n!}
+    \end{align*}
+\end{prooff}
+\begin{coro}
+    $(e^{A})^{-1}=e^{-A}$
+\end{coro}
+\begin{coro}
+    $A$是$n$级反对称矩阵，则$e^{A}$是正交矩阵。
+\end{coro}
+\begin{prooff}
+    可以验证$A,A^{T}$可交换，则：
+    \begin{equation*}
+        I=e^{O}=e^{A+A^{T}}=e^Ae^{A^T}=e^A(e^A)^T
+    \end{equation*}
+    最后一步是因为我们可以把矩阵收敛等价于其$n^2$个位置上的级数分别收敛。
+\end{prooff}
+\begin{prop}
+    \label{prop:e^{T^{-1}AT}=T^{-1}e^{A}T}
+    如果$T$是可逆矩阵，则
+    \begin{equation*}
+        e^{T^{-1}AT}=T^{-1}e^{A}T
+    \end{equation*}
+\end{prop}
+\begin{prooff}
+    从Proposition~\ref{prop:|AB|<=C|A||B|}~可以看出，取极限可以和左乘或右乘一个矩阵交换，因此我们有:
+    \begin{equation*}
+        e^{T^{-1}AT}=\sum_{k=0}^{\infty}\frac{(T^{-1}AT)^k}{k!}=T^{-1}(\sum_{k=0}^{\infty}\frac{A^k}{k!})T^{-1}=T^{-1}e^{A}T
+    \end{equation*}
+\end{prooff}
+
+\begin{prop}
+    \begin{equation*}
+        A=\begin{bmatrix}
+            0  & x \\
+            -x & 0
+        \end{bmatrix}
+    \end{equation*}
+    则
+    \begin{equation*}
+        e^A=\begin{bmatrix}
+            \cos x & \sin x \\
+            \sin x & \cos x
+        \end{bmatrix}
+    \end{equation*}
+\end{prop}
+\begin{prooff}
+    这事实上是$e^{\text{i} x}=\cos x +\text{i} \sin x$矩阵形式的表达。
+    记$J=\begin{bmatrix}
+            0  & 1 \\
+            -1 & 0
+        \end{bmatrix}$
+    注意到$J$的幂具有模$4$的周期性，即：
+    \begin{equation*}
+        J^{4k+1}=\begin{bmatrix}
+            0  & 1 \\
+            -1 & 0
+        \end{bmatrix}, J^{4k+2}=\begin{bmatrix}
+            -1 & 0  \\
+            0  & -1
+        \end{bmatrix},J^{4k+3}=\begin{bmatrix}
+            0 & -1 \\
+            1 & 0
+        \end{bmatrix},J^{4k}=\begin{bmatrix}
+            1 & 0 \\
+            0 & 1
+        \end{bmatrix}
+    \end{equation*}
+    又因为：\begin{equation*}
+        \frac{A^{m}}{m!}=x^m\frac{J^m}{m!}
+    \end{equation*}
+    从而\begin{equation*}
+        e^A=\sum_{n=0}^{\infty}\frac{A^{m}}{m!}=\sum_{n=0}^{\infty}x^m\frac{J^m}{m!}
+    \end{equation*}
+    由三角函数的定义:\begin{equation*}
+        \sin x=\sum_{n=0}^{\infty}\frac{(-1)^nx^{2n+1}}{(2n+1)!},\quad \cos x=\sum_{n=0}^{\infty}\frac{(-1)^nx^{2n}}{(2n)!}
+    \end{equation*}
+    得到$e^A=\begin{bmatrix}
+            \cos x & \sin x \\
+            \sin x & \cos x
+        \end{bmatrix}$
+\end{prooff}
+\vskip 0.5cm
+下面一个定理刻画了指数矩阵函数的可微性，从而也得到了连续性。
+\begin{theo}
+    指数矩阵函数\begin{align*}
+        \exp : \text{M}_n(\mathbb{R})\rightarrow \text{M}_n(\mathbb{R}) \\
+        A\rightarrow e^{A}=\sum_{n=0}^{\infty} \frac{A^n}{n!}
+    \end{align*}
+    是$\text{M}_n(\mathbb{R})\rightarrow \text{M}_n(\mathbb{R})$的可微映射，其在$A$处的微分为线性映射：
+    \begin{equation*}
+        \text{d}\exp (A)(V)=\sum_{n=1}^{\infty}\frac{1}{n!}\sum_{k=0}^{n-1}A^kVA^{n-1-k}
+    \end{equation*}
+\end{theo}
+\begin{prooff}
+    我们先假设$A\neq O$，,我们要取计算$A$处的微分，由于：\begin{equation*}
+        e^{A+V}-e^{V}=\sum_{n=0}^{\infty}\frac{(A+V)^n-A^n}{n!}
+    \end{equation*}
+    对于$n\ge 2$,我们单独考虑里面的项：
+    \begin{equation*}
+        (A+V)^n-A^n=\sum_{k=0}^{n-1}A^kVA^{n-1-k}+Q_n(V)
+    \end{equation*}
+    其中$Q_n(V)$为包含所有包含超过两个$V$的项，我们不妨设$||V||\le ||A||$(因为可微性只需要体现在局部)，从而对$Q_n(V)$的范数大小有估计：
+    \begin{equation*}
+        ||Q_n(V) ||\le 2^n C^{n-1}||V||^2||A||^{n-2}
+    \end{equation*}
+    从而\begin{equation*}
+        \sum_{n=2}^{\infty} ||\frac{Q_n(V)]}{n!} ||\le \sum_{n=2}^{\infty} \frac{2^n C^{n-1}||A||^{n-2}}{n!}||V||^2
+        \le \frac{e^{2C||A||}}{||A||^2}||V||^2=\mathcal{O}(||V||^2)
+    \end{equation*}
+    从而有：\begin{equation}
+        ||e^{A+V}-e^{V}-\sum_{n=1}^{\infty}\frac{1}{n!}\sum_{k=0}^{n-1}A^kVA^{n-1-k}||=\mathcal{O}(||V||^2)
+    \end{equation}
+    进而得到$A\neq O$时结论成立，而$A=O$时，估计式(1)代入检验仍然成立，因此我们证明了证明了该结论。
+\end{prooff}
+\begin{coro}
+    \begin{align*}
+        \exp : \text{M}_n(\mathbb{R})\rightarrow \text{M}_n(\mathbb{R}) \\
+        A\rightarrow e^{A}=\sum_{n=0}^{\infty} \frac{A^n}{n!}
+    \end{align*}
+    当$A,V$可交换时，\begin{equation*}
+        \text{d}\exp (A)(V)=e^AV
+    \end{equation*}
+\end{coro}
+\textcolor{blue}{Banach空间}本身可以定义可微，自然地我们会去研究形如$t\rightarrow \exp(At)$这样函数的可微性.
+\begin{defn}
+    \label{defn:Banach space diff}
+    对于一个\textcolor{blue}{Banach空间}$V$，考虑一个函数:
+    \begin{align*}
+        f:\bb{R}\rightarrow V \\
+        t\rightarrow f(t)
+    \end{align*}
+    $f$在$t$处可微是指存在$\upsilon\in V$使得
+    \begin{equation*}
+        \lim_{h\to 0}\frac{||f(t+h)-f(t)-h\upsilon||}{h}=0
+    \end{equation*}
+    此时$\upsilon$称为$f$在$t$处的导数(微分)
+\end{defn}
+\begin{theo}
+    考虑函数:
+    \begin{equation*}
+        \varphi:t\rightarrow \exp(At)
+    \end{equation*}
+    其在Definition~\ref{defn:Banach space diff}~的意义下可微，且微分为$A\exp(At)$.
+\end{theo}
+\begin{prooff}
+    注意到:
+    \begin{align*}
+         & ||\frac{\exp(A(t+h)-\exp(At)-A\exp(tA)h}{h} ||= \frac{1}{h} ||\exp(At)\sum_{k=2}^{\infty}\frac{(Ah)^{k}}{k!}|| \\
+         & = h||\exp(At)\sum_{k=2}^{\infty}\frac{(Ah)^{k-2}}{k!}||=\mathcal{O}(h)\to 0
+    \end{align*}
+    证毕！
+\end{prooff}
+\begin{coro}
+    齐次线性微分方程组
+    \begin{equation*}
+        x^{\prime}=Ax
+    \end{equation*}
+    其中一个基解矩阵为$\exp(At)$
+\end{coro}
+\begin{prooff}
+    在Definition~\ref{defn:Banach space diff}~的意义下,对$M_n(\bb{R})$上元素作微分等价于对矩阵中的每个元素作微分，
+    因此$\exp(At)$显然是该微分方程组的解矩阵，要证明是基解矩阵只需证明$\exp(At)$始终满秩,这由Theorem~\ref{theo:expression of exp(A)}~是平凡的.
+\end{prooff}
+
+
+\section{Cayley-Hamilton定理的拓扑解释}
+我们在代数学中接触过Cayley-Hamilton定理，这是指对于一个域$F$上矩阵$A$，其特征多项式$p(x)\in F[x]$满足$P(A)=O$，
+而现在我们用矩阵范数重新证明复数域上的Cayley-Hamilton定理。
+
+考虑$\mathbb{C}$上$n$级矩阵构成的集合$M_n(\mathbb{C})$上矩阵，
+现在对其上任意元素$A=(a_{ij})$赋予范数:
+\begin{equation*}
+    ||A||=\sqrt{\sum_{i=1}^{n}\sum_{j=1}^{n}|a_{ij}|^2}
+\end{equation*}
+这则$d(A,B)=||A-B||$显然是$M_n(\mathbb{C})$上的一个度量，从而诱导出一个拓扑空间。
+我们先来刻画这个拓扑空间的性质。
+\begin{prop}
+    对于一个多项式$f(x)\in \mathbb{C}[x]$：\begin{equation*}
+        \varphi: A\rightarrow f(A)
+    \end{equation*}
+    是$M_n(\mathbb{C})$到$M_n(\mathbb{C})$的连续映射。\label{prop3.1}
+\end{prop}
+\begin{prooff}
+    注意到$M_n(\mathbb{C})$到$M_n(\mathbb{C})$的连续映射关于矩阵加法具有可加性，关于数乘也封闭，因此只需证明$A\rightarrow A^{k}$是连续函数，取$||B||$充分小，从而注意到估计式:
+    \begin{equation*}
+        ||(A+B)^k-A^k||<< ||B||
+    \end{equation*}
+    因此$A\rightarrow A^{k}$也连续，从而证明了该结论。
+\end{prooff}
+其次我们陈述一个高等代数中的简单命题作为引理：
+\begin{lem}
+    如果矩阵$A\in M_n(\mathbb{C})$可对角化，则对于其特征多项式$p(x)$有$p(A)=O$\label{lem3.1}
+\end{lem}
+\begin{prooff}
+    只需注意到对角化后对角线上所有元素为特征多项式的根。
+\end{prooff}
+下面一个引理是证明的核心
+\begin{lem}
+    对于$A\in M_n(\mathbb{C}),\forall \varepsilon>0$,存在$||B||<\varepsilon$,使得$A+B$可对角化。\label{lem3.2}
+\end{lem}
+\begin{prooff}
+    将$A$相似成若当标准型$P^{-1}AP$，对$A$的对角线元素用取满足$||B||<\varepsilon$的$B$进行微小的扰动,使得$P^{-1}AP-B$的对角线上元素各不相同，
+    从而$P^{-1}AP-B$可对角化，
+    因此$A-PBP^{-1}$也可对角化,而$||PBP^{-1}||\le C||P||||P^{-1}||\varepsilon$,由于$P$是取定的，所以我们已经证明了该结论。
+\end{prooff}
+\begin{theo}
+    $A\in M_n(\mathbb{C})$，$p(x)$为其特征多项式，则$p(A)=O$
+\end{theo}
+\begin{prooff}
+    由Lemma \ref{lem3.1}与Lemma \ref{lem3.2},得到$A$的任意邻域内一定有元素$Y$使得$p(Y)=0$，再用Proposition \ref{prop3.1}得到的连续性，有\begin{equation*}
+        p(A)=O
+    \end{equation*}证明完毕。
+\end{prooff}
+
+从而我们可以对复数域上矩阵的Cayley-Hamilton定理通过矩阵范数给出一个拓扑学解释，即：
+\begin{center}
+    \textcolor{blue}{\kaishu{\fontsize{15}{20}{可对角化方阵在所有方阵中稠密}}}
+\end{center}
+
+\section{矩阵指数函数的计算}
+借助若当标准型，我们可以给出如何具体计算矩阵指数函数，注意到在Section~\ref{section:Cayly-Hamilton}~中，我们定义的$M_n(\bb{C})$上的拓扑
+与我们最开始定义的$M_n(\bb{R})$中的拓扑诸性质类似，包括完备性，数乘保极限，左乘保极限等等，因此我们讲它们不加证明的迁移。
+\begin{defn}
+    我们定义\textcolor{blue}{(复)指数矩阵函数}为
+    \begin{align*}
+        \exp : \text{M}_n(\mathbb{C})\rightarrow \text{M}_n(\mathbb{C}) \\
+        A\rightarrow e^{A}=\sum_{n=0}^{\infty} \frac{A^n}{n!}
+    \end{align*}
+\end{defn}
+首先这个定义是矩阵指数函数的推广，其次，由Proposition~\ref{prop:e^{T^{-1}AT}=T^{-1}e^{A}T}~，
+我们只需对任意一个矩阵的若当标准型求出其矩阵指数函数即可，再由若当块呈分块对角形状，我们只需对某个若当块求出其矩阵指数函数。
+若当块特征值为$0$的情况是平凡的，因为此时该矩阵幂零，矩阵指数函数只是一个有限和，当若当块特征值非零时，即若当块形如:
+\begin{equation*}
+    J= \begin{bmatrix}
+        \lambda & 1       & 0       & \dots  & 0       \\
+        0       & \lambda & 1       &        & 0       \\
+        0       & 0       & \lambda &        & 0       \\
+        \vdots  &         &         & \ddots & 1       \\
+        0       & \dots   &         & 0      & \lambda
+    \end{bmatrix}_{n\times n}=\lambda I+H_{n-1}\quad \lambda \in \bb{C}
+\end{equation*}
+由Proposition~\ref{prop:e^{A+B}=e^{A}e^{B}}~:
+\begin{equation*}
+    e^{J}=e^{\lambda I+H_{n-1}}=e^{\lambda I}e^{H_{n-1}}=e^{\lambda}e^{H_{n-1}}
+\end{equation*}
+其中$e^{H_{n-1}}$是一个$n$级上三角矩阵，满足
+$a_{ij}=\begin{cases}
+        0                & i<j    \\
+        \frac{1}{(j-i)!} & j\ge i
+    \end{cases}$，为了后面叙述方便起见，将$e^{H_{n-1}}$记为$E_n$,并将矩阵指数函数的具体计算展示为如下定理:
+\begin{theo}
+    \label{theo:expression of exp(A)}
+    对于一个复数域上的矩阵$A$,其若当标准型为$J=\text{diag}(J_1,J_2,\dots,J_n)$，第$k$个若当块阶数为$a_k$，特征值为$\lambda_k$，
+    且有可逆矩阵$P$使得$PAP^{-1}=J$,则:
+    \begin{equation*}
+        \exp(A)=P^{-1}\exp{J}P=\text{diag}(e^{\lambda_1}E_{a_1},e^{\lambda_2}E_{a_2},\dots,e^{\lambda_n}E_{a_n})
+    \end{equation*}
+\end{theo}
+\begin{coro}
+    若$\lambda_1,\lambda_2,\dots,\lambda_n$为$A$的特征值，若$\mu_1,\mu_2,\dots,\mu_n$为$B$的特征值(考虑重数)，则
+    \begin{equation*}
+        tr(\exp(A))=\sum_{i=1}^{n}e^{\lambda_i}
+    \end{equation*}
+    \begin{equation*}
+        tr(\exp{A\otimes B})=\sum_{i=1}^{n}\sum_{j=1}^{m}e^{\lambda_i\mu_j}
+    \end{equation*}
+\end{coro}
+\begin{prooff}
+    前者平凡，后者只需注意到$(A\otimes B)(C\otimes D)=AC\otimes BD$,因此对于可逆矩阵$P,Q$而言，
+    \begin{equation*}
+        (P\otimes Q)^{-1}=P^{-1}\otimes Q^{-1}
+    \end{equation*}
+    如果通过可逆矩阵$P,Q$将$A,B$转化为若当标准型$D_1,D_2$,即
+    \begin{equation*}
+        P^{-1}AP=D_1,\, Q^{-1}AQ=D_2
+    \end{equation*}
+    则有:
+    \begin{equation*}
+        (P\otimes Q)^{-1}(A\otimes B) (P\otimes Q)= P^{-1}\otimes Q^{-1}(A\otimes B) (P\otimes Q)=D_1\otimes D_2
+    \end{equation*}
+    从而看出$A\otimes B$的特征值(考虑重数)为$\lambda_i\mu_j,1\le i,j\le n$
+\end{prooff}
+
+
+
+\end{document}

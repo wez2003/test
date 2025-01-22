@@ -1,0 +1,246 @@
+\documentclass{beamer}
+%Information
+\title{Number Theory 1: Unique Factorization}
+\titlegraphic{\hfill\includegraphics[height=1cm]{orange.png}}
+\institute{Youth STEM Academy}
+\author{Erzhuo Wang}
+\date{July 20,2024}
+%Theme
+\usetheme[block=fill, sectionpage=none]{metropolis}
+\useoutertheme{infolines}
+\useinnertheme{metropolis}
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamertemplate{items}[ball]
+\setbeamertemplate{sections/subsections in toc}[ball]
+\setbeamertemplate{headline}{}
+\logo{YSA}
+\usecolortheme{custom}
+%\usetheme{Madrid}
+%\usetheme{Heverlee}
+
+%Setting
+\usepackage[UTF8,noindent]{ctexcap}
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+\newtheorem{coro}[defn]{Corollary}
+\newtheorem{theo}[defn]{Theorem}
+\newtheorem{exer}[defn]{Exercise}
+\newtheorem{rema}[defn]{Remark}
+\newtheorem{lem}[defn]{Lemma}
+\newtheorem{prop}[defn]{Proposition}
+\newtheorem{nota}[defn]{Notation}
+\newtheorem{exam}[defn]{Example}
+\newtheorem{ques}[defn]{Question}
+
+\newenvironment{prooff}{{\noindent\it\textcolor{cyan!40!black}{Proof}:}\,}{\par}
+\newenvironment{proofff}{{\noindent\it\textcolor{cyan!40!black}{Proof of the lemma}:}\,}{\qed \par}
+\newcommand{\bbrace}[1]{\left\{ #1 \right\} }
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\p}{^{\prime}}
+\renewcommand{\mod}[1]{(\text{mod}\,#1)}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\spec}[1]{\text{Spec}({#1})}
+\newcommand{\rarr}[1]{\xrightarrow{#1}}
+\newcommand{\larr}[1]{\xleftarrow{#1}}
+\newcommand{\emptyy}{\underline{\quad}}
+\newenvironment{enu}{\begin{enumerate}[(1)]}{\end{enumerate}}
+%ctrl+点击文本返回代码  选中代码 ctrl+alt+j 为代码查找文本
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+\begin{frame}{Basic Concept(基本概念)}
+    \begin{defn}[整除]
+        The integer $n$ is a divisor of the integer $m$ if there is an integer $k$ such that $m=k n$. In this case we say that $m$ is divisible by $n$ and write $n \mid m$.
+    \end{defn}
+    \begin{defn}[素数]
+        An integer $n>1$ is a prime number(素数)
+        if its only positive divisors are 1 and $n$.
+        Otherwise, $n$ is called composite(合数).
+    \end{defn}
+    \begin{defn}[最大公约数]
+        Two nonzero integers $m$ and $n$ have a greatest common divisor, denoted $\gcd(m, n)$, that is the greatest integer that is a divisor of both $m$ and $n$. If $\gcd(m,n)=1$, we say $m$ and $n$ are coprime.
+    \end{defn}
+\end{frame}
+\begin{frame}{Basic Concept(基本概念)}
+    \begin{defn}[最小公倍数]
+        Two nonzero integers $m$ and $n$ have a leastest common multiple, denoted $\text{lcm}(m,n)$, that is the leastest integer $d$ such that $m|d$, $n|d$.
+    \end{defn}
+    % \begin{defn}[带余除法]
+    %     For any intergers $m$ and $n\neq 0$, there exists unique integer $q$ and $r$ such that $m=qn+r$, where
+    %     $0\le r <|n|$ is the remainder and $q$ is the quotient.
+    % \end{defn}
+\end{frame}
+\begin{frame}{Prime Factorization}
+    \begin{theo}[Unique Factorization Theorem(唯一因子分解定理)]
+        Every positive integer $n$ can be factored into a product of prime numbers in a unique way, apart from the order of factors. That is
+        $$
+            n=p_1^{k_1} p_2^{k_2} \cdots p_m^{k_m}
+        $$
+        where each $p_i$ is prime, each $k_i$ is a positive integer, and $p_1<p_2<\cdots<p_m$.
+
+        每个正整数$n$可以被\blue{唯一}分解为\blue{不同素数}幂的乘积, 这里的唯一指的是素数的幂次和种类均唯一.
+    \end{theo}
+    \begin{exam}
+        \begin{equation*}
+            2640= 2^2\times 5 \times 11\times 12, 2016=2^5\times 3^2 \times 7
+        \end{equation*}
+    \end{exam}
+\end{frame}
+\begin{frame}{$\sqrt{2}$ is irrational}
+    \begin{exam}
+        $\sqrt{2}$ is an irrational number.
+
+        $\sqrt{2}$ 是一个无理数.
+    \end{exam}
+    \begin{prooff}
+        If $\sqrt{2}=\frac{p}{q},p,q$ are integers, we have $2q^2=p^2$. On the left side, the power(幂次) of $2$ is odd, however,
+        on the right side, the power of $2$ is even,
+        which contradicts to the  Unique Factorization Theorem.
+    \end{prooff}
+\end{frame}
+\begin{frame}{Perfect Square and Perfect Cube}
+    \begin{defn}
+        A positive integer $n$ is a Perfect Square(完全平方数) if $n=k^2$ for some $k\ge 1$.
+    \end{defn}
+    \begin{defn}
+        A positive integer $n$ is a Perfect Square(完全平方数) if $n=k^2$ for some $k\ge 1$.
+    \end{defn}
+\end{frame}
+\begin{frame}{GCD and LCM(最大公约数, 最小公倍数)}
+    \begin{theo}
+        Suppose $n$ and $m$ have the following prime factorizations
+        $$
+            n=p_1^{k_1} p_2^{k_2} \cdots p_m^{k_m}, \quad \text { and } \quad m=p_1^{e_1} p_2^{e_2} \cdots p_m^{e_m}
+        $$
+
+        Then,
+        $$
+            \operatorname{gcd}(n, m)=p_1^{\min \left(k_1, e_1\right)} p_2^{\min \left(k_2, e_2\right)} \cdots p_m^{\min \left(k_m, e_m\right)}
+        $$
+        and
+        $$
+            \operatorname{lcm}(n, m)=p_1^{\max \left(k_1, e_1\right)} p_2^{\max \left(k_2, e_2\right)} \cdots p_m^{\max \left(k_m, e_m\right)}
+        $$
+    \end{theo}
+\end{frame}
+% \begin{frame}{Euclidean Algerithm(辗转相除法)}
+%     \begin{theo}
+%         Let $m$ and $n$ be natural numbers, and set
+%         $a_1=m$ and $a_2=n$. Apply the division algorithm to divide $a_1$ by $a_2$ resulting in
+%         integers $q_1$ and $a_3$ satisfying $a_1=q_1 \times a_2+a_3$, where $0 \leq a_3<a_2$. For each $j>1$, recursively apply the division algorithm to divide $a_j$ by $a_{j+1}$
+%         to obtain quotient $q_j$ and remainder $a_{j+2}$, where $0 \leq a_{j+2}<a_{j+1}$, until, for some $k$, the remainder $a_k=0$. Then the greatest common divisor of $m$ and $n$ will be the last nonzero remainder, $a_{k-1}$.
+%     \end{theo}
+% \end{frame}
+% \begin{frame}{Euclidean Algerithm(辗转相除法)}
+%     \begin{exam}
+%         Use the Euclidean Algorithm to find the greatest common divisor of 5340 and 2355 .
+%     \end{exam}
+%     \begin{prooff}
+%         Solution Repeatedly applying the Division Algorithm gives
+%         $$
+%             \begin{aligned}
+%                 5340 & =2 \times 2355+630 \\
+%                 2355 & =3 \times 630+465  \\
+%                 630  & =1 \times 465+165  \\
+%                 465  & =2 \times 165+135  \\
+%                 165  & =1 \times 135+30   \\
+%                 135  & =4 \times 30+15    \\
+%                 30   & =2 \times 15+0
+%             \end{aligned}
+%         $$
+%     \end{prooff}
+% \end{frame}
+% \begin{frame}{Bezout Theorem}
+%     \begin{theo}[Bezout Theorem(裴属定理)]
+%         If $m$ and $n$ are natural numbers, then there are integers $x$ and $y$ such that
+%         $\gcd(m, n)=x m+y n$. Values for $x$ and $y$ can be found by working the steps of the Euclidean Algorithm backwards.
+%     \end{theo}
+%     \begin{exam}
+%         Find integers $x$ and $y$ so that $5340 x+2355 y=15=\operatorname{gcd}(5340,2355)$.
+%     \end{exam}
+% \end{frame}
+% \begin{frame}
+%     Solution Working the steps of the Euclidean Algorithm backwards gives
+%     $$
+%         \begin{aligned}
+%             15 & =135-4 \times 30                                                         \\
+%                & =135-4 \times(165-135)=5 \times 135-4 \times 165                         \\
+%                & =5 \times(465-2 \times 165)-4 \times 165=5 \times 465-14 \times 165      \\
+%                & =5 \times 465-14 \times(630-465)=19 \times 465-14 \times 630             \\
+%                & =19 \times(2355-3 \times 630)-14 \times 630=19 \times 2355-71 \times 630 \\
+%                & =19 \times 2355-71(5340-2 \times 2355)=161 \times 2355-71 \times 5340
+%         \end{aligned}
+%     $$
+% \end{frame}
+\begin{frame}
+    \begin{ques}
+        When three positive integers $a, b$, and $c$ are multiplied together, their product is $100$ . Suppose $a<b<c$. In how many ways can the numbers be chosen?
+
+        当三个正整数$a,b$和$c$相乘时, 它们的乘积是$100$.假设$ a< b <c$. 数组$(a,b,c)$有多少种选择数字的方法?
+    \end{ques}
+    \begin{ques}[更困难的版本]
+        When three positive integers $a, b$, and $c$ are multiplied together, their product is $3000$. In how many ways can the numbers be chosen?
+
+        当三个正整数$a,b$和$c$相乘时, 它们的乘积是$3000$. 数组$(a,b,c)$有多少种选择数字的方法?
+        (提示:使用组合课程中$x_1+\dots+x_k=n,x_i\ge 0$的解数公式)
+    \end{ques}
+\end{frame}
+\begin{frame}{Exercise}
+    \begin{ques}[AMC 8,2016-20]
+        The least common multiple of $a$ and $b$ is 12 , and the least common multiple of $b$ and $c$ is 15 . What is the least possible value of the least common multiple of $a$ and $c$ ?
+        
+        (A) 20 (B) 30 (C) 60 (D) 120 (E) 180
+    \end{ques}
+\end{frame}
+\begin{frame}{Chinese remainder Theorem(中国剩余定理)}
+    \begin{defn}
+        $m$是一个正整数, 如果$m|a-b$, 我们称$a\equiv b\mod{m}$.
+    \end{defn}
+    \begin{theo}
+        $m_1,\dots,m_k$为$k$个两两互素的整数, 则方程
+        \begin{equation*}
+            \begin{cases}
+                  x\equiv a_1\mod{m_1}\\ 
+                  x\equiv a_2\mod{m_2}\\ 
+                  \dots \\ 
+                  x\equiv a_k\mod{m_k}\\ 
+            \end{cases}
+        \end{equation*}
+        在$1$到$m_1\dots m_k$内有唯一解$x_0$, 且所有解为$x_0+km_1\dots m_k,k\in \bb{Z}$
+    \end{theo}
+\end{frame}
+\begin{frame}{Exercise}
+\begin{exam}
+    How many positive three-digit integers have a remainder of 2 when divided by 6 , a remainder of 5 when divided by 9 , and a remainder of 7 when divided by 11?
+    
+    (A) 1 (B) 2 (C) 3 (D) 4 (E) 5
+\end{exam}
+\begin{exam}[AMC 8, 2017-24, 比较难的一道题]
+    Mrs. Sanders has three grandchildren, who call her regularly. One calls her every three days, one calls her every four days, and one calls her every five days. All three called her on December 31, 2016. On how many days during the next year did she not receive a phone call from any of her grandchildren?
+    
+    (A) 78 (B) 80 (C) 144 (D) 146 (E) 152
+\end{exam}
+  
+\end{frame}
+
+
+\begin{frame}{Homework}
+\begin{ques}[AMC 8, 2020-12]
+    整数$N$满足如下方程, 求$N$的值.
+    $$
+        5!\cdot 9!=12 \cdot N!
+    $$
+\end{ques}
+\begin{ques}[AMC 8, 2016-15]
+    What is the largest power of $2$ that is a divisor of $13^4-11^4$.
+
+    $13^4-11^4$质因数分解中$2$的幂次是多少?
+\end{ques}
+\begin{ques}
+    How mant ordered pairs $(x,y,z)$ satisfy $\text{lcm}(x,y)=72, \text{lcm}(x,z)=600, \text{lcm}(y,z)=900$.
+\end{ques}
+\end{frame}
+
+\end{document}

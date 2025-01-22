@@ -1,0 +1,3 @@
+\beamer@sectionintoc {1}{幂级数}{3}{0}{1}
+\beamer@sectionintoc {2}{含参变量积分与广义积分}{11}{0}{2}
+\beamer@sectionintoc {3}{稠密与分离}{18}{0}{3}

@@ -1,0 +1,151 @@
+\documentclass{beamer}
+\setbeamertemplate{bibliography item}[text]
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{geometry}
+\mode<presentation>
+{
+  \usetheme{Madrid} 
+  %\usetheme{Berlin}
+  %\usecolortheme{beaver}
+  %\usefonttheme{structuresmallcapsserif}
+}
+\usepackage{graphicx}
+\logo{\includegraphics[height=0.5cm]{logo1.png}}
+\title[About Beamer]{About the Beamer class in presentation making}
+\subtitle{A short story}
+\author[Arthur, Doe]
+{A.~B.~Arthur\inst{1} \and J.~Doe\inst{2}}
+\institute[VFU]
+{
+    \inst{1}
+    Faculty of Physics \\ 
+    Very Famous University 
+    \and 
+    \inst{2}
+    Faculty of Chemistry \\ 
+    Very Famous University 
+    \and 
+} 
+\date[VLC 2000]
+{
+    Very Large Conference, April 2013
+}
+\AtBeginSection[]
+{
+    \begin{frame} 
+        \frametitle{Table of Contents}
+        \tableofcontents[currentsection]
+    \end{frame}
+}
+\begin{document}
+\frame{\titlepage}
+\tableofcontents
+\section{Introduction}
+\begin{frame}
+    \frametitle{Sample frame title without animation}
+    This is a text in second frame.For the sake of showing an example.
+    \begin{itemize}
+        \item Text visible on silde 1
+        \item Text visible on silde 2
+        \item Text visible on silde 3
+        \item Text visible on silde 4
+        \item Text visible on silde 5
+    \end{itemize}
+    \begin{equation*}
+        \sum_{i=1}^{n}x_i^2=1\cite{XI2018192}
+    \end{equation*}
+\end{frame}
+\section{Related Work}
+\begin{frame}
+    \begin{itemize}
+        \item<1-> Text visible on silde 1
+        \item<2> Text visible on silde 2
+        \item<3-> Text visible on silde 3%加短横线表示下一张出现，不加表示不出现
+        \item Text visible on silde 4
+        \item Text visible on silde 5
+    \end{itemize}
+    \begin{equation*}
+        \sum_{i=1}^{n}x_i^2=1
+    \end{equation*}
+\end{frame}
+
+\section{Proposed method}
+\begin{frame}
+    \frametitle{Sample frame title without animation}
+    in this slide \pause
+
+    the text will be partially visible \pause
+
+    And finally everything will be there
+
+\end{frame}
+\section{Experiments}
+\begin{frame}
+    \frametitle{Sample frame title without animation}
+    \colorbox{orange}{highlight}
+
+    in this slide,some \textbf{important} text will be \alert{highlighted} because
+    it's important. Please, don't \textcolor{blue}{abuse} it.
+    \begin{block}{Remark}
+        Sample text.
+    \end{block}
+    \begin{alertblock}{Important Theorem}
+        Sample text in red box.
+    \end{alertblock}
+    \begin{examples}
+        Sample text in green box. The title of the block is examples.
+    \end{examples}
+\end{frame}
+\begin{frame}
+    \frametitle{Two-column silde}
+    \begin{columns}
+        \column{0.5\textwidth}
+        This is a text in first column.
+        \begin{equation*}
+            \zeta (2) =\frac{\pi^2}{6}\cite{10.2307/24522787}
+        \end{equation*}
+        \begin{itemize}
+            \item first item
+            \item second item
+        \end{itemize}
+        \column{0.5\textwidth}
+        This text will be in the second column amd this is a nice looking layout in some cases.
+
+    \end{columns}
+\end{frame}
+\begin{frame}
+    \frametitle{Two-column silde}
+    \begin{columns}
+        \column{0.3\textwidth}
+        This is a text in first column.
+        \begin{equation*}
+            \zeta (2) =\frac{\pi^2}{6}
+        \end{equation*}
+        \begin{itemize}
+            \item first item
+            \item second item
+        \end{itemize}
+        \column{0.3\textwidth}
+        \begin{equation*}
+            \varPhi (x)
+        \end{equation*}
+        \column{0.4\textwidth}
+        This text will be in the third column amd this is a nice looking layout in some cases.
+    \end{columns}
+\end{frame}
+
+\section{Conclusion}
+\begin{frame}
+    \frametitle{References}
+    \bibliography{prime}
+    \bibliographystyle{plain}
+\end{frame}
+
+\begin{frame}
+    \Huge{\centerline{Thank You!}}
+\end{frame}
+
+
+\end{document}

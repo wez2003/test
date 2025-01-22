@@ -1,0 +1,257 @@
+\documentclass[b5paper,12pt]{article}
+%宏包
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{geometry}
+\usepackage{natbib}%bibtex
+\usepackage[dvipsnames]{xcolor}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{caption}
+% \usepackage[colorlinks,linkcolor=cyan!40!black]{hyperref}
+\usepackage[colorlinks,linkcolor=black]{hyperref}
+\usepackage{enumerate}%枚举
+
+\usepackage{xeCJK}%中文
+\usepackage{extarrows}%长等号
+
+
+%页面设置
+\linespread{1.1}
+\geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2cm}
+
+%环境和宏指令
+% \newenvironment{prooff}{{\noindent\it\textcolor{cyan!40!black}{Proof}:}\quad}{\par}
+\newenvironment{prooff}{{\noindent\it\textcolor{black}{Proof}:}\quad}{\par}
+\newcommand{\bbrace}[1]{\left\{ #1 \right\} }
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\p}{^{\prime}}
+\newcommand{\dd}{\text{d}}
+\renewcommand{\mod}[1]{(\text{mod}\,#1)}
+%ctrl+点击文本返回代码  选中代码 ctrl+alt+j 为代码查找文本
+
+
+%定理环境
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+\newtheorem{coro}[defn]{Corollary}
+\newtheorem{theo}[defn]{Theorem}
+\newtheorem{exer}[defn]{Exercise}
+\newtheorem{rema}[defn]{Remark}
+\newtheorem{lem}[defn]{Lemma}
+\newtheorem{prop}[defn]{Proposition}
+
+\title{Integration on Manifold}
+\author{王尔卓}
+\begin{document}
+% \sffamily
+\maketitle
+% \tableofcontents
+% \newpage
+Our main goal of this report is to establish the theory of integration on manifold, measure on manifold, volume form on Riemanian manifold, and Stokes Theorem. We assume readers are familiar with the basic definition of differential form on manifold,
+Lebesgue measure, orientation of manifold, manifold with boundary
+and basic results of Functional analysis such as Riesz Representation Theorem on LCH space.
+
+
+\section{Prerequisites}
+% In this part, we recall some results and definitions on smooth manifold and analysis without giving a proof.
+\subsection{Smooth Partition of Unity}
+To integate on manifold, we need to divide a manifold into different parts of corrdinate open subset and integate each part like what we do on $\bb{R}^n$. Hence we need some useful theorem to divide our manifold.
+\begin{defn}
+    A smooth partition of unity on a manifold is a collection of nonnegative smooth functions $\bbrace{\rho_{\alpha}:M\rightarrow\bb{R}}_{\alpha\in A}$ such that $\bbrace{\text{supp}\,\rho_{\alpha}}_{\alpha\in A}$ is locally finite and $\sum_{\alpha}\rho_{\alpha}=1$.
+\end{defn}
+\begin{theo}[Existence of a Partition of Unity]
+    Let $\bbrace{U_{\alpha}}_{\alpha\in A}$ be an open covering of a manifold M.
+    There's a $C^{\infty}$ partition of unity $\bbrace{\rho_{\alpha}}_{\alpha\in A}$ with every $\rho_{\alpha}$ having compact support such that $\text{supp}\,\phi_{\alpha}\subset U_{\alpha}$
+\end{theo}
+\subsection{Orientation}
+Also, we need to assume that the manifold is oriented to ensure integration is well defined in a local coordinate neighborhood.
+\begin{defn}
+    An orientation on a finite dimensional $\bb{R}$-vector space $V$ is the equivalence class of all the basis of the vector space characterized by the equivalence realtion:$\left[e_1,\dots,e_n\right]\sim \left[f_1,\dots,f_n\right]$ iff the sign of the transition matrix of these two basis is positive.
+    A pointwise orientation on manifold M is a pointwise orientation
+    on the tangent space of each point. A orientation on $M$ is a pointwise orientation which is also locally a continous frame.
+\end{defn}
+\begin{defn}
+    A manifold $M$ is oriented iff there's an orientation on M.
+\end{defn}
+\begin{defn}
+    An atlas on manifold $M$ is said to be oriented if for any two overlapping charts $(U,x^1,\dots,x^n)$ and $(V,y^1,\dots,y^n)$ of the atlas, the jacobian determinant is everywhere positive on $U\cap V$.
+\end{defn}
+There are several equivalent characterization of the orientation of a manifold.
+\begin{theo}
+    The following things are equivalent:
+    \begin{enumerate}
+        \item A manifold $M$ has an oriented atlas.
+        \item A manifold $M$ has a smooth nowhere-vanishing $n$-form $\omega$ on M.
+        \item A manifold $M$ is oriented.
+    \end{enumerate}
+\end{theo}
+Additionally, if we assume the manifold is connected oriented, it can be proved that there's exactly two orientation on $M$ and there's a one-to-one
+correspondence between the orientations on M and the equicalence classes of smooth nowhere-vanishing n-forms on M  defined by $w\sim w\p$ iff $w=fw\p$ for some smooth positive function $f$.
+
+\begin{theo}
+    \label{positive oriented-form}
+    If $\omega$ is a nowhere-vanishing $n$-form on a connected oriented manifold $M$, $\bbrace{(U_{\alpha},\phi_{\alpha})}_{\alpha\in A}$ is an oriented atlas. For every $p\in M$ and every coordinate neighborhood $(U,\phi)=(u,x^1,\dots,x^n)$ of $p$, $\omega$ can be
+    written as $w(q)=f(q)dx^1\wedge \dots dx^n, q\in U$. Define
+    \begin{align}
+        g(p)=
+        \begin{cases}
+            1  & \text{if} \quad f(p)>0 \\
+            -1 & \text{if} \quad f(p)<0
+        \end{cases}
+    \end{align}
+    g is well-defined since  the atlas is oriented. Then we have $g$ is constant on $M$.
+\end{theo}
+\begin{prooff}
+    Since $f$ is locally constant, $f$ is continous on $M$. Notice that we assume $M$ is connect.Hence the image of $f$ is also connect which implies $f$ is a constant function.
+\end{prooff}
+\begin{defn}
+    $M$ is a connect oriented manifold, $\omega$ is a nowhere-vanishing n-form on $M$, $\bbrace{(U_{\alpha},\phi_{\alpha})}_{\alpha\in A}$ is an oriented atlas, we call $\omega$ is a positive-oriented form if every local expression of $\omega$
+    by given oriented atlas has positive coefficient at each point.
+\end{defn}
+\begin{defn}
+    Ttwo oriented atlas $\bbrace{(U_{\alpha},\phi_{\alpha})}_{\alpha\in A}$ and $\bbrace{V_{\beta},\psi_{\beta}}_{\beta}$ on a manifold $M$ are said to be equivalent if the transition functions
+    \begin{equation*}
+        \phi_{\alpha}\circ\psi_{\beta}^{-1}:\psi_{\beta}^{-1}(U_{\alpha}\cap V_{\beta})\rightarrow \phi_{\beta}^{-1}(U_{\alpha}\cap V_{\beta})
+    \end{equation*}
+    have positive Jacobian determinant for all $\alpha,\beta$.
+\end{defn}
+\begin{theo}
+    There's a ono-to-one correspondence between equivanlece classes of oriented atlases on $M$ and orientattion on $M$.
+\end{theo}
+\begin{defn}
+    $w_M,w_N$ be nowhere vanishing $n$-form on $M,N$,diffeomorphism $F:(M,[w_M])\rightarrow (N,[w_N])$ is said to be prientation-preserving iff $F^*(w_N)=w_N$ where $F^*$ is the pullback of differential form.
+\end{defn}
+
+
+
+
+\subsection{Classical Results in Analysis}
+\begin{theo}[Change of Variables]
+    Suppose that $\Omega$ is an open set in $\bb{R}^n$ and $G:\Omega \rightarrow \bb{R}^n$ is a $C^1$ diffeomorphism. If $f\in L^1(G(\Omega),m)$($m$ is Lebesgue measure), then
+    \begin{equation}
+        \int_{G(\Omega)}f=\int_{\Omega}f\circ  G \left\lvert \det D_x(G)\right\rvert
+    \end{equation}
+\end{theo}
+\begin{theo}[Riesz Representation Theorem on LCH space]
+    If $I$ is a positive linear functional on compactly support continous function space $C_c(X)$, there is a unqiue radon measure $\mu$ on X such that $I(f)=\int f\text{d}\mu$ for all $f\in C_c(X)$.
+\end{theo}
+All theorems in Prerequisites can be found in \cite{Folland} \cite{LoringTu}
+
+\section{Integration on Manifold}
+Now we can construct theory of integration on manifold. First, we should make it clear what we "integate" is actually the smooth compactly supported $n$-form on a oriented manifol or a smooth $n$-form multiplied with a compactly support continous function.
+
+Let $M$ be a oriented manifold $M$ with an oriented atlas $\bbrace{(U_{\alpha},\phi_{\alpha})}_{\alpha\in A}$, $\omega$ be a compactly support smooth $n$-form on $M$.
+Suppose $\text{supp}\,\omega\subset U_{\alpha}$ and $(U_{\alpha},\phi_{\alpha})=(u,x^1,\dots,x^n)$.Then $\omega$ has a local expression on $U_{\alpha}$ written as $w(q)=f(q)dx^1\wedge \dots dx^n, q\in U_{\alpha}$, define
+\begin{equation}
+    \int_{M}\omega=\int_{\phi_{\alpha}(U_{\alpha})}f\circ\phi_{\alpha}^{-1}
+\end{equation}
+Notice that this definition is independent of the choice of the chart in oriented atlas since if $(U_{\beta},\phi_{\beta})=(U_{\alpha},y^1,\dots,y^n)$ is another chart in oriented atlas such that
+$\text{supp}\,\omega\subset U_{\beta}$
+\begin{align*}
+    \int_{M}\omega & =\int_{\phi_{\alpha}(U_{\alpha})}f\circ\phi_{\alpha}^{-1}                                                             &                                        \\
+                   & =\int_{\phi_{\alpha}(U_{\alpha}\cap U_{\beta})}f\circ\phi_{\alpha}^{-1}                                               &                                        \\
+                   & =\int_{\phi_{\beta} (U_{\alpha}\cap U_{\beta})}f\circ\phi_{\beta}^{-1}|\det D_x(\phi_{\alpha}\circ\phi_{\beta}^{-1})| & (\text{$D_x$ is Jacobian matrix})      \\
+                   & =\int_{\phi_{\beta} (U_{\alpha}\cap U_{\beta})}f\circ\phi_{\beta}^{-1} \det D_x(\phi_{\alpha}\circ\phi_{\beta}^{-1})  & (\text{proposition of oriented atlas}) \\
+\end{align*}
+Notice that the last identity agrees with the integration defined by $(U_{\beta},\phi_{\beta})=(U_{\alpha},y^1,\dots,y^n)$, hence the integration is well-defined.
+
+In general, if $\omega$ is arbitrary compactly supported $n$-form on $M$, we need a lemma.
+\begin{lem}
+    Let $\bbrace{\rho_{\alpha}}_{\alpha\in A}$ be a collection of functions on M and $\omega$ a smooth $k$-form on $M$ with compact support on $M$. If the collection $\bbrace{\rho_{\alpha}:M\rightarrow\bb{R}}_{\alpha\in A}$
+    of supports is locally finite, then $\rho_{\alpha}\omega\equiv 0$ for all but finte $\alpha$.
+\end{lem}
+\begin{prooff}
+    Let $p\in \text{supp}\,\omega$.Since $\text{supp}\,\rho_{\alpha}$ is locally fnite, there is a neighborhood $W_p$ of $p$ in M htat intersects only finitely many of the sets $\text{supp}\,\rho_{\alpha}$. The collection
+    $\bbrace{W_p|p\in M}$ is an open covering of M. Take a finite subcovering $W_1,\dots,W_p$, then we have only finte many $\text{supp}\,\rho_{\alpha}$ intersects $\bigcup_{i=1}^n W_i$. In partical, $\rho_{\alpha}\omega\equiv 0$ for all but finte $\alpha$.
+\end{prooff}
+\vskip 0.75cm
+
+Let $\bbrace{\rho_{\alpha}}_{\alpha\in A}$ to be the smooth
+partition of unity dominated to oriented atlas $\bbrace{(U_{\alpha},\phi_{\alpha})}_{\alpha\in A}$.
+Let $U_i,\, i=1,\dots,n$ be all the charts such that $\rho_{\alpha}\omega$ are nontrival.
+Define
+\begin{equation*}
+    \int_{M}\omega=\sum_{i=1}^n\int_M\rho_i w
+\end{equation*}
+where the integration of $\rho_i w$ on M is belong to the case we have already defined.
+
+To check the above identity is well defined, let $\bbrace{V_{\beta},\psi_{\beta}}_{\beta}$ be another oriented atlas equivalent to $\bbrace{(U_{\alpha},\phi_{\alpha})}_{\alpha\in A}$.
+$\bbrace{\chi_{\beta}}_{\beta}$ be the smooth partition of unity of $M$ dominated by $\bbrace{V_{\beta},\psi_{\beta}}_{\beta}$
+and let $V_i,\, i=1,\dots m$ be all the charts such that $\chi_{\alpha}\omega$ are nontrival.
+Notice that
+\begin{equation*}
+    \sum_{i=1}^n\int_M\rho_i w=\sum_{i=1}^n\int_M\rho_i\sum_{j=1}^m \chi_j w=\sum_{i=1}^n \sum_{j=1}^m \int_M \rho_i \chi_j w
+\end{equation*}
+Since $\bbrace{V_{\beta},\psi_{\beta}}_{\beta}$ is equivalent to $\bbrace{(U_{\alpha},\phi_{\alpha})}_{\alpha\in A}$,
+the integration of $\rho_i \chi_j \omega$ defined by $U_i$ is identical to the integretion defined by $V_j$.
+Hence $\int_M \omega $ is well-defined.
+\vskip 1cm
+Now, given a connect, oriented manifold $M$, an oriented atalas $\bbrace{(U_{\alpha},\phi_{\alpha})}_{\alpha\in A}$, we can construct a measure Radon measure on $M$ by Riesz Representation Theorem.
+By Theorem~\ref*{positive oriented-form}, There's a positive-oriented $n$-form $\omega$.Take a function $f$ in the space of  compactly supported function $C_c(M)$. Then the linear functional
+\begin{equation*}
+    I:f\rightarrow \int_M f\omega
+\end{equation*}
+is a positive linear functional on $C_c(M)$(Notice that we can define $\int_M f\omega$ by using the same process for compactly supported $n$-form $w$). By Riesz Representation Theroem, there's a Radon measure $\mu$ on $M$ such that
+\begin{equation*}
+    I(f)=\int f \dd \mu
+\end{equation*}
+
+
+
+\section{Volume Form on Riemanian Manifold}
+\begin{theo}
+    Let $M$ be a Riemannian manifold with $\dim(M) = n$. If $M$ is orientable,
+    then there is a uniquely determined volume form, Vol$M$, on $M$ with the following properties:
+    \begin{enumerate}[(1)]
+        \item For every $p\in M$, for every positively oriented orthonormal basis $(b_1,...,b_n)$ of $T_pM$,
+              we have
+              \begin{equation*}
+                  \text{Vol}(b_1,...,b_n)=1
+              \end{equation*}
+        \item In every orientation preserving local chart $(U,\phi)=(U,x^1,\dots,x^n)$, we have
+              \begin{equation*}
+                  \text{Vol}M(q)=\sqrt{(\det(g_{ij}(q))}\dd x^1\wedge \dd x^2\wedge \dots \wedge \dd x^n\quad \text{for all } q\in U
+              \end{equation*}
+    \end{enumerate}
+\end{theo}
+% \begin{prooff}
+%     omit
+% \end{prooff}
+
+
+
+
+
+% \subsection{Some examples}
+% \begin{theo}[Volume form on Sphere]
+%     Consider $n$-form on $\bb{R}^{n+1}$
+%     \begin{equation*}
+%         \omega=\sum_{i=1}^{n+1} (−1)^{i−1}x_i \dd x_1 \wedge \dots\wedge \dd x_{i-1}\wedge \dots  \wedge \dd x_{i+1}\dots \wedge \dd x_{n+1}
+%     \end{equation*}
+%     and the inclution map $i:S^n \hookrightarrow \bb{R}^{n+1}$. The embedding map $i$ induce a Riemannian metric on $S^n$ and the pullback of $\omega$ by $i$ is the volume form on $S^n$. We denote it by Vol $S^n$.
+
+% \end{theo}
+% \begin{theo}[\cite{lee2009manifolds},Theorem 9.7]
+
+% \end{theo}
+
+
+
+
+
+
+
+% \section{Stokes Theorem}
+% \subsection{manifold with boundary}
+
+
+\bibliography{manifold}
+\bibliographystyle{plain}%终端输入bibtex+文件名再ctrl+s两次,plain(数字起头) alpha(字母起头),cd 进入下一级别 cd..返回上一级
+
+
+
+\end{document}

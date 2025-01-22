@@ -1,0 +1,58 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{geometry}
+\newtheorem{lemma}{引理}[section]
+\newtheorem{theorem}{定理}[section]
+\title{RSA密码系统}
+\author{濯}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{RSA背景}
+RSA是1977年由罗纳德·李维斯特、阿迪·萨莫尔和伦纳德·阿德曼一起提出的。
+当时他们三人都在麻省理工学院工作。RSA就是他们三人姓氏开头字母拼在一起组成的。
+
+RSA基于$Euler$定理和大数的素因子分解非常困难。
+
+\section{加密原理}
+\begin{lemma}
+    当$m$的素因数分解为\,$p_{1}p_{2} \dots p_{r}$时\\
+    \begin{equation*}
+        a^{\varphi (m)+1}\equiv a\,(\text{mod}\,m)
+    \end{equation*}
+\end{lemma}
+\begin{proof}[证明:]
+    只需证明\,$p_{i}\,|\,a^{\varphi (m)+1}-a \qquad i=1,2,\dots,r$\\
+    注意到当\, $p_{i} \, | \,a$ 时 结论显然成立\\
+    只需证明$(a,p_{i})=1$的情况,即证$a^{\varphi (m)}\equiv 1\,(\text{mod}\,p_{i})$\\
+    由费马小定理 $a^{p_{i}-1}\equiv 1\,(\text{mod}\,p_{i})$
+    \quad 同时$\varphi (m)=\prod\limits_{i=1}^{r}(p_{i}-1)$\\
+    因此$a^{\varphi (m)}\equiv 1\,(\text{mod}\,p_{i})$\quad 进而$a^{\varphi (m)+1}\equiv a\,(\text{mod}\,m)$
+\end{proof}
+现在我们来具体说明RSA的实现原理。\\
+设$n=pq$,$pq$是两个不同的大素数,$\alpha$ 是大于$p$和$q$的素数,则存在$\beta $使得
+\begin{equation*}
+    \alpha \beta \equiv 1\,(\text{mod}\,\varphi (n))
+\end{equation*}
+这样对于任意整数$A$,$0\leq A< n$,必有唯一整数$B$满足
+\begin{equation*}
+    B \equiv A^{\alpha }\,(\text{mod}\,n) \quad 0\le B<n
+\end{equation*}
+进而由引理得到
+\begin{equation*}
+    B^{\beta }\equiv A^{\alpha \beta}\equiv A\,(\text{mod}\,n) \quad 0\le A<n
+\end{equation*}
+\section{加密原理具体解释}
+现在小王公开声明了$n$和$\alpha$,并且他已经知道了$n$的质因数分解,小卓想给小王传递数据$A$但是害怕别人知道传递的是什么，于是他将$A^{\alpha}$对$n$取模后得到$B$,将$B$传给小王,
+小王用$B$计算出$\beta$ 进而得到小卓真实想传递的数据$A$。
+
+由于其他人不知道$n$的质因数分解，于是无法从小卓传递的信息中获取真实想要传递的数据$A$。而正是$n$质因数分解的困难性保证了RSA的加密安全性。
+\section{加密实践}
+通过\emph{线性筛}\footnote{又称作欧拉筛}小王得到了两个数量级在$10^{7}$的素数$pq$以及$\alpha $\\
+其中$n=pq=2500085400729307$,\,$\alpha =50000897$\\
+现在假如你是小卓，你想向小王传递$2003211$这个数字，请问你该对小王输入什么？
+
+\end{document}

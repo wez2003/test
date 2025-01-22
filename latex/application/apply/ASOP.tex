@@ -1,0 +1,156 @@
+\documentclass[12pt]{article}
+%宏包
+\usepackage{amsmath}%数学符号
+\usepackage{amssymb}%数学符号
+\usepackage{amsthm}%数学符号
+\usepackage{geometry}%界面布局
+\usepackage{natbib}%bibtex
+\usepackage{tikz}%交换图
+\usepackage{tikz-cd}%交换图
+\usepackage{quiver}%交换图
+\usepackage{float}%浮动体固定
+\usepackage{caption}%图片标题
+\usepackage[colorlinks,linkcolor=blue]{hyperref}%超链接
+\usepackage{enumerate}%计数列表
+\usepackage{tabularx}%控制列宽
+\usepackage{CTEX}
+\usepackage{caption}%字体
+\ctexset{today=old}
+   
+%页面设置
+\linespread{1.2}
+\geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2cm}
+%\geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2cm}
+%环境和宏指令
+\newenvironment{prooff}{{\noindent\it\textcolor{cyan!40!black}{Proof}:}\,}{\par \vskip 1cm}
+\newenvironment{proofff}{{\noindent\it\textcolor{cyan!40!black}{Proof of the lemma}:}\,}{\qed \par}
+\newcommand{\bbrace}[1]{\left\{ #1 \right\} }
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\p}{^{\prime}}
+\renewcommand{\mod}[1]{(\text{mod}\,#1)}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\spec}[1]{\text{Spec}({#1})}
+\newcommand{\rarr}[1]{\xrightarrow{#1}}
+\newcommand{\larr}[1]{\xleftarrow{#1}}
+\newcommand{\emptyy}{\underline{\quad}}
+\newenvironment{enu}{\begin{enumerate}[(1)]}{\end{enumerate}}
+%ctrl+点击文本返回代码  选中代码 ctrl+alt+j 为代码查找文本
+
+%定理环境
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+\newtheorem{coro}[defn]{Corollary}
+\newtheorem{theo}[defn]{Theorem}
+\newtheorem{exer}[defn]{Exercise}
+\newtheorem{rema}[defn]{Remark}
+\newtheorem{lem}[defn]{Lemma}
+\newtheorem{prop}[defn]{Proposition}
+\newtheorem{nota}[defn]{Notation}
+\newtheorem{exam}[defn]{Example}
+\title{Academic Statement of Purpose}
+\author{Erzhuo Wang}
+\date{}
+\begin{document}
+\maketitle 
+\section{Research Interests and Furture Plan}
+My research interest is automorphic form and L-functions. In specific, currently I think the following two topic
+appeal to me incredibly. 
+
+Firstly, what I really want to do is to 
+discover the deep connection between number theory and other areas in mathematics such as Representation Theory 
+and Dynamic System. 
+For example, I really appreciate Professor Venkatesh and Nelson's work since they apply many different 
+methods from Lie Group, Microlocal Analysis and Dynamic System to study subconvex bound problem. 
+But I cannot understand them completely at the moment. 
+
+Secondly, I truly want to know how special values of different 
+L-functions reflect the information of different arithmetic objects. 
+The reason is that 
+I find the Analytic Class Formula
+$$
+\lim_{s\rightarrow 1}(s-1)\zeta_K(s)=\operatorname{Vol}\left(\bb{I}_K^1/K^\times\right)=\frac{2^{r_1}(2\pi)^{r_2}h_K R_K}{\omega_K \sqrt{|d_K|}}
+$$
+has many useful and powerful corollaries. I want to learn and discover more results like that.
+
+\section{Skills, and Abilities}
+To build a solid foundation in number theory and related fields, I have dedicated substantial time to reading textbooks and seminal papers. 
+Here is a summary of my mathematical training:
+
+Analysis: 
+\begin{enu} 
+\item Complex Analysis: I have studied the first nine chapters of Stein's Complex Analysis, covering topics such as the residue theorem, entire functions, 
+Hadamard factorization, the Gamma function, 
+the Riemann zeta function, conformal maps, and elliptic functions.
+
+\item Real Analysis: Using Folland's Real Analysis, I explored measure theory, Radon measures, $L^p$
+  spaces, and the Riesz Representation Theorem (LCH space version).
+
+\item Functional Analysis and Fourier Analysis: I read lecture notes of Functional Analysis 
+written by Salaman and some other relevant materials. 
+They mainly contain 
+Banach space, Open mapping theorem and closed image theorem, Hilbert space, Specturm of compact operator.
+
+\item Abstract Fourier Analysis: I have learned 
+Haar measure on topological group, Fourier Tranform and Fourier Inversion Theorem on topological group.
+
+\end{enu}
+
+Algebra:
+\begin{enu} 
+\item Abstract Algebra: Familiar with fundamental theorems in group theory, rings, fields, modules, and Galois theory.
+Galois Theory.
+\item Commutative Algebra: Familiar with Localization, integral extension, Dedekind domian, principal ideal theorem, 
+Specturm of ring, Chain conditions and dimension of ring. 
+
+\item Homological Algebra: Familiar with Abelian Category, Derived functor and Group Cohomology
+
+\item Algebraic Geometry: Familiar with 
+Sheaf Theory, basic Propositions of Scheme(like fibered product, immersion, finite type, affine, projective/quasi-projective)
+\end{enu}
+
+Geometry: As for Differential Geometry, I'm only Familiar with Loring Tu's Smooth Manifold 
+and some special topics in Lie Group. 
+I'm currently learning about Riemann Surface. 
+
+Number Theory: 
+\begin{enu}
+    \item Algebraic Number Theory: Familiar with Minkowski Theory, Ramification Theory, Local Fields, Density Theorem
+    \item Modular Forms: First three chapters of Diamond's A First Course in Modular Form
+    \item Analytic Number Theory: Familiar with Dirchlet L-functions, Serberg Sieve Method, Large Sieve Method Inequality, 
+    Prime Number Theorem, Exponential Sums. 
+    \item Tate's thesis
+\end{enu}
+
+Many of my notes on these subjects are accessible on my homepage: \url{https://wez2003.github.io/}, 
+where I continuously update my progress.
+
+
+
+\section{Academic Experience}
+\begin{itemize}
+    \item Algebra and Number Theory Summer School, 2023.7.31-2023.8.20, sponsored by Chinese Academy of Sciences, Academy of Mathematics and Systems Science
+    \item Reading Seminor on Tate's Thesis: During the seminar, we focused on the main theorems in Abstract Harmonic Analysis. We covered the proof of the local functional equation, global functional equation, and analytic class number formula.
+    Here is a note written on my own: \href{https://wez2003.github.io/paper/tatethesis.pdf}{Tate's thesis} 
+\end{itemize}
+\section{Why Purdue University?}
+I have a solid understanding of the foundational concepts of Artin L-functions, Hecke L-functions, and modular forms and am eager to explore more advanced topics in automorphic forms. Purdue University offers an ideal environment for this pursuit, especially given the expertise of Professors Freydoon Shahidi and Baiying Liu in the field of automorphic forms. I am confident that the rigorous training and collaborative opportunities at Purdue, combined with the guidance of these esteemed professors, will enable me to make meaningful contributions to the study of automorphic forms and their 
+applications to number theory and other areas of mathematics.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

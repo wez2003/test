@@ -1,0 +1,60 @@
+\documentclass[10pt]{beamer}
+
+\usetheme[block=fill, sectionpage=none]{metropolis}
+\useoutertheme{infolines}
+\usecolortheme{custom}
+\useinnertheme{metropolis}
+
+\usepackage{appendixnumberbeamer}
+
+\usepackage{booktabs}
+\usepackage[scale=2]{ccicons}
+
+\usepackage{pgfplots}
+\usepackage{ulem}
+\usepackage{caption}
+\usepgfplotslibrary{dateplot}
+
+\usepackage{xspace}
+\newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
+
+\title{Metropolis}
+\subtitle{A modern beamer theme}
+\date{\today}
+\author{Matthias Vogelgesang}
+\institute{Center for modern beamer themes}
+ \titlegraphic{\hfill\includegraphics[height=1.5cm]{figures/logo.pdf}}
+
+\begin{document}
+\frame[plain,noframenumbering]{\titlepage}
+
+\begin{frame}{All caps}
+	This frame uses the \texttt{allcaps} title format.
+
+	\begin{block}{Potential Problems}
+		This title format\footnote{this is a footnote} is not as problematic as the \texttt{allsmallcaps} format, but basically suffers from the same deficiencies. \alert{So please have a look at the documentation if you want to use it.}
+	\end{block}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.47\textwidth}
+	  \begin{itemize}
+    \item Regular
+    \item \textit{Italic}
+    \item \textsc{Small Caps}
+    \item \textbf{Bold}
+      \end{itemize}
+    \column{0.47\textwidth}
+      \begin{table}
+    \begin{tabular}{@{} lr @{}}
+      \toprule
+      City & Population\\
+      \midrule
+      Mexico City & 20,116,842\\
+      Shanghai & 19,210,000\\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+      \end{columns}
+
+\end{frame}
+
+\end{document}

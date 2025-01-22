@@ -1,0 +1,381 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{geometry}
+\usepackage{enumerate}
+\usepackage{cite}
+\newtheorem{lemma}{引理}[section]
+\newtheorem{theorem}{定理}[section]
+\newcommand{\ep}{\varepsilon}
+\newcommand{\mul}{\cdot}
+\newcommand{\cau}{\text{Cauchy}}
+\newcommand{\an}{\{a_{n}\}}
+\newcommand{\bn}{\{b_{n}\}}
+\newcommand{\bol}{\widetilde}
+\title{用\text{Cauchy}列构造实数}
+\author{王尔卓}
+\begin{document}
+\maketitle
+\begin{abstract}
+    本篇文章从有理数集出发用\text{Cauchy}列构造实数。
+\end{abstract}
+\tableofcontents
+\newpage
+\section{实数理论介绍}
+在我们的印象中，实数集在通常的运算法则和序关系下是一个$Archimedes$有序域，这一点与有理数集合是相同的。
+它与有理数集的差别在于，实数集将数轴填满，而有理数集无法完成这一工作，这种差异被赋予了一个名词，即“完备性”。
+事实上，从本篇文章视角来看，“完备性”更精确的表述是：由实数构成的基本数列必存在实数极限。
+
+
+在之前的学习中，我们使用戴德金分割去构造实数。
+本篇文章要从有理数集出发去构造实数，
+因此我们将承认有理数集满足的诸多性质而不去证明。
+\section{\text{Cauchy}列基本性质}
+如果对任意$\ep\in\mathbb{Q}$,均存在正整数$N$，成立
+\begin{equation*}
+    |x_{m}-x_{n}|<\ep,\quad \forall m,n\ge N
+\end{equation*}
+我们称有理数组成的数列$\{x_{n}\}$是一个$\mathbb{Q}$上的\text{Cauchy}列。
+
+下面我们证明\text{Cauchy}列是有界的，即有一个有理数$M$,使得任意正整数$n$,成立
+\begin{equation*}
+    |x_{n}|<M
+\end{equation*}
+\begin{proof}
+    取$\ep=1$,则存在正整数$N$，使得任意$n\ge N$成立
+    \begin{equation*}
+        |x_{n}-x_{N}|<1
+    \end{equation*}
+    从而
+    \begin{equation*}
+        |x_{n}|<|x_{N}|+1
+    \end{equation*}
+    令$M=max(|x_{1}|,x_{1}|,\dots,|x_{N}|+1)$，显然有
+    \begin{equation*}
+        |x_{n}| < M
+    \end{equation*}
+\end{proof}
+以$X$表示$\mathbb{Q}$上的全体\text{Cauchy}列之集，设$R$是从$X$到$X$的一个关系，满足：$({a_{n},{a_{n}^{\prime}}})\in R$
+当且仅当$\forall \ep \in \mathbb{Q}_{>0}$,存在正整数$N$,使得
+\begin{equation*}
+    |{a_{n}-{a_{n}^{\prime}}}|<\ep \qquad \forall n>N
+\end{equation*}
+下面证明$R$是$X$上的等价关系。
+\begin{proof}
+    自反性和对称性是显然的，下面证明传递性。
+
+    若$(\{a_{n}\},\{b_{n}\})\in R,(\{b_{n}\},\{c_{n}\})\in R$
+
+    则$\forall \ep \in \mathbb{Q}_{>0}$,存在正整数$N$,使得
+    \begin{align*}
+        |{a_{n}-{b_{n}}}|<\frac{\ep}{2}                      \\
+        |{b_{n}-{c_{n}}}|<\frac{\ep}{2} & \qquad \forall n>N
+    \end{align*}
+    则由绝对值不等式，
+    \begin{equation*}
+        |{a_{n}-{c_{n}}}|<\ep
+    \end{equation*}
+\end{proof}
+下面我们证明若$\{a_{n}\}\text{和} \{b_{n}\}$是\text{Cauchy}列,则
+$\{a_{n}+b_{n}\} $和$\{a_{n} b_{n}\}$也是\text{Cauchy}列。
+\begin{proof}
+    由于\text{Cauchy}列有界，则存在$A>0$,使得任意自然数$n$成立
+    \begin{equation*}
+        |a_{n}|<A,\quad |b_{n}|<A
+    \end{equation*}
+    $\forall \ep \in \mathbb{Q}_{>0}$,存在正整数$N$使$\forall n>N$成立
+    \begin{align*}
+        |a_{n}-a_{m}| & <\frac{\ep}{2A} \\
+        |b_{n}-b_{m}| & <\frac{\ep}{2A}
+    \end{align*}
+    则由绝对值不等式$\forall m,n>N$成立，
+    \begin{align*}
+        |a_{n}b_{n}-a_{m}b_{m}|   & =|a_{n}(b_{n}-b_{m})+b_{m}(a_{n}-a_{m})| \\
+                                  & \le A|b_{n}-b_{m}|+A|a_{n}-a_{m}|<\ep    \\
+        |a_{n}+b_{n}-a_{m}-b_{m}| & <\frac{\ep}{A}
+    \end{align*}
+\end{proof}
+\section{\text{Cauchy}列的运算}
+\subsection{加法与乘法运算的合理性}
+只需证明若$\{a_{n}\}\sim \{a_{n}^{\prime}\}$且$\{b_{n}\}\sim \{b_{n}^{\prime}\}$则 $ \{a_{n}+b_{n}\} \sim \{a_{n}^{\prime}+b_{n}^{\prime}\}$和
+$ \{a_{n} b_{n}\}\sim \{a_{n}^{\prime} b_{n}^{\prime}\}$
+\begin{proof}
+    由于\text{Cauchy}列有界，则存在$A>0$,使的任意自然数$n$成立
+    \begin{equation*}
+        |a_{n}|<A,\quad |a_{n}^{\prime}|<A\quad |b_{n}|<A\quad |a_{n}^{\prime}|<A
+    \end{equation*}
+    $\forall \ep \in \mathbb{Q}_{>0}$,存在正整数$N$使$\forall n>N$成立
+    \begin{align*}
+        |a_{n}-a_{n}^{\prime}| & <\frac{\ep}{2A} \\
+        |b_{n}-b_{n}^{\prime}| & <\frac{\ep}{2A}
+    \end{align*}
+    因此
+    \begin{equation*}
+        |a_{n}+b_{n}-a_{n}^{\prime}-b_{n}^{\prime}|<\frac{\ep}{A}
+    \end{equation*}
+    \begin{align*}
+        |a_{n}b_{n}-a_{n}^{\prime} b_{n}^{\prime}| & =|a_{n}(b_{n}-b_{n}^{\prime})+b_{n}(a_{n}^{\prime}-a_{n})| \\
+                                                   & \le A|b_{n}-b_{n}^{\prime}|+A|a_{n}-a_{n}^{\prime}|<\ep    \\
+    \end{align*}
+
+\end{proof}
+\subsection{\text{Cauchy}列按加法成交换群}
+将全体柯西列记作$E$,在这里我们将$\sim$直接写作$=$,我们只需证明：
+\begin{enumerate}[(1)]
+    \item 加法是一个代数运算，即$a,b\in E$则，$a+b\in E$
+    \item 满足集合律，即$a,b,c\in E$则，$a+(b+c)=(a+b)+c$
+    \item 存在左单位元$\{ 0,0,\dots,0\}\in E$,记作$\textbf{0}$,任给$a\in E$有$a+\textbf{0}=a$
+    \item 存在左逆元，即若$a\in E$则存在$b\in E$使得$a+b=0$
+    \item $a,b\in E$,则$a+b=b+a$
+\end{enumerate}
+\begin{proof}
+    事实上，(1)在前文已经得到证明,(3)和(5)由有理数本身性质结合等价关系的定义不难得到。
+    对于(4),考虑$\{a_{n}\}\in E$,由\text{Cauchy}列定义可知$\{-a_{n}\}\in E$,于是
+    \begin{equation*}
+        \{a_{n}\}+\{-a_{n}\}=\{a_{n}+(-a_{n})\}=\textbf{0}
+    \end{equation*}
+    对于(2),
+    \begin{align*}
+        \{a_{n}\}+(\{b_{n}\}+\{c_{n}\}) & =\{a_{n}\}+(\{b_{n}+c_{n}\})=\{a_{n}+b_{n}+c_{n}\} \\
+                                        & =\{(a_{n}+b_{n})+c_{n}\}                           \\
+                                        & =\{a_{n}+b_{n}\}+\{c_{n}\}
+    \end{align*}
+\end{proof}
+
+\subsection{非零\text{Cauchy}列按乘法成交换群}
+我们只需证明：
+\begin{enumerate}[(1)]
+    \item 乘法是一个代数运算，即$a,b\in E$则，$a \mul b\in E$
+    \item 满足集合律，即$a,b,c\in E$则，$a\mul(b\mul c)=(a\mul b)\mul c$
+    \item 存在左单位元$\{ 1,1,\dots,1\}\in E$,记作$\textbf{1}$,任给$a\in E$有$a\mul \textbf{1} =a$
+    \item 存在左逆元，即若$a\in E$则存在$b\in E$使得$a\mul b=\textbf{1}$
+    \item $a,b\in E$,则$a\mul b=b\mul a$
+\end{enumerate}
+\begin{proof}
+    事实上，(1)在前文已经得到证明,(2)仿照3.2(2)不难得到证明,(3)和(5)由有理数本身性质结合等价关系的定义不难得到。因此我们只对(4)给出证明。\\
+    设$a={a_{n}},a\neq\textbf{0}$,则必存在$\ep\in \mathbb{Q}_{>0}$,使得在区间$(-\ep,\ep)$中只有$\an$中的有限多项，否则按照$\cau$列的定义，存在正整数$N$，成立
+    \begin{equation*}
+        |a_{n}-a_{m}|<\ep,\quad \forall m,n\ge N
+    \end{equation*}
+    取一个$n_{k}>N$ , 成立$|a_{n_{k}}| < \ep $,则有
+    \begin{equation*}
+        |a_{n}|<|a_{n}-a_{n_{k}}|+|a_{n_{k}}|<2\ep
+    \end{equation*}
+    这说明$a_{n}=\textbf{0}$,矛盾。
+    于是我们设$n>N_{0}$时,$|a_{n}|\ge \ep$
+
+    并规定$a^{-1}=a_{n}^{\prime}=\{a_{1},a_{2},\dots,a_{N_{0}},a_{N_{0}+1}^{-1},a_{N_{0}+2}^{-1},\dots\}$
+    由于对任意正有理数$\eta$,存在正整数$N_{1}$,使得$\forall m,n\ge N_{1}$使得
+    \begin{equation}
+        |a_{n}-a_{m}|<\eta \ep^{2}
+    \end{equation}
+    于是,任意$m,n>\text{max}(N_{0},N_{1})$
+    \begin{equation*}
+        |a_{n}^{\prime}-a_{m}^{\prime}|< \left| \frac{a_{n}-a_{m}}{a_{n}a_{m}}\right|
+        \le \frac{\eta \ep^{2}}{\ep^{2}}=\eta
+    \end{equation*}
+    因此$a_{-1}$是\cau 列,进而$a\mul a^{-1}=\textbf{1}$。
+
+    与此同时，仿照3.2(2)的证明我们不难得到乘法与加法之间存在分配律，
+    因此全体$\cau$列按照加法和乘法构成一个域。
+
+\end{proof}
+\subsection{\cau 列的三歧性}
+设$a=\an,b=\bn$是两个实数，加入存在正有理数$\delta$和正整数$N$使得
+\begin{equation*}
+    a_{n}-b_{n}>\delta,  \quad \forall n\ge N
+\end{equation*}
+则称$a>b$,或者$b<a$。
+下面我们证明如果$a=\an,b=\bn$则$a>b,a<b<a=b$有且仅有一个成立。
+先证明至少有一个成立。
+\begin{proof}
+    $\forall \ep >0, \exists N\in \mathbb{Z}_{>0}$,使得任意$m\ge N$,成立
+    \begin{equation*}
+        |a_{m}-a_{N}|<\frac{\ep}{2},\quad |b_{m}-b_{N}|<\frac{\ep}{2}
+    \end{equation*}
+    则由绝对值不等式
+    \begin{equation*}
+        |a_{m}-b_{m}-(a_{N}-b_{N})|<\ep
+    \end{equation*}
+    也就是
+    \begin{equation*}
+        a_{N}-b_{N}-\ep<a_{m}-a_{M}< a_{N}-b_{N}+\ep
+    \end{equation*}
+    假如存在$\ep$使得两端同号,若为正号令$\delta=a_{N}-b_{N}-\ep$,若为负号令$\delta=-a_{N}+b_{N}-\ep$,
+    可知此时必有$a>b或者a<b$,若对任意$\ep$两端异号,则有
+    \begin{equation*}
+        a_{N}-b_{N}-\ep<0,\quad a_{N}-b_{N}+\ep>0,
+    \end{equation*}
+    于是
+    \begin{equation*}
+        |a_{m}-b_{m}|<|a_{m}-b_{m}-(a_{N}-b_{N})|+|a_{N}+b_{N}|<2\ep
+    \end{equation*}
+    因此$\an=\bn$,同时我们注意到由定义,\, $a>b$和$a<b$不能同时成立。
+\end{proof}
+由定义我们不难得到，如果$a>b,b>c$,则 $a>c$,如果$a>b,c>d$,则$a+c>b+d$。
+\subsection{绝对值运算与绝对值不等式}
+定义大于\textbf{0}的实数为正数，小于\textbf{0}的实数为负数。
+设$a$是是一个实数,定义$a$的绝对值为
+\begin{equation*}
+    |a|=
+    \begin{cases}
+        a, \quad & a\ge \textbf{0} \\
+        -a       & a<\textbf{0}
+    \end{cases}
+\end{equation*}
+下面我们证明绝对值不等式，即若$a$和$b$是实数，则有
+\begin{equation*}
+    \left||a|-|b| \right|  \le |a+b|\le |a|+|b|
+\end{equation*}
+\begin{proof}
+    由绝对值的定义可以得到：
+    \begin{equation*}
+        -|a| \le a \le |a|, \quad   -|b| \le b \le |b|
+    \end{equation*}
+    因此
+    \begin{equation*}
+        -(|a|+|b|)  \le a+b \le |a+b|
+    \end{equation*}
+    进而
+    \begin{equation*}
+        |a+b|\le |a|+|b|
+    \end{equation*}
+    因此
+    \begin{equation*}
+        |a|\le |a-b|+|b|,\quad |b|\le |b-a|+|a|
+    \end{equation*}
+    即
+    \begin{equation*}
+        \left||a|-|b| \right|  \le |a+b|
+    \end{equation*}
+\end{proof}
+
+\section{保序同构映射}
+我们要把一部分有理数和实数建立保序同构映射。
+对任何$r \in \mathbb{Q}$,由
+\begin{equation*}
+    \bol{r}=\{ r,r,\dots,r,\dots \}
+\end{equation*}
+是一个基本有理数列，我们记$R$和$R_{0}$分别为全体有理数和全体相应于有理数的实数，
+则映射$r \rightarrow \bol{r}$是$R$到$R_{0}$的双射。
+下面我们证明保序同构。即证明：
+\begin{equation*}
+    \bol{r_{1}+r_{2}}=\bol{r_{1}}+\bol{r_{2}},\quad\bol{r_{1}r_{2}}=\bol{r_{1}}\cdot  \bol{r_{2}}
+\end{equation*}
+\begin{proof}
+    \begin{align*}
+        \bol{r_{1}}+\bol{r_{2}}=      & \{ r_{1},r_{1},\dots\}+\{ r_{2},r_{2},\dots\}       \\
+        =                             & \{ r_{1}+r_{2},r_{1}+r_{2},\dots\}                  \\
+        =                             & \bol{r_{1}+r_{2}}                                   \\
+        \bol{r_{1}}\cdot  \bol{r_{2}} & =\{ r_{1},r_{1},\dots\}\cdot \{ r_{2},r_{2},\dots\} \\
+                                      & =\{ r_{1}r_{2},r_{1}r_{2}, \cdots \}                \\
+                                      & =\bol{r_{1}r_{2}}
+    \end{align*}
+\end{proof}
+\section{实数基本定理}
+\subsection{\cau 收敛原理}
+我们先定义实数列的收敛，设$a=\an$是一个实数列，如果由实数适合一下条件：对于任意正实数$\ep$
+存在正整数$N,\forall n\ge N $,成立
+\begin{equation*}
+    |a_{n}-a|<\ep
+\end{equation*}
+我们称 $$\lim_{n \to \infty}a_{n}=a $$
+于是柯西收敛原理可以表述如下：
+数列$\an$收敛的充要条件是：对任意正实数$\ep,\exists N,$使得当$n,m\ge N$时，成立
+\begin{equation*}
+    |a_{n}-a_{m}|<\ep
+\end{equation*}
+我们先证明一个引理
+\begin{lemma}[有理数在实数中的稠密性]
+    设$a=\an,b=\bn$为实数,且$a<b$,则存在$c\in \mathbb{Q}$,成立
+    \begin{equation*}
+        a<\bol{c}<b
+    \end{equation*}
+    由大于号的定义,存在$\delta\in\mathbb{Q}_{>0}$和$N\in\mathbb{Z}{>0}$,成立$\forall n\ge N$
+    \begin{equation*}
+        b_{n}=a_{n}>\delta
+    \end{equation*}
+    又因为$a,b$是$\cau$列，则存在$N_{1}>N$,使得$\forall m,n\ge N_{1}$成立
+    \begin{equation*}
+        |a_{n}-a_{m}|<\frac{\delta}{4},\quad |b_{n}-b_{m}|<\frac{\delta}{4}
+    \end{equation*}
+    因此
+    \begin{equation*}
+        a_{n}<a_{N_{1}}+\frac{\delta}{4}<a_{N_{1}}+\frac{3\delta}{4}<b_{N_{1}}-\frac{\delta}{4}<b_{n}
+    \end{equation*}
+    进而取$\bol{c}=\bol{a_{N_{1}}+\frac{3\delta}{4}}$,则有
+    \begin{equation*}
+        a<\bol{c}<b
+    \end{equation*}
+\end{lemma}
+回到原命题
+\begin{proof}
+    必要性：$\forall \ep>0,\exists N\in \mathbb{Z}_{>0},\forall n\ge N$,成立
+    \begin{equation*}
+        |a_{n}-a|<\frac{\ep}{2},\quad |a_{m}-a|<\frac{\ep}{2}
+    \end{equation*}
+    则由绝对值不等式，$$|a_{n}-a_{m}|<\ep$$
+    充分性：对于实数$a_{n}$,存在有理数$x_{n}$，使得相应实数$\bol{x_{n}}$成立,
+    \begin{equation*}
+        a_{n}<\bol{x_{n}}<a_{n}+\bol{(\frac{1}{n})}
+    \end{equation*}
+    对任意正有理数$\delta$,由条件，存在正整数$N>\frac{4}{\delta}$，使得任意$m,n\ge N$成立
+    \begin{equation*}
+        |a_{n}-a_{m}|<\bol{(\frac{\delta}{4})}
+    \end{equation*}
+    于是对任意$m,n\ge N$,成立
+    \begin{align*}
+        \bol{|x_{n}- x_{m}|} & =| \bol{x_{n}} - \bol{x_{m} }|\le | \bol{x_{n}}-a_{n}|+| \bol{x_{m}}-a_{m}|+|a_{n}-a_{m}|        \\
+                             & \le \bol{(\frac{1}{n})}+\bol{(\frac{1}{m})}+\bol{(\frac{\delta}{4})} < \bol{(\frac{3\delta}{4})}
+    \end{align*}
+    因此$|x_{n}-x_{m}|<\delta$,所以$\{ x_{n} \}$是一个实数,设为$q$。
+    我们来证明$$\lim_{n \to \infty }a_{n}=q$$
+    因为$|q-\bol{x_{n}}|=\{ |x_{1}-x_{n}|,|x_{2}-x_{n}|,\cdots,|x_{k}-x_{n}|,\cdots\}$
+    则任意$n,k\ge N$,成立
+    \begin{equation*}
+        \delta-|x_{k}-x_{n}|>\frac{\delta}{4}>0
+    \end{equation*}
+    因此任意$n>N$,成立
+    \begin{equation*}
+        |q-\bol{x_{n}}|<\bol{\delta}
+    \end{equation*}
+    对于任意正实数$\bol{\ep}$,取$0<\bol{\delta}<\frac{\bol{\ep}}{2} $,则任意$n>N\ge \frac{4}{\delta}$,成立
+    \begin{align*}
+        |q-a_{n}|\le |q-\bol{x_{n}}|+|\bol{x_{n}}-a_{n}|<\bol{\delta}+\bol{(\frac{1}{n})}<\bol{\ep}
+    \end{align*}
+\end{proof}
+\subsection{确界存在原理}
+设数集$S$非空有上界，则必有上确界。
+\begin{proof}
+    设$a_1\in S,b_{1}\notin S$,并且不妨设$a_{1}$不为上确界,\,$b_{1}$为$S$上界，则$a_{1}\le b_{1}$
+    取中点$\frac{a_{1}+b_{1}}{2}$,若不为上界,
+    令为$b_{2}=b_{1},a_{2}=\frac{a_{1}+b_{1}}{2}$,若为上界,令$b_{2}=\frac{a_{1}+b_{1}}{2},a_{2}=a_{1}$,
+    按照此规律继续进行可以得到$\an$和$\bn$使得,$\an$中实数全都不是上界，$\bn$中实数全都是上界。
+
+    注意到$$|a_{n}-b_{n}|\le \frac{|a_{1}-b_{1}|}{2^{n-1}}$$
+    因此$$\lim_{n\to \infty}|a_{n}-b_{n}|=0$$
+    又因为对任意$n\in \mathbb{Z}_{>0}$，成立$$a_{n}\le a_{n+1}\le b_{n+1}\le b_{n}$$
+    而且对任意$\ep>0$,存在$N\in \mathbb{Z}_{>0}$,使得$\forall n\ge N$，成立
+    $$ b_{n}-a_{n}<\ep$$
+    因此任意$p\in \mathbb{Z}_{>0}$,有$$0<a_{n+p}-a_{n}\le b_{n}-a_{n}<\ep $$
+    因此$\an$ 是$\cau$ 列，有柯西收敛准则，设$$\lim_{n\to \infty}a_{n}=a$$
+    因此$$\lim_{n\to \infty}b_{n}=\lim_{n\to \infty}b_{n}-a_{n}+a_{n}=a$$
+    下面我们来证明$a=\text{sup}S$，对任意$x\in S,x\le  b_{n}$,令$n\rightarrow \infty$，有 $x\le a$。
+    同时任意$\ep>0$,由保序性,存在$n_{0}$,使得$b_{n_{0}}>a-\ep$
+\end{proof}
+
+\section{总结}
+我们已经证明了柯西收敛原理和确界存在原理，接下来的证明可以同戴德金分割构造实数一样的顺序证明实数几个基本定理。
+
+从柯西列构造实数的过程可以看出，构造过程讲数列看成实数，与戴德金分割构造不同，戴德金分割是将满足特定形式的集合看成实数。
+从证明过程可以看出，柯西列构造实数证明过程比较简洁，但是最后证明柯西收敛原理时将一个个数列排成一列构造数列的行为较为抽象，
+而且用到了数列收敛的定义。
+因此，柯西列构造实数适合数学分析初学者已经学习实数构造以后进一步拓展了解实数构造而学习。
+
+
+
+\begin{thebibliography}{99}
+    \bibitem{ref1}《实变函数论与泛函分析》\,夏道行\,吴卓人\,严绍宗\,舒五昌 \quad 47-61
+\end{thebibliography}
+\end{document}

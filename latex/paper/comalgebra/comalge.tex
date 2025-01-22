@@ -1,0 +1,2163 @@
+\documentclass[a4paper,12pt]{article}
+%宏包
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{geometry}
+\usepackage{natbib}%bibtex
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{quiver}
+\usepackage{float}
+\usepackage{caption}
+\usepackage[colorlinks,linkcolor=cyan!40!black]{hyperref}
+\usepackage{enumerate}
+\usepackage{tabularx}%控制列宽
+
+%页面设置
+\linespread{1.2}
+\geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2cm}
+%\geometry{a4paper,left=2cm,right=2cm,top=2.5cm,bottom=2cm}
+
+%环境和宏指令
+\newenvironment{prooff}{{\noindent\it\textcolor{cyan!40!black}{Proof}:}\,}{\par}
+\newenvironment{proofff}{{\noindent\it\textcolor{cyan!40!black}{Proof of the lemma}:}\,}{\qed \par}
+\newcommand{\bbrace}[1]{\left\{ #1 \right\} }
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\p}{^{\prime}}
+\renewcommand{\mod}[1]{(\text{mod}\,#1)}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\spec}[1]{\text{Spec}({#1})}
+\newcommand{\rarr}[1]{\xrightarrow{#1}}
+\newcommand{\larr}[1]{\xleftarrow{#1}}
+\newcommand{\emptyy}{\underline{\quad}}
+%ctrl+点击文本返回代码  选中代码 ctrl+alt+j 为代码查找文本
+
+
+%定理环境
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[subsection]
+\newtheorem{coro}[defn]{Corollary}
+\newtheorem{theo}[defn]{Theorem}
+\newtheorem{exer}[defn]{Exercise}
+\newtheorem{rema}[defn]{Remark}
+\newtheorem{lem}[defn]{Lemma}
+\newtheorem{prop}[defn]{Proposition}
+\newtheorem{nota}[defn]{Notation}
+\newtheorem{exam}[defn]{Example}
+
+
+
+%标题设置
+\title{Algebra}
+\date{\today}
+\author{Erzhuo Wang}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{Commutative Algebra}
+\subsection{Basic Definition in Ring Thoery}
+\begin{nota}
+    In this note, by a ring we always understand a commutative ring with
+    unit(unless stated otherwise); ring homomorphisms $A\rightarrow B$ are assumed to take the unit element
+    of $A$ into the unit element of B. When we say that $A$ is a subring of $В$
+    it is understood that the unit elements of $A$ and $B$ coincide.
+\end{nota}
+\begin{nota}
+    If $f:A\rightarrow B$ is a ring homomorphism, $J$ is an ideal of $B$, then $f^{-1}(J)$ is an ideal of A, and we denote it by $A\cap J$.
+\end{nota}
+\begin{nota}
+    In this note, $\subset$ or $\subseteq$ are used for inclusion of a subset, including the possibility of
+    equality;$\subsetneq$ is used for strict includsion.
+\end{nota}
+\begin{defn}
+    A zero-divisor in a ring $A$ is an element $x$ which "divides 0", i.e., for which there
+    exists $y\neq 0$ in A such that $xy = 0$.
+\end{defn}
+\begin{defn}
+    An ideal which is maximal among all proper ideals is called a maximal
+    ideal; an ideal $m$ of $A$ is maximal if and only if $A/m$ is a field.
+\end{defn}
+\begin{theo}
+    If $I$ is a proper ideal then there exists at least one maximal
+    ideal containing $I$.
+\end{theo}
+\begin{defn}
+    A ring A is an integral domain (or simply a
+    domain) if $ A\neq 0$, and $A$ has no zero-divisors other than 0.
+\end{defn}
+\begin{defn}
+   A field $F$ is an integral doamin such that every non-zero element in $F$ is invertible.
+\end{defn}
+
+\begin{defn}
+    A proper ideal($\neq A$) $P$ of $A$ for which $A/P $ is an integral domain is called a prime
+    ideal. In other words, P is prime if it satisfies:
+    \begin{enumerate}[(1)]
+        \item $ P\neq A$.
+        \item $x,y \in Р \Rightarrow xy \in P$ for $x,y\in A$.
+    \end{enumerate}
+    A field is an integral domain, so that a maximal ideal is prime.
+\end{defn}
+\begin{prop}
+    There is a one-to-one order-preserving correspondence
+    between the ideals $J$ of $A$ which contain $I$, and the ideals $A/I$.More precisely,we can say
+    there are two bijection
+    \begin{equation*}
+        \bbrace{\text{ideals of A that contain I}}\longleftrightarrow \bbrace{\text{ideals of } A/I}
+    \end{equation*}
+    \begin{equation*}
+        \bbrace{\text{prime ideals of A that contain I}}\longleftrightarrow \bbrace{\text{prime ideals of } A/I}
+    \end{equation*}
+    given by the correspondences
+    \begin{equation*}
+        J  \longrightarrow  J/I=\bar{J}
+    \end{equation*}
+    \begin{equation*}
+        \pi^{-1}(\bar{J})  \longleftarrow \bar{J}
+    \end{equation*}
+    where $\pi$ be the natural homomorphism from $A$ to $A/I$.
+\end{prop}
+\begin{defn}
+    A subset $S$ of $A$ is multiplicative if it satisfies:
+    \begin{enumerate}[(1)]
+        \item $x,y\in S \Rightarrow xy \in S$.
+        \item $1 \in S$.
+    \end{enumerate}
+\end{defn}
+\begin{defn}
+    If $I$ is an ideal of $A$ then the set of elements of $A$, some power of which
+    belongs to $I$, is an ideal of $A$.This set is called the radical of $I$, and is sometimes written $\sqrt{I}$.
+\end{defn}
+\begin{theo}
+    the radical $\sqrt{I}$ of $I$ is the intersection of all prime ideals containing $I$.
+\end{theo}
+\begin{prooff}
+    \begin{lem}
+        Let $S$ be a multiplicative set and $I$ an ideal disjoint from $S$;
+        then there exists a prime ideal containing $I$ and disjoint from $S$.
+        \label{lemma:multiplicative set,prime ideal}
+    \end{lem}
+    \begin{proofff}
+        If $I$ is an ideal disjoint from $S$,then the set of ideals containing $I$ and disjoint from $S$ has a maximal
+        element. If $P$ is an ideal which is maximal among ideals disjoint from $S$
+        then $P$ is prime. For if $x,y\notin P,xy\in P$, then since $P+xA$ and $P+yA$ both
+        meet $S$, the product $(P + xA) (P + y A)$ also meets $S$. However,
+        $(P + xA) (P + y A) \subset P+xyA$ ,a contradiction!
+    \end{proofff}
+    If $x\notin \sqrt{I}$, $S_x={x^n:n\ge 0}$ be a multiplicative subset. By lemma~\ref{lemma:multiplicative set,prime ideal}, we can find
+    a prime ideal which contains $I$ disjoint from $S_x$.
+\end{prooff}
+\begin{defn}
+    In particular if we take $I = (0)$ then $\sqrt{(0)}$ is the set of all nilpotent elements
+    of $A$, and is called the nilradical of $A$; we will write $nil(A)$ for this. When $nil(A) = 0$ we say
+    that $A$ is reduced, For any ring $A$ we write $A_{red}$ for $A/nil(A)$ is of course reduced.
+\end{defn}
+\begin{defn}
+    The intersection of all maximal ideals of a ring $A\neq 0$ is called the
+    Jacobson radical, or simply the radical of $A$ and written $rad(A)$.
+\end{defn}
+\begin{prop}
+    $x\in rad(A)$ if and only if $1+xy$ is a unit in $A$ for all $y\in A$.
+    \label{proposition:Jacobson radical}
+\end{prop}
+\begin{defn}
+    A ring having just one maximal ideal is called a local ring, and a
+    (non-zero) ring having only finitely many maximal ideals a semilocal ring.
+    We often express the fact that $A$ is a local ring with maximal ideal $m$ by
+    saying that $(A, m)$ is a local ring; if this happens then the field $k = A/m$ is
+    called the residue field of $A$. We will say that $(A,m,k)$ is a local ring to
+    mean that A is a local ring, $m = rad(A)$ and $k = A/m$.
+\end{defn}
+\begin{prop}
+    If $(A,m)$ is a local ring then the elements of $A$ not contained in $m$ are units; conversely a
+    (non-zero) ring $A$ whose non-units form an ideal $m$ is a local ring with maximal ideal $m$.
+    \label{Proposition:unit=A-m}
+\end{prop}
+\begin{theo}
+    If $I_1,I_2,...,I_n$ are ideals which are coprime(i.e. $I_i+I_j=A$ for all $i\neq j$) in pairs then
+    $I_1 I_2\dots I_n=I_1\cap I_2\dots \cap I_n$
+\end{theo}
+\begin{theo}[Chinese Reminder Theorem]
+    If $I_1,\dots, I_n$ are ideals which are coprime in pairs then
+    \begin{equation*}
+        A/I_1\times \dots \times A/I_n\simeq A/(I_1\dots I_n)
+    \end{equation*}
+    and the isomorphism map is given by
+    \begin{equation*}
+        a+I_1\dots I_n\rightarrow (a+I_1,\dots,a+I_n)
+    \end{equation*}
+\end{theo}
+\begin{theo}[Prime Avoidance]
+    \par
+    \begin{enumerate}[(1)]
+        \item Let $P_1,\dots P_n$ be prime ideals and let $I$ be an ideal
+              contained in $\bigcup_{i=1}^n P_i$. Then $I\subset P_i$ for some $1 \le i \le n$.
+        \item Let P be a prime ideal. $P\supset I_1\dots I_n$, then $P\supset I_i$ for some $1\le i \le n$.
+    \end{enumerate}
+    \label{theorem:prime avoidance}
+\end{theo}
+\begin{prooff}
+    (2):If $P\supset IJ$ and $P\nsupseteq I$, there's $a\in I$ such that $a\notin P$. Since $P\supset IJ$, for all $b\in J$, $ab\in P$, then $b\in P$. Hence we have $P\supset J $.
+\end{prooff}
+\begin{defn}
+    Let $R$ be an integral domain.
+    Suppose $r\in R$ is nonzero and is not a unit. Then $r$ is called irreducible in $R$
+    if whenever $r = ab$ with $a, b\in R$, at least one of $a$ or $b$ must be a unit in $R$.
+    Otherwise $r$ is said to be reducible.The nonzero element $p\in R$ is called prime in $R$ if the ideal $(p)$ generated by
+    $p$ is a prime ideal.Two elements $a$ and $b$ of $R$ differing by a unit are said to be associate in $R$.
+\end{defn}
+\begin{prop}
+    In an integral domain, a prime element is always irreducible.
+\end{prop}
+\begin{defn}[U.F.D]
+    A Unique Factorization Domain is an integral domain $R$ in which
+    every nonzero element $r\in R$ which is not a unit has the following two properties:
+    \begin{enumerate}
+        \item $r$ can be written as a finite product of irreducibles $p$ of $R$: $r = p_1\dots p_n$
+        \item the decomposition in (1) is unique up to associates.
+    \end{enumerate}
+\end{defn}
+\begin{prop}
+    A intergral domain $R$ is U.F.D if and only if every irreducible element is prime and there's no
+    infinite sequence $(a_n)$ in $R$ satisfying: $a_i|a_{i+1}$, $a_i$ and $a_j$ are not associate.
+\end{prop}
+\begin{defn}[P.I.D]
+    A Principal Ideal Domain is an integral domain in which every
+    ideal is principal.
+\end{defn}
+\begin{prop}
+    Every Principal Ideal Domain is a Unique Factorization Domain.
+\end{prop}
+\begin{prop}
+    If $F$ is a field, then $F[x]$ is a Principal Ideal Domain.
+    \label{F[x] is PID}
+\end{prop}
+\begin{lem}[Gauss' Lemma]
+    Let R be a Unique Factorization Domain with field of
+    fractions F and let $p(x) \in  R[x]$. If $p(x)$ is reducible in $F[x]$ then $p(x)$ is reducible
+    in $R[x]$. More precisely, if $p(x) = A(x)B(x)$ for some nonconstant polynomials
+    $A(x),B(x) \in F[x]$, then there are nonzero elements $r,s\in F$ such that $r A(x) = a(x)$
+    and $sB(x) = b(x)$ both lie in $R[x]$ and $p(x) = a(x)b(x)$ is a factorization in $R[x]$.
+    \label{lemma:Gauss's Lemma}
+\end{lem}
+\begin{coro}
+    Let R be a Unique Factorization Domain, let F be its field of fractions and
+    let $p(x) \in R[x]$. Suppose the greatest common divisor of the coefficients of $p(x)$ is $1$.
+    Then $p(x)$ is irreducible in $R[x]$ if and only if it is irreducible in $F[x]$. In particular, if
+    $p(x)$ is a monic polynomial that is irreducible in $R[x]$, then $p(x)$ is irreducible in $F[x]$.
+    \label{corollary:irreducible and gcd}
+\end{coro}
+\begin{prop}
+    If $R$ is a U.F.D, then $R[x]$ is a U.F.D.
+\end{prop}
+\begin{prooff}
+    By Proposition~\ref{F[x] is PID}, Lemma~\ref{lemma:Gauss's Lemma} and Corollary~\ref{corollary:irreducible and gcd}.
+\end{prooff}
+
+
+
+
+
+
+\newpage
+\subsection{Basic Definition in Module}
+\begin{prop}
+    A R-module M can be view as a ring homomorphism from R to endmorphism ring of M(as an abelian group) which is in general  not necessarily commutative:
+    \begin{align*}
+        R\rightarrow \text{End}(M) \\
+        r\rightarrow  (x\rightarrow rx)
+    \end{align*}
+    Conversely, if M is an abelian group, Given a ring homomorphism $f:R \rightarrow End(M)$, we have
+    \begin{align*}
+        R\times M\rightarrow M \\
+        (r,m)\rightarrow f(r)m
+    \end{align*}
+    is a $R$-module structure.
+    \label{proposition:equivalent def of module}
+\end{prop}
+\begin{rema}
+    By Proposition~\ref{proposition:equivalent def of module}, if we have a B-mdule M and a ring homomorphism $f:A\rightarrow B$, M has naturally a A-module structure.
+\end{rema}
+\begin{defn}
+    $f:R\rightarrow B$ is a ring homomorphism, then $B$ naturally has a $R$-module structure, we call $B$(with both a ring structure and $A$-module sturcte) a $R$-algebra.
+
+    And the morphism in $R$-algerba category between object $(A,f:R\rightarrow A)$ and $(B,g:R\rightarrow B)$, is the ring homomorphism $h:A\rightarrow B$ making the following diagram commute:
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJBIl0sWzIsMCwiQiJdLFsxLDEsIlIiXSxbMCwxLCJoIl0sWzIsMCwiZiJdLFsyLDEsImciLDJdXQ==
+    \[\begin{tikzcd}
+            A && B \\
+            & R
+            \arrow["h", from=1-1, to=1-3]
+            \arrow["f", from=2-2, to=1-1]
+            \arrow["g"', from=2-2, to=1-3]
+        \end{tikzcd}\]
+\end{defn}
+
+
+\begin{defn}
+    Let A be a ring and M an A-module. Given submodules N, $N\p$
+    of M, the set $\bbrace{a\in A:aN\p \subset  N}$ is an ideal of A, which we write $(N:N\p)_A$
+    Similarly, if I is an ideal then $\bbrace{x\in M : Ix\subset N}$ is a
+    submodule of M, which we write $(N:I)_M$.
+
+    For $a\in A$ we define
+    $(N:a)_M$ to be $(N:(a))_M$.The ideal $(0:M)_A$ is called the \text{Ann}ihilator of M, and written
+    $\text{Ann}(M)$. We can consider M as a module over $A/\text{Ann}(M)$. If $\text{Ann}(M) = 0$,
+    we say that M is a faithful A-module. For $x\in M$, we write $\text{Ann}(x) =
+        \bbrace{a\in A|ax=0}$.
+\end{defn}
+\begin{defn}
+    If $M$ is finitely generated as an $A$-module, we say simply that $M$ is a
+    finite $A$-module, or is finite over $A$.
+\end{defn}
+\begin{theo}[Nakayama’s lemma]
+    Let $M$ be a finite $A$-module and $I$ an ideal of $A$. If
+    $M = IM$ then there exists $a\in A$ such that $aM = 0$ and $a\equiv 1\mod{I}$. If in
+    addition $I\subset rad(A)$, then M = 0.
+    \label{theorem:Nakayama}
+\end{theo}
+\begin{coro}
+    $(A,m)$ be a Notherian local ring. If $A=mA$, then $A=0$.
+\end{coro}
+\begin{coro}
+    Let A be a ring and I an ideal contained in $rad(A)$. Suppose
+    that $M$ is an A-module and $N \subset M$ a submodule such that $M/N$ is finite
+    over A. Then $M=N+IM $implies $M=N$.
+    \label{Corollary:Nakayama M=N+IM}
+\end{coro}
+\begin{prooff}
+    Consider the identity $M/N=I(M/N)$, then use Theorem~\ref{theorem:Nakayama}.
+\end{prooff}
+\begin{defn}
+    If $W$ is a set of generators of an $A$-module M which is minimal, in the
+    sense that any proper subset of $W$ does not generate $M$, then $W$ is said
+    to be a minimal basis of $M$.
+\end{defn}
+\begin{theo}
+    Let $(A, \mathrm{~m}, k)$ be a local ring and $M$ a finite $A$-module; set $\bar{M}=M / \mathrm{m} M$. Now $\bar{M}$ is a finite-dimensional vector space over $k$, and we
+    write $\boldsymbol{n}$ for its dimension. Then:
+    \begin{enumerate}[(1)]
+        \item If we take a basis $\left\{\bar{u}_1, \ldots, \bar{u}_n\right\}$ for $\bar{M}$ over $k$, and choose an inverse image $u_i \in M$ of each $\bar{u}_i$, then $\left\{u_1, \ldots, u_n\right\}$ is a minimal basis of $M$;
+        \item conversely every minimal basis of $M$ is obtained in this way, and so has $n$ elements.
+        \item If $\left\{u_1, \ldots, u_n\right\}$ and $\left\{v_1, \ldots, v_n\right\}$ are both minimal bases of $M$, and $v_i=\sum a_{i j} u_j$ with $a_{i j} \in A$ then $\operatorname{det}\left(a_{i j}\right)$ is a unit of $A$, so that $\left(a_{i j}\right)$ is an invertible matrix.
+    \end{enumerate}
+\end{theo}
+\begin{prooff}
+
+    (1) and (2): By Corollary~\ref{Corollary:Nakayama M=N+IM}
+
+    (3):By Proposition~\ref{Proposition:unit=A-m}
+\end{prooff}
+\begin{theo}[Kaplansky]
+    Let $(A,m)$ be a local ring; then a projective module $M$ over $A$ is free.
+\end{theo}
+\begin{prooff}
+    We only prove the case when $M$ is finite.
+    Choose a minimal basis $\omega_1, \ldots, \omega_n$ of $M$ and define a surjective map $\varphi: F \longrightarrow M$ from the free module $F=$ $A e_1 \oplus \cdots \oplus A e_n$ to $M$ by $\varphi\left(\sum a_i e_i\right)=\sum a_i \omega_i$; if we set $K=\operatorname{Ker}(\varphi)$ then, from
+    the minimal basis property(1),
+    $$
+        \sum a_i \omega_i=0 \Rightarrow a_i \in m \text { for all } i .
+    $$
+    Thus $K \subset \mathfrak{m} F$. Because $M$ is projective, there exists $\psi: M \longrightarrow F$ such that $F=\psi(M) \oplus K$, and it follows that $K=m K$. On the other hand, $K$ is a quotient of $F$, therefore finite over $A$, so that $K=0$ by NAK and $F \simeq M$.
+\end{prooff}
+\begin{prop}
+    Let $A$ be a ring$\neq 0$. Show that if $A^m\simeq A^n$, then $m=n$.
+\end{prop}
+\begin{prooff}
+    Take a maximal ideal of $I$, consider a $A/I$-module isomorphism
+    $$A^n/IA^{n}\simeq A^n\otimes A/I \simeq  A^m\otimes A/I\simeq A^m/IA$$
+    It's easy to check that $\bbrace{e_i+IA^n:1\le i\le n}$ form a basis of $A/I$-module $A^n/IA^{n}$, hence $n=\dim(A^n/IA^{n})=\dim(A^m/IA^{m})=m $
+\end{prooff}
+\begin{defn}[finite representation]
+    We say that an $A$-module $M$ is of finite presentation if there exists an exact sequence of the form
+    $$
+        A^p \longrightarrow A^q \longrightarrow M \rightarrow 0 .
+    $$
+\end{defn}
+\begin{prop}
+    Let $A$ be a ring, and suppose that $M$ is an $A$-module of finite presentation. If
+    $$
+        0 \rightarrow K \longrightarrow N \longrightarrow M \rightarrow 0
+    $$
+    is an exact sequence and $N$ is finitely generated then so is $K$.
+\end{prop}
+\begin{prooff}
+    By assumption there exists an exact sequence of the form $L_2 \xrightarrow{g} L_1 \xrightarrow{f} M \rightarrow 0$, where $L_1$ and $L_2$ are free modules of finite rank. From this we get the following commutative diagram
+    % https://q.uiver.app/#q=WzAsOSxbMSwwLCJMXzIiXSxbMiwwLCJMXzEiXSxbMywwLCJNIl0sWzQsMCwiMCJdLFszLDEsIk0iXSxbNCwxLCIwIl0sWzIsMSwiTiJdLFsxLDEsIksiXSxbMCwxLCIwIl0sWzAsMSwiZiJdLFsxLDIsImciXSxbMiwzXSxbMiw0LCJcXHRleHR7aWR9Il0sWzQsNV0sWzYsNCwiXFx2YXJwaGkiXSxbNyw2LCJcXHBzaSJdLFs4LDddLFswLDcsIlxcYmV0YSJdLFsxLDYsIlxcYWxwaGEiXV0=
+    \[\begin{tikzcd}
+            & {L_2} & {L_1} & M & 0 \\
+            0 & K & N & M & 0
+            \arrow["f", from=1-2, to=1-3]
+            \arrow["g", from=1-3, to=1-4]
+            \arrow[from=1-4, to=1-5]
+            \arrow["{\text{id}}", from=1-4, to=2-4]
+            \arrow[from=2-4, to=2-5]
+            \arrow["\varphi", from=2-3, to=2-4]
+            \arrow["\psi", from=2-2, to=2-3]
+            \arrow[from=2-1, to=2-2]
+            \arrow["\beta", from=1-2, to=2-2]
+            \arrow["\alpha", from=1-3, to=2-3]
+        \end{tikzcd}\]
+
+    If we write $N=A \xi_1+\cdots+A \xi_n$, then there exist $v_i \in L_1$ such that $\varphi\left(\xi_i\right)=f\left(v_i\right)$. Set $\xi_i^{\prime}=\xi_i-\alpha\left(v_i\right)$; then $\varphi\left(\xi_i^{\prime}\right)=0$, so , that we can write $\xi_i^{\prime}=\psi\left(\eta_i\right)$ with $\eta_i \in K$. Let us now prove that
+    $$
+        K=\beta\left(L_2\right)+A \eta_1+\cdots+A \eta_n .
+    $$
+
+    For any $\eta \in K$, set $\psi(\eta)=\sum a_i \xi_i$, then
+    $$
+        \psi\left(\eta-\sum a_i \eta_i\right)=\sum a_i\left(\xi_i-\xi_i^{\prime}\right)=\alpha\left(\sum a_i v_i\right)
+    $$
+    and since $0=\varphi \alpha\left(\sum a_i v_i\right)=f\left(\sum a_i v_i\right)$, we can write $\sum a_i v_i=g(u)$ with $u \in L_2$. Now
+    $$
+        \psi \beta(u)=\alpha g(u)=\alpha\left(\sum a_i v_i\right)=\psi\left(\eta-\sum a_i \eta_i\right)
+    $$
+    so that $\eta=\beta(u)+\sum a_i \eta_i$, and this proves our assertion.
+\end{prooff}
+
+
+
+
+\newpage
+In the following theorems, $R$ is not necessarily be \blue{commutative}, but we always assume $R$ has an identity.
+\begin{defn}
+    Let $R$ be a ring, let $A_R$ be a right $R$-module, let ${ }_R B$ be a left $R$ module, and let $G$ be an (additive) abelian group. A function $f: A \times B \rightarrow G$ is called $R$-biadditive if, for all $a, a^{\prime} \in A, b, b^{\prime} \in B$, and $r \in R$, we have
+    $$
+        \begin{aligned}
+            f\left(a+a^{\prime}, b\right) & =f(a, b)+f\left(a^{\prime}, b\right), \\
+            f\left(a, b+b^{\prime}\right) & =f(a, b)+f\left(a, b^{\prime}\right), \\
+            f(a r, b)                     & =f(a, r b) .
+        \end{aligned}
+    $$
+
+    If $R$ is commutative and $A, B$, and $M$ are $R$-modules, then a function $f: A \times B \rightarrow M$ is called $R$-bilinear if $f$ is $R$-biadditive and also
+    $$
+        f(a r, b)=f(a, r b)=r f(a, b)
+    $$
+\end{defn}
+
+\begin{defn}[Tensor product]
+    Given a ring $R$ and modules $A_R$ and ${ }_R B$, then their tensor product is an abelian group $A \otimes_R B$ and an $R$-biadditive function
+    $h: A \times B \rightarrow A \otimes_R B$
+    \begin{equation*}
+        \begin{tikzcd}
+            {A\times B } \\
+            \\
+            {A\otimes_R B} && G
+            \arrow["f", from=1-1, to=3-3]
+            \arrow["h"', from=1-1, to=3-1]
+            \arrow["{\tilde{f}}"', dashed, from=3-1, to=3-3]
+        \end{tikzcd}
+    \end{equation*}
+    such that, for every abelian group $G$ and every $R$-biadditive $f: A \times B \rightarrow G$, there exists a unique $\mathbb{Z}$-homomorphism $\tilde{f}: A \otimes_R B \rightarrow G$ making the following diagram commute.
+\end{defn}
+\begin{prop}
+    If $R$ is a commutative ring and $A, B$ are $R$-modules, then $A \otimes_R B$ is an $R$-module($r(a\otimes b)=(ra\otimes b)$), the function $h: A \times B \rightarrow A \otimes_R B$ is $R$-bilinear, and, for every $R$-module $M$ and every $R$-bilinear function $g: A \times B \rightarrow M$, there exists a unique $R$-homomorphism $\tilde{g}: A \otimes_R B \rightarrow M$ making the following diagram commute.
+    \begin{equation*}
+        \begin{tikzcd}
+            {A\times B } \\
+            \\
+            {A\otimes_R B} && M
+            \arrow["g", from=1-1, to=3-3]
+            \arrow["h"', from=1-1, to=3-1]
+            \arrow["{\tilde{g}}"', dashed, from=3-1, to=3-3]
+        \end{tikzcd}
+    \end{equation*}
+\end{prop}
+\begin{prop}
+    If $R$ is a ring, and $A_R,_{R}B$ are $R$-modules, then
+    there are $R$-module isomorphisms:
+    \begin{equation*}
+        A\otimes_R R\simeq A,\quad R\otimes_{R}B\simeq B
+    \end{equation*}
+    \label{proposition:M otimes R=R}
+\end{prop}
+\begin{theo}
+    If $R$ and $S$ are rings and $A_R$, $_RB_S$, $S_C$ are (bi)modules, then there is an
+    isomorphism:
+    \begin{equation*}
+        (A \otimes_R B) \otimes_S C \simeq  A \otimes_R( B \otimes_S C).
+    \end{equation*}
+\end{theo}
+\begin{theo}[Commutativity]
+    If $R$ is a commutative ring and $M_R,{ }_R N$ are modules, then there is a $R$-isomorphism
+    $$
+        \tau: M \otimes_R N \rightarrow N \otimes_{R} M
+    $$
+    with $\tau: m \otimes n \mapsto n \otimes m$. The map $\tau$ is natural in the sense that the following diagram commutes:
+    \begin{equation*}
+        \begin{tikzcd}
+            {M\otimes_R N} && {N\otimes_R M} \\
+            \\
+            {M^{\prime}\otimes_R N^{\prime}} && {N^{\prime}\otimes_R M^{\prime}}
+            \arrow["{f\otimes g}"', from=1-1, to=3-1]
+            \arrow["{\tau^{\prime}}"', dashed, from=3-1, to=3-3]
+            \arrow["\tau", from=1-1, to=1-3]
+            \arrow["{g\otimes f}", from=1-3, to=3-3]
+        \end{tikzcd}
+    \end{equation*}
+\end{theo}
+
+\begin{theo}
+    Let $R$ be a ring, $A$,$\bbrace{A_i}_{i\in I}$ are right $R$-modules, $B$ and $\bbrace{B_j}_{j\in J}$ left $R$-modules. Then there are group isomorphisms:
+    \begin{align*}
+         & \left(\sum_{i \in I} A_i\right) \otimes_{R} B \simeq \sum_{i \in I}\left(A_i \otimes_{R} B\right) \\
+         & A \otimes_{R}\left(\sum_{j \in J} B_j\right) \simeq \sum_{j \in J}\left(A \otimes_{R} B_j\right)
+    \end{align*}
+\end{theo}
+\begin{theo}[Adjoint Associativity]
+    Let $R$ and $S$ be rings, let $A$ be a right $R$-module, let $B$ be an $(R, S)$-bimodule and let $C$ be a right $S$-module. Then there is an natural bijection(acturally a isomorphism of abelian groups):
+    $$
+        \operatorname{Hom}_S\left(A \otimes_R B, C\right) \cong \operatorname{Hom}_R\left(A, \operatorname{Hom}_S(B, C)\right)
+    $$
+    given by
+    \begin{equation*}
+        \alpha:f\in \operatorname{Hom}_S\left(A \otimes_R B, C\right) \mapsto (a\mapsto (\Phi:b\mapsto f(a\otimes b)))
+    \end{equation*}
+    and
+    \begin{equation*}
+        \beta :g\in \operatorname{Hom}_R\left(A, \operatorname{Hom}_S(B, C)\right)\mapsto (a\otimes b\mapsto g(a)(b))
+    \end{equation*}
+\end{theo}
+\begin{rema}
+    'natrual' in above theorem means: $_{R}B_S$ is a bi-module, then\\
+    $(\underline{\quad}\otimes_R B,\text{Hom}_S(B,\underline{\quad}))$ is a adjoint pair between right $R$-module category and right $S$-module category.
+\end{rema}
+\begin{rema}
+    \begin{enumerate}[(1)]
+        \item If $_{R}B_S$ is a bi-module, $C$ is a right $R$-module, $\text{Hom}_S(B,C)$ has a natrual right $R$-module sturct. Notice that we can define $fr(b)=f(rb)$, then $fr(bs)=f(r(bs))=f((rb)s)=f(rb)s=(fr(b))s$,$f(r_1 r_2)(b)=(fr_1)r_2(b)$. It makes $\text{Hom}_S(B,C)$ to be a right $R$-module.
+        \item If $_{S}B_R$ is a bi-module, $C$ is a left $S$-module, then $\text{Hom}_S(B,C)$ has a natrual left $R$-module sturct.
+        \item If $_{S}B_R$ is a bi-module, $C$ is a left $S$-module, then $B\otimes_R A$ has a natrual left $S$-module structure.
+    \end{enumerate}
+\end{rema}
+\begin{prop}
+    If $M$ is a left $R$-module, then there's left $R$-module isomorphism $$\text{Hom}_R(R,M)\simeq M$$
+\end{prop}
+
+
+
+\begin{theo}
+    If $R$ is a ring with identity and $A_R$ and $_RB$ are free $R$-modules with bases $X$ and $Y$ respectively, then $A \otimes_R B$ is a free (right) $R$-module($(a\otimes b)r=ar\otimes b$) with basis $W=\bbrace{x \otimes y: x\in X, y\in Y}$.
+    \label{tensor product preserve free module}
+\end{theo}
+\begin{prop}
+    If $k$ is a commutative ring and $A$ and $B$ are $k$-algebras, then the tensor product $A \otimes_k B$ is a $k$-algebra if we define
+    $$
+        (a \otimes b)\left(a^{\prime} \otimes b^{\prime}\right)=a a^{\prime} \otimes b b^{\prime} .
+    $$
+\end{prop}
+
+
+
+
+
+
+
+
+\begin{lem}[The Short Five Lemma]
+    Let $\mathrm{R}$ be a ring and
+    \begin{equation*}
+        \begin{tikzcd}
+            0 & {M^{\prime}} & M & {M^{\prime\prime}} & 0 \\
+            0 & {N^{\prime}} & N & {N^{\prime\prime}} & 0
+            \arrow[from=1-1, to=1-2]
+            \arrow["u", from=1-2, to=1-3]
+            \arrow["v", from=1-3, to=1-4]
+            \arrow[from=1-4, to=1-5]
+            \arrow["\gamma", from=1-4, to=2-4]
+            \arrow["\beta", from=1-3, to=2-3]
+            \arrow["\alpha", from=1-2, to=2-2]
+            \arrow[from=2-1, to=2-2]
+            \arrow["{u^{\prime}}", from=2-2, to=2-3]
+            \arrow["{v^{\prime}}", from=2-3, to=2-4]
+            \arrow[from=2-4, to=2-5]
+        \end{tikzcd}
+    \end{equation*}
+    a commutative diagram of $\mathrm{R}$-modules and $\mathrm{R}$-module homomorphisms such that each row is a short exact sequence. Then
+    \begin{enumerate}[(1)]
+        \item  $\alpha, \gamma$ monomorphisms $\Rightarrow \beta$ is a monomorphism(injective);
+        \item  $\alpha, \gamma$ epimorphisms $\Rightarrow \beta$ is an epimorphism(surjective);
+        \item $\alpha, \gamma$ isomorphisms $\Rightarrow \beta$ is an isomorphism.
+    \end{enumerate}
+    \label{lemma:short five lemma}
+\end{lem}
+\begin{defn}[Spilt exact sequence]
+    Let $\mathrm{R}$ be a ring and $0 \rightarrow A_1 \xrightarrow{f} B \xrightarrow{g}  A_2 \rightarrow 0$ a short exact sequence of $\mathrm{R}$-module homomorphisms. Then the following conditions are equivalent:
+    \begin{enumerate}[(1)]
+        \item There is an $\mathrm{R}$-module homomorphism $h:  A_2 \rightarrow B $ with $gh=1_{A_2}$;
+        \item There is an $\mathrm{R}$-module homomorphism $k: B \rightarrow A_1$ with $kf=1_{A_1}$;
+        \item the given sequence is isomorphic (with identity maps on $A_1$ and $A_2$ ) to the direct sum short exact sequence $0 \rightarrow A_1 \rarr{l_1} A_1 \oplus A_2 \rarr{\pi_2} A_2 \rightarrow 0$; in particular $\mathrm{B} \simeq A_1 \oplus A_2$.
+        \item $$0 \rightarrow \text{Hom}_R (D,A) \rarr{\bar{f}} \text{Hom}_R (D,B) \rarr{\bar{g}} \text{Hom}_R (D,C) \rightarrow 0$$ is a spilt exact sequence of abelian
+              groups for all $R$-module $D$.
+        \item $$0 \leftarrow \text{Hom}_R (A,J) \larr{\bar{f}} \text{Hom}_R (B,J) \larr{\bar{g}} \text{Hom}_R (C,J) \rightarrow 0$$ is a spilt exact sequence of abelian
+              groups for all $R$-module $D$.
+    \end{enumerate}
+    A short exact sequence that satisfies the equivalent conditions is
+    said to be split or a split exact sequence.
+    \label{definition:spilt}
+\end{defn}
+\begin{lem}[Snake lemma]
+    Let
+    \begin{equation*}
+        \begin{tikzcd}
+            0 & {M^{\prime}} & M & {M^{\prime\prime}} & 0 \\
+            0 & {N^{\prime}} & N & {N^{\prime\prime}} & 0
+            \arrow[from=1-1, to=1-2]
+            \arrow["u", from=1-2, to=1-3]
+            \arrow["v", from=1-3, to=1-4]
+            \arrow[from=1-4, to=1-5]
+            \arrow["{f^{\prime\prime}}", from=1-4, to=2-4]
+            \arrow["f", from=1-3, to=2-3]
+            \arrow["{f^{\prime}}", from=1-2, to=2-2]
+            \arrow[from=2-1, to=2-2]
+            \arrow["{u^{\prime}}", from=2-2, to=2-3]
+            \arrow["{v^{\prime}}", from=2-3, to=2-4]
+            \arrow[from=2-4, to=2-5]
+        \end{tikzcd}
+    \end{equation*}
+    be a commutative diagram of A-modules and homomorphisms, with the rows exact. Then there exists an exact sequence
+    \begin{equation*}
+        \begin{tikzcd}
+            0 & {\text{Ker}(f^{\prime})} & {\text{Ker}(f)} & {\text{Ker}(f^{\prime\prime})} \\
+            & {\text{Coker}(f^{\prime})} & {\text{Coker}(f)} & {\text{Coker}(f^{\prime\prime})} & 0
+            \arrow[from=1-1, to=1-2]
+            \arrow["{\bar{u}}", from=1-2, to=1-3]
+            \arrow["{\bar{v}}", from=1-3, to=1-4]
+            \arrow["{\bar{u}^{\prime}}"', from=2-2, to=2-3]
+            \arrow["{\bar{v}^{\prime}}"', from=2-3, to=2-4]
+            \arrow[from=2-4, to=2-5]
+            \arrow["d"{description}, from=1-4, to=2-2]
+        \end{tikzcd}\
+    \end{equation*}
+    in which $\bar{u},\bar{v}$ are restrictions of $u, v$, and $\bar{u}^{\prime}, \bar{v}^{\prime}$ are induced by $u^{\prime}, v^{\prime}$.
+    The boundary homomorphism $d$ is defined as follows: if $x^{\prime \prime} \in \operatorname{Ker}\left(f^{\prime \prime}\right)$, we have $x^{\prime \prime}=v(x)$ for some $x \in M$, and $v^{\prime}(f(x))=f^{\prime \prime}(v(x))=0$, hence $f(x) \in \operatorname{Ker}\left(v^{\prime}\right)=$ $\operatorname{Im}\left(u^{\prime}\right)$, so that $f(x)=u^{\prime}\left(y^{\prime}\right)$ for some $y^{\prime} \in N^{\prime}$. Then $d\left(x^{\prime \prime}\right)$ is defined to be the image of $y^{\prime}$ in Coker $\left(f^{\prime}\right)$.
+    \label{lemma:snake lemma}
+\end{lem}
+\begin{prop}
+    \quad \par
+    \begin{enumerate}[(1)]
+        \item $$0\rightarrow A \rarr{f} B \rarr{g} C$$ is any short exact sequence of R-modules, if and only if for all $R$-module D
+              $$0 \rightarrow \text{Hom}_R (D,A) \rarr{\bar{f}} \text{Hom}_R (D,B) \rarr{\bar{g}} \text{Hom}_R (D,C) $$ is an exact sequence of abelian
+              groups.
+        \item $$A \rarr{f} B \rarr{g} C\rightarrow  0$$ is any short exact sequence of R-modules, is any short exact sequence of R-modules, if and only if for all $R$-module D
+              $$\text{Hom}_R (A,D) \larr{\bar{f}} \text{Hom}_R (B,D) \larr{\bar{g}} \text{Hom}_R (C,D) \rightarrow 0$$ is an exact sequence of abelian
+              groups.
+    \end{enumerate}
+\end{prop}
+
+
+
+
+
+\begin{defn}[Projective module]
+    Let $\mathrm{R}$ be a ring. The following conditions on an $\mathrm{R}$-module $\mathrm{P}$ are equivalent.
+    \begin{enumerate}[(1)]
+        \item given a diagram as follow with row exact, there's $h$ making the diagram commute.
+              \begin{equation*}
+                  \begin{tikzcd}
+                      & P \\
+                      A & B & 0
+                      \arrow["g", from=2-1, to=2-2]
+                      \arrow[from=2-2, to=2-3]
+                      \arrow["f", from=1-2, to=2-2]
+                      \arrow["h", curve={height=6pt}, dotted, from=1-2, to=2-1]
+                  \end{tikzcd}\
+              \end{equation*}
+        \item  every short exact sequence $0 \rightarrow A\rarr{f} B \rarr{g} P \rightarrow 0$ is split exact.
+        \item there is a free module $\mathrm{F}$ and an $\mathrm{R}$-module $\mathrm{K}$ such that $\mathrm{F} \cong \mathrm{K} \oplus \mathrm{P}$.(summand of free module)
+        \item if $f:B\rightarrow C$ is any $R$-module epimorphism then $\bar{f}: \text{Hom}_R(P,B)\rightarrow \text{Hom}_R(P,C)$
+              is an epimorphism of abelian groups;
+        \item if $$0\rightarrow A \rarr{f} B \rarr{g} C\rightarrow  0$$ is any short exact sequence of R-modules, then
+              $$0 \rightarrow \text{Hom}_R (P,A) \rarr{\bar{f}} \text{Hom}_R (P,B) \rarr{\bar{g}} \text{Hom}_R (P,C) \rightarrow 0$$ is an exact sequence of abelian
+              groups.
+              \label{definition:projective module}
+    \end{enumerate}
+\end{defn}
+\begin{prop}
+    Every free module F over a ring R  is projective.
+\end{prop}
+\begin{prop}
+    Let $R$ be a ring. A direct sum of $R$-modules $\sum_{i} P_i$ is projective if
+    and only if each $P_i$ is projective.
+    \label{proposition:product preserve projective}
+\end{prop}
+\begin{prop}
+    If $R$ is commutative then the tensor product of two projective $R$-modules\\
+    (with a natural $R$-module structure) is projective.
+\end{prop}
+\begin{prooff}
+    By Adjoint Associativity.
+\end{prooff}
+
+
+
+\begin{defn}[Injective module]
+    Let $R$ be a ring with identity. The following conditions on a unitary $R$-module $R$ are equivalent:
+    \begin{enumerate}[(1)]
+        \item given a diagram as follow with row exact, there's $h$ making the diagram commute.
+              \begin{equation*}
+                  \begin{tikzcd}
+                      & J \\
+                      A & B & 0
+                      \arrow["g"', from=2-2, to=2-1]
+                      \arrow[from=2-3, to=2-2]
+                      \arrow["f"', from=2-2, to=1-2]
+                      \arrow["h"', curve={height=-6pt}, dotted, from=2-1, to=1-2]
+                  \end{tikzcd}\
+              \end{equation*}
+        \item every short exact sequence $0 \rightarrow J \rarr{f} B\rarr{g} C \rightarrow 0$ is split exact.
+        \item $J$ is a direct summand of any module $B$ of which it is a submodule.
+        \item if $f:B\rightarrow C$ is any $R$-module monomorphism then $\bar{f}: \text{Hom}_R(A,J)\leftarrow \text{Hom}_R(B,J)$
+              is an epimorphism of abelian groups;
+        \item if $$0\rightarrow A \rarr{f} B \rarr{g} C\rightarrow  0$$ is any short exact sequence of R-modules, then
+              $$0 \leftarrow \text{Hom}_R (A,J) \larr{\bar{f}} \text{Hom}_R (B,J) \larr{\bar{g}} \text{Hom}_R (C,J) \rightarrow 0$$ is an exact sequence of abelian
+              groups.
+        \item for every left ideal $L$ of $R$, any $R$-module homomorphism $L\rightarrow J$ can be extended to $R\rightarrow J$(Baer's Criterion)
+              \label{definition:injective module}
+    \end{enumerate}
+\end{defn}
+\begin{prop}
+    A direct product of $R$-modules $\prod_{i\in I} J_i$ is injective ifand only if $J_i$ is
+    injective for every $J_i, i\in I$.
+    \label{proposition:coproduct preserve injective}
+\end{prop}
+\begin{prop}
+    If $R$ is a P.I.D., then $Q$ is injective if and only if $rQ=Q$ for every nonzero
+    $r\in R$.
+    \label{proposition:divisible equivalent to injective over PID}
+\end{prop}
+\begin{prooff}
+    By Baer's Criterion.
+\end{prooff}
+\begin{prop}
+    Suppose that $D$ is a right $R$-module and that $L, M$ and $N$ are left $R$-modules. If
+    $$
+        0 \longrightarrow L \stackrel{\psi}{\longrightarrow} M \stackrel{\varphi}{\longrightarrow} N \longrightarrow 0 \text { is exact, }
+    $$
+    then the associated sequence of abelian groups
+    $$
+        D \otimes_R L \stackrel{1 \otimes \psi}{\longrightarrow} D \otimes_R M \stackrel{1 \otimes \varphi}{\longrightarrow} D \otimes_R N \longrightarrow 0 \quad \text { is exact. }
+    $$
+\end{prop}
+\begin{prop}
+    Let $R$ be a ring and let M be an $R$-module. Then $M$ is contained
+    in an injective $R$-module.
+\end{prop}
+\begin{prop}
+    Any modules over a PID, it is a projective module if and only if it is a free module.
+    \label{proposition:projective equivalent to free over PID}
+\end{prop}
+
+
+
+\begin{defn}[Flat module]
+    Let $A$ be a right $R$-module. Then the following are equivalent:
+    \begin{enumerate}[(1)]
+        \item For any left $R$-modules $L, M$, and $N$, if
+              $$
+                  0 \longrightarrow L \stackrel{\psi}{\longrightarrow} M \stackrel{\varphi}{\longrightarrow} N \longrightarrow 0
+              $$
+              is a short exact sequence, then
+              $$
+                  0 \longrightarrow A \otimes_R L \xrightarrow{1 \otimes \psi} A \otimes_R M \stackrel{1 \otimes \varphi}{\longrightarrow} A \otimes_R N \longrightarrow 0
+              $$
+              is also a short exact sequence.
+        \item For any left $R$-modules $L$ and $M$, if $0 \rightarrow L \stackrel{\psi}{\longrightarrow} M$ is an exact sequence of left $R$-modules (i.e., $\psi: L \rightarrow M$ is injective) then $0 \rightarrow A \otimes_R L \xrightarrow{1 \otimes \psi} A \otimes_R M$ is an exact sequence of abelian groups (i.e., $1 \otimes \psi: A \otimes_R L \rightarrow A \otimes_R M$ is injective).
+    \end{enumerate}
+    Similarly, we can define left flat $R$-module.
+\end{defn}
+\begin{prop}
+    Projective modules are flat.
+\end{prop}
+\begin{exam}
+    $\bb{Q}/\bb{Z}$ is not flat.
+    \label{example:Q/Z is not flat.}
+\end{exam}
+\begin{prooff}
+    Since $\bb{Q}/\bb{Z}\otimes \bb{Z}\simeq \bb{Q}/\bb{Z}$, we have $\frac{1}{2}+\bb{Z}\otimes 1$ is non-zero.
+    Consider a exact sequence $$0\rightarrow \bb{Z}\rarr{\times 2}\bb{Z}$$, tensor the exact sequence with $\bb{Q}/\bb{Z}$. Notice that $\bb{Q}/\bb{Z}\otimes_{\bb{Z}}\bb{Z}\rarr{1\otimes(\times 2)}\bb{Q}/\bb{Z}\otimes_{\bb{Z}}\bb{Z}$ is not injective since $\frac{1}{2}+\bb{Z}\otimes 1$ in its kernel.
+    Hence $\bb{Q}/\bb{Z}$ is not flat.
+\end{prooff}
+\begin{prop}
+    $\sum_{i\in I}A_i$ flat if and only if each $A_i,i\in I$ flat.
+    \label{proposition:direct sum preserve flat}
+\end{prop}
+\begin{prooff}
+    Since tensor product commute with direct sum.
+\end{prooff}
+\begin{exam}
+    \quad \par
+    \begin{center}
+        \begin{tabularx}{40em}% 
+            {|*{5}{>{\centering\arraybackslash}X|}}
+            \linespread{1.0}
+                       & $\bb{Z}$                                                                  & $\bb{Q}$                                                                      & $\bb{Q}/\bb{Z}$                                                               & $\bb{Z}\oplus\bb{Q}$                                     \\
+            flat       & $\checkmark$                                                              & $\checkmark$(By \ref{theorem:flatness:localization})                          & $\times(\ref{example:Q/Z is not flat.})$                                      & \checkmark(\ref{proposition:direct sum preserve flat})   \\
+            projective & $\checkmark$                                                              & $\times$(By \ref{proposition:projective equivalent to free over PID})         & $\times$                                                                      & $\times$(\ref{proposition:product preserve projective})  \\
+            injective  & $\times$(By \ref{proposition:divisible equivalent to injective over PID}) & $\checkmark$(By \ref{proposition:divisible equivalent to injective over PID}) & $\checkmark$(By \ref{proposition:divisible equivalent to injective over PID}) & $\times$(\ref{proposition:coproduct preserve injective})
+        \end{tabularx}
+    \end{center}
+\end{exam}
+
+
+
+\newpage
+\subsection{Basic Definition in Field Thoery}
+\begin{theo}
+    Let $p(x) \in F[x]$ be an irreducible polynomial of degree $n$ over the field $F$ and let $K$ be the field $F[x] /(p(x))$. Let $\theta=x \bmod (p(x)) \in K$. Then the elements
+    $$
+        1, \theta, \theta^2, \ldots, \theta^{n-1}
+    $$
+    are a basis for $K$ as a vector space over $F$, so the degree of the extension is $n$, i.e., $[K: F]=n$. Hence
+    $$
+        K=\left\{a_0+a_1 \theta+a_2 \theta^2+\cdots+a_{n-1} \theta^{n-1} \mid a_0, a_1, \ldots, a_{n-1} \in F\right\}
+    $$
+    consists of all polynomials of degree $<n$ in $\theta$.
+\end{theo}
+\begin{defn}
+    Let $K$ be an extension of the field $F$ and let $S$ be a subset of $K$. Then the smallest subfield of $K$ containing both $F$ and the elements $s\in S$, denoted $F(S)$ is called the field generated by $S$ over $F$.
+    If the field $K$ is generated by a single element $\alpha$ over $F, K=F(\alpha)$, then $K$ is said to be a simple extension of $F$ and the element $\alpha$ is called a primitive element for the extension.
+\end{defn}
+\begin{theo}
+    Let $F$ be a field and let $p(x) \in F[x]$ be an irreducible polynomial. Suppose $K$ is an extension field of $F$ containing a root $\alpha$ of $p(x): p(\alpha)=0$. Let $F(\alpha)$ denote the subfield of $K$ generated over $F$ by $\alpha$. Then
+    $$
+        F(\alpha) \cong F[x] /(p(x))
+    $$
+    Suppose that $p(x)$ is of degree $n$. Then
+    $$
+        F(\alpha)=\left\{a_0+a_1 \alpha+a_2 \alpha^2+\cdots+a_{n-1} \alpha^{n-1} \mid a_0, a_1, \ldots, a_{n-1} \in F\right\} \subseteq K
+    $$
+    \label{theorem:extension by irr polynomial}
+\end{theo}
+\begin{theo}
+    Let $\varphi: F \xrightarrow{\sim} F^{\prime}$ be an isomorphism of fields. Let $p(x) \in F[x]$ be an irreducible polynomial and let $p^{\prime}(x) \in F^{\prime}[x]$ be the irreducible polynomial obtained by applying the map $\varphi$ to the coefficients of $p(x)$. Let $\alpha$ be a root of $p(x)$ (in some extension of $F$ ) and let $\beta$ be a root of $p^{\prime}(x)$ (in some extension of $F^{\prime}$ ). Then there is an isomorphism
+    $$
+        \begin{aligned}
+            \sigma: F(\alpha) & \xrightarrow{\sim} F^{\prime}(\beta) \\
+            \alpha            & \longmapsto \beta
+        \end{aligned}
+    $$
+    mapping $\alpha$ to $\beta$ and extending $\varphi$, i.e., such that $\sigma$ restricted to $F$ is the isomorphism $\varphi$.
+    \label{theorem:extend simple extenison}
+\end{theo}
+
+\vskip 1cm
+In the following statements, we always assume $F$ be a field and let $K$ be an extension of $F$, $\alpha,\beta\in K$ be an element.
+\begin{defn}
+    The element $\alpha \in K$ is said to be algebraic over $F$ if $\alpha$ is a root of some nonzero polynomial $f(x) \in F[x]$. If $\alpha$ is not algebraic over $F$, then $\alpha$ is said to be transcendental over $F$. The extension $K / F$ is said to be algebraic if every element of $K$ is algebraic over $F$.
+
+    Let $\alpha$ be algebraic over $F$. Then there is a unique monic irreducible polynomial $m_{\alpha, F}(x) \in F[x]$ which has $\alpha$ as a root. A polynomial $f(x) \in F[x]$ has $\alpha$ as a root if and only if $m_{\alpha, F}(x)$ divides $f(x)$ in $F[x]$.
+\end{defn}
+\begin{theo}
+    Let $\alpha$ be algebraic over the field $F$ and let $F(\alpha)$ be the field generated by $\alpha$ over $F$. Then
+    $$
+        F(\alpha) \cong F[x] /\left(m_\alpha(x)\right)
+    $$
+    so that in particular
+    $$
+        [F(\alpha): F]=\operatorname{deg} m_\alpha(x)=\operatorname{deg} \alpha,
+    $$
+    i.e., the degree of $\alpha$ over $F$ is the degree of the extension it generates over $F$.
+\end{theo}
+\begin{prop}
+    The element $\alpha\in K$ is algebraic over $F$ if and only if the simple extension $F(\alpha) / F$ is finite. More precisely, if $\alpha$ is an element of an extension of degree $n$ over $F$ then $\alpha$ satisfies a polynomial of degree at most $n$ over $F$ and if $\alpha$ satisfies a polynomial of degree $n$ over $F$ then the degree of $F(\alpha)$ over $F$ is at most $n$.
+\end{prop}
+\begin{defn}
+    Let $K_1$ and $K_2$ be two subfields of a field $K$. Then the composite field of $K_1$ and $K_2$, denoted $K_1 K_2$, is the smallest subfield of $K$ containing both $K_1$ and $K_2$. Similarly, the composite of any collection of subfields of $K$ is the smallest subfield containing all the subfields.
+\end{defn}
+\begin{prop}
+    $F(\alpha,\beta)=(F(\alpha))(\beta)$, i.e., the field generated over $F$ by $\alpha$ and $\beta$ is the field generated by $\beta$ over the field $F(\alpha)$ generated by $\alpha$. In general, if $a_1,\dots,a_n$ be elements of $K$, then $F(a_1,\dots,a_n)=((F(a_1)(a_2))\dots)(a_n)$
+\end{prop}
+\begin{coro}
+    If $K\subset L\subset M$ are field extensions, $L/K,M/L$ are algebraic extensions, then $M/K$ is algerbaic.
+    \label{corollary:algebraic extension is transitive}
+\end{coro}
+\begin{defn}[spilting field]
+    The extension field $K$ of $F$ is called a splitting field for the polynomial $f(x) \in F[x]$ if $f(x)$ factors completely into linear factors (or splits completely) in $K[x]$ and $f(x)$ does not factor completely into linear factors over any proper subfield of $K$ containing $\mathrm{F}$.
+\end{defn}
+\begin{theo}
+    For any field $F$, if $f(x) \in F[x]$ then there exists an extension $K$ of $F$ which is a splitting field for $f(x)$.
+\end{theo}
+\begin{prooff}
+    We first show that there is an extension $E$ of $F$ over which $f(x)$ splits completely into linear factors by induction on the degree $n$ of $f(x)$. If $n=1$, then take $E=F$. Suppose now that $n>1$. If the irreducible factors of $f(x)$ over $F$ are all of degree 1 , then $F$ is the splitting field for $f(x)$ and we may take $E=F$. Otherwise, at least one of the irreducible factors, say $p(x)$ of $f(x)$ in $F[x]$ is of degree at least 2 . Hence, there is an extension $E_1$ of $F$ containing a root $\alpha$ of $p(x)$. Over $E_1$ the polynomial $f(x)$ has the linear factor $x-\alpha$. The degree of the remaining factor $f_1(x)$ of $f(x)$ is $n-1$, so by induction there is an extension $E$ of $E_1$ containing all the roots of $f_1(x)$. Since $\alpha \in E, E$ is an extension of $F$ containing all the roots of $f(x)$. Now let $K$ be the intersection of all the subfields of $E$ containing $F$ which also contain all the roots of $f(x)$. Then $K$ is a field which is a splitting field for $f(x)$.
+\end{prooff}
+\begin{theo}
+    Let $\varphi: F \xrightarrow{\sim} F^{\prime}$ be an isomorphism of fields. Let $f(x) \in F[x]$ be a polynomial and let $f^{\prime}(x) \in F^{\prime}[x]$ be the polynomial obtained by applying $\varphi$ to the coefficients of $f(x)$. Let $E$ be a splitting field for $f(x)$ over $F$ and let $E^{\prime}$ be a splitting field for $f^{\prime}(x)$ over $F^{\prime}$. Then the isomorphism $\varphi$ extends to an isomorphism $\sigma: E \xrightarrow{\sim} E^{\prime}$, i.e., $\sigma$ restricted to $F$ is the isomorphism $\varphi$ :
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXHNpZ21hOkUiXSxbMiwwLCJFXntcXHByaW1lfSJdLFswLDIsIlxcdmFycGhpOkYiXSxbMiwyLCJGXntcXHByaW1lfSJdLFswLDEsIlxcc2ltIl0sWzIsMywiXFxzaW0iXSxbMiwwXSxbMywxXV0=
+    \[\begin{tikzcd}
+            {\sigma:E} && {E^{\prime}} \\
+            \\
+            {\varphi:F} && {F^{\prime}}
+            \arrow["\sim", from=1-1, to=1-3]
+            \arrow["\sim", from=3-1, to=3-3]
+            \arrow[from=3-1, to=1-1]
+            \arrow[from=3-3, to=1-3]
+        \end{tikzcd}\]
+\end{theo}
+\begin{defn}
+    The field $\bar{F}$ is called an algebraic closure of $F$ if $\bar{F}$ is algebraic over $F$ and if every polynomial $f(x) \in F[x]$ splits completely over $\bar{F}$ (so that $\bar{F}$ can be said to contain all the elements algebraic over $F$ ).
+
+    A field $K$ is said to be algebraieally closed if every polynomial with coefficients in $K$ has a root in $K$.
+\end{defn}
+\begin{theo}
+    Let $\bar{F}$ be an algebraic closure of $F$. Then $F$ is algebraically closed.
+\end{theo}
+\begin{prooff}
+    By Corollary~\ref{corollary:algebraic extension is transitive}.
+\end{prooff}
+\begin{theo}
+    For any field $F$, algebraic closure of $F$ exists and is unique up to isomorphism.
+    \label{lemma:extend algebraic extension}
+\end{theo}
+\begin{prooff}
+    Existence: For each polynomial $f \in F[X]$, choose a splitting field $E_f$, and let $$\Omega=\left(\bigotimes_{f\in F[x]} E_f\right) / M$$ where $M$ is a maximal ideal. It is clear that $\Omega$ is a $F$-algebra and $E_f$ can be embedded into $\Omega$. Since $f$ splits in $E_f$, it must also split in the larger field $\Omega$. Then all the algebraic elements in $\Omega$ is therefore an algebraic closure of $F$.
+
+    Uniqueness: It is suffice to show:
+
+    \begin{lem}
+        Let $\varphi: F \xrightarrow{\sim} F^{\prime}$ be an isomorphism of fields, $\bar{F\p}$ bethe algebraic closure of $F\p$, $E/F$ is a algebraic extension, then there's $\sigma:E\rightarrow \bar{F\p}$ ring homomorphism satisfying $\sigma|_{F}=\varphi$
+    \end{lem}
+    \begin{proofff}
+        By Zorn's Lemma and Theorem~\ref{theorem:extend simple extenison}.
+    \end{proofff}
+\end{prooff}
+
+
+\newpage
+In the following statements, $F$ is a field, and we fix an algebraic closure of $F$ and denote it by $\bar{F}$.
+\begin{defn}[separable]
+    A polynomial $f(x)\in F[x]$ is separable if $f(x)$ has no multiple root in $\bar{F}$.
+\end{defn}
+\begin{prop}
+    A polynomial $f(x)$ has a multiple root $\alpha\in \bar{F}$ if and only if $\alpha$ is also a root of $f\p(x)$. In particular, $f(x)$ is separable if and only if it is relatively prime to its derivative: $\left(f(x), D_x f(x)\right)=1$.
+    \label{proposition: criterion for separable polynomial}
+\end{prop}
+\begin{rema}
+    For any two polynomials $f(x),g(x)\in F[x]$, they have the same g.c.d in $F[x]$ and $\bar{F}[x]$ since Euclidean division doesn't change if we replace $F$ by any extension field of $F$.
+\end{rema}
+
+\begin{defn}
+    $\alpha\in \bar{F}$ is separable if $m_{\alpha}(x)\in F[x]$ is separable polynomial.
+
+    $F\subset E\subset \bar{F}$ are field extensions, $E/F$ is a separable extension if for all $\alpha \in E$, $\alpha$ is separable.
+\end{defn}
+
+
+
+\begin{defn}[perfect field]
+    A field $F\subset \bar{F}$ is perfect if and only if every finite extension of $F$ is separable.
+\end{defn}
+\begin{lem}
+    Let $p(x)$ be an irreducible polynomial over a field $F$ of characteristic $p$. Then there is a unique integer $k \geq 0$ and a unique irreducible separable polynomial $p_{\text {sep }}(x) \in F[x]$ such that
+    $$
+        p(x)=p_{sep}\left(x^{p^k}\right)
+    $$
+    \label{lemma:p(x)=psep(x^p^k)}
+\end{lem}
+\begin{prop}
+    A field $F$ is perfect if and only if it is a field of characteristic $0$ or a field of characteristic $p>0$ such that every element has a $p$-th root.
+\end{prop}
+\begin{prooff}
+    '$\Longleftarrow$':
+    case 1: If $\text{chap}\, F=0$, then by Proposition~\ref{proposition: criterion for separable polynomial}, $F$ is perfect.
+
+    case 2: If $\text{chap}\, F=p$, $\alpha\in \bar{F}$, and $p(x)=m_{\alpha}(x)\in F[x]$ is inseparable, by Lemma~\ref{lemma:p(x)=psep(x^p^k)}, there's irreducible polynomial $q(x)$ such that $p(x)=q(x^p)$.
+    Hence $$p(x)=a_m x^{pm}+\dots+ a_1 x^{p}+a_0=b^p_m x^{pm}+\dots b^p_1 x^{p}+b_0^p=(b_mx^m+\dots b_0)^p$$
+    where $b_i^p=a_i$ for $i=0,\dots m$. A contradiction!
+
+    '$\Longrightarrow$': if $\text{chap}\, F=p$ and $\alpha\in \bar{F}$ is not a $p$-th root, consider $p(x)=x^p-\alpha$. Notice that $(p(x),p\p(x))=p(x)$, then $p(x)$ is inseparable. However, if $\beta\in \bar{F}$ is a root of $p(x)$, then $p(x)=x^p-\alpha=x^p-\beta^p=(x-\beta)^p$.
+    If $p(x)$ is reducible in $F[x]$, $p(x)=a(x)b(x)$ where $\deg a(x),\deg b(x)<p$.
+
+    Notice that $a(x)=(x-\beta)^{s},b(x)=(x-\beta)^{t}\in F[x]$ with $s+t=p$, then $\beta^s\in F,\beta^t\in F$. Hence by Bezout Theorem, we have $\beta^{(s,t)}=\beta\in F$ which contradict to the fact that $\alpha$ is not a $p$-th root. Hence $p(x)$ is irreducible inseparable polynomial, and contradict to the fact $F$ is perfect!
+\end{prooff}
+
+\begin{coro}
+    In the proof of above Proposition, we can get: If $\text{chap}\, F=0$ and $p(x)=x^p-\alpha\in F[x]$, either $p(x)$ is irreducible or $p(x)=(x-\beta)^p$ for some $\beta\in F$.
+\end{coro}
+\begin{exam}
+    $\bb{Q},\bb{F}_q$ are perfect fields and $\bb{F}_p(t)$ is not perfect field.
+\end{exam}
+\begin{defn}
+    Given field extensions $F\subset E\subset \bar{F}$, $E$ is called purely inseparable if for each $\alpha \in E$ the minimal polynomial of $\alpha$ over $F$ has only one distinct root.
+    It is easy to see that the following are equivalent:
+    \begin{enumerate}[(1)]
+        \item $E / F$ is purely inseparable
+        \item if $\alpha \in E$ is separable over $F$, then $\alpha \in F$
+        \item if $\alpha \in E$, then $\alpha^{p^n} \in F$ for some $n$ (depending on $\alpha$ ), and $m_{\alpha, F}(x)=x^{p^n}-\alpha^{p^n}$.
+    \end{enumerate}
+    \label{Definition:characterizations of purely inseparable}
+\end{defn}
+\begin{defn}
+    Let $F\subset E\subset \bar{F}$ be field extensions, we call $E/F$ normal if for all $\alpha\in E$, all the roots of $m_{\alpha}(x)$ lie in $E$.
+\end{defn}
+\begin{defn}
+    Let $F\subset E\subset \bar{F}$ be field extensions. Let $\text{Aut}(E/F)$ be the collection of
+    automorphisms of $K$ which fix $F$.
+\end{defn}
+\begin{theo}
+    Let $F\subset E\subset \bar{F}$ be field extensions, the following statements are equivalent:
+    \begin{enumerate}[(1)]
+        \item $E/F$ is normal.
+        \item every $F$-algebra homomorphism from $E$ to $\bar{F}$ is a $F$-algebra homomorphism from $E$ to $E$.
+    \end{enumerate}
+    Moreover, if $[K: F]<\infty$, then the above statements are equivalent to that $K$ is a splitting field of some $p(X) \in F[x]$.
+    \label{theorem:characterizations of normal extension}
+\end{theo}
+\begin{prooff}
+    (1)$\Longrightarrow $(2) is clear.
+
+    (2)$\Longrightarrow $(1): By Lemma~\ref{lemma:extend algebraic extension}
+
+    Now suppose $[E: F]<\infty$. First we assume $F \subseteq E$ is normal and choose $u_1 \in E-F$. Then its minimal polynomial is $P_{u_1}$ and $\left[E: F\left(u_1\right)\right]<[E: F]$. Next we choose $u_2 \in E-F\left(u_1\right)$. Continuing this process, we conclude $E=F\left(u_1, \ldots, u_n\right)$. Let $P=\prod_{i=1}^n P_{u_i}$, and then $E$ is the splitting field of $P$.
+
+    On the other hand, if $E$ is the splitting field of $P \in F[X]$ whose roots in $\bar{F}$ are $\left\{u_1, \ldots, u_n\right\}$. Then $E=F\left(u_1, \ldots, u_n\right)$. Consider an $F$-algebra homomorphism $\iota: F\left(u_1, \ldots, u_n\right) \rightarrow$ $\bar{F}$, since $\iota\left(u_i\right)$ is a root of $P$ as well, $\iota\left(u_i\right) \in E$. Hence $\iota(E) \subseteq E$.
+
+\end{prooff}
+
+\begin{prop}
+    Given field extensions $F\subset E\subset \bar{F}$, then all $F$-algerba homomorphisms from $E$ to $E$ are in $\text{Aut}(E/F)$ i.e. $\text{Aut}(E/F)={\bbrace{ F\text{-algebra homomorphism between } E \text{ and } E  }}$
+    \label{proposition:F algebra hom is surjective}
+\end{prop}
+\begin{prooff}
+    Given any $F$-algebra homorphism $\tau: K \rightarrow K$, we know it's injective and it' enough to prove it's surjective. We assume $u \in K$ and $P \in F[X]$ is its minimal polynomial over $F$. If $u_1, \ldots, u_n$ are its different roots in $\bar{F}$, we assume only $u_1, \ldots, u_r$ are in $K$. Then $u \in\left\{u_1, \ldots, u_r\right\}$. Since $\tau$ fixes $F, \tau\left(u_i\right)$ is also a root of $P$ in $K$ where $1 \leq i \leq r$. Then $\tau:\left\{u_1, \ldots, u_r\right\} \rightarrow\left\{u_1, . ., u_r\right\}$. That $\tau$ is injective implies it's surjective on this subset as well, which means $\exists u_i, \tau\left(u_i\right)=u$.
+\end{prooff}
+
+
+
+
+
+\begin{theo}
+    Let $E$ be the splitting field over $F$ of the polynomial $f(x) \in F[x]$. Then
+    $$
+        |\operatorname{Aut}(E/F)| \le [E: F]
+    $$
+    with equality if $f(x)$ is separable over $F$.
+\end{theo}
+
+\begin{defn}
+    Let $E/F$ be a finite extension. Then $E$ is said to be Galois over $F$ and $E/F$ is a Galois extension if $|\operatorname{Aut}(E/F)|=[E: F]$.  If $E/ F$ is Galois the group of automorphisms $\operatorname{Aut}(E/F)$ is called the Galois group of $E/F$, denoted $\operatorname{Gal}(E/F)$.
+\end{defn}
+\begin{prop}
+    We have 4 characterizations of Galois extensions $E/F$ :
+    \begin{enumerate}[(1)]
+        \item splitting fields of separable polynomials over $F$
+        \item fields where $F$ is precisely the set of elements fixed by $\operatorname{Aut}(E/F)$ (in general, the fixed field may be larger than $F$ )
+        \item fields with $[E: F]=|\text{Aut}(E/F)|$ (the original definition)
+        \item finite, normal and separable extensions.
+    \end{enumerate}
+\end{prop}
+\begin{theo}[Fundamental Theorem of Galois Theory]
+    $F\subset K\subset \bar{F}$ be field extensions. $K / F$ be a Galois extension and set $G=\operatorname{Gal}(K / F)$. Then there is a bijection:
+    \begin{equation*}
+        \bbrace{\text{subfield of }K \text{containing } F }\longleftrightarrow \bbrace{\text{subgroup of } G }
+    \end{equation*}
+    given by the correspondences
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJFIl0sWzIsMCwiXFxsZWZ0XFx7XFx0ZXh0e2VsZW1lbnRzIG9mIH0gRyBcXHRleHR7IGZpeGluZyB9IEUgIFxccmlnaHRcXH0iXSxbMiwxLCJIIl0sWzAsMSwiXFx0ZXh0e2ZpeCBmaWVsZCBvZiB9IEgiXSxbMCwxXSxbMiwzXV0=
+    \[\begin{tikzcd}
+            E && {\left\{\text{elements of } G \text{ fixing } E  \right\}} \\
+            {\text{fix field of } H} && H
+            \arrow[from=1-1, to=1-3]
+            \arrow[from=2-3, to=2-1]
+        \end{tikzcd}\]
+    which are inverse to each other. Under this correspondence,
+    \begin{enumerate}[(1)]
+        \item there's a one-to-one correspondence:
+              % https://q.uiver.app/#q=WzAsMyxbMCwwLCJcXEJpZ2dcXHsgRlxcdGV4dHstYWxnZWJyYSBob21vbW9ycGhpc219XFx0ZXh0e2JldHdlZW4gfSBFIFxcdGV4dHsgYW5kIH0gXFxiYXJ7Rn0gIFxcQmlnZ1xcfSJdLFswLDIsIlxcbGVmdFxce1xcdGV4dHtsZWZ0IGNvc2V0cyBvZiB9IEggXFx0ZXh0eyBpbiB9IEdcXHJpZ2h0XFx9Il0sWzIsMiwiXFxsZWZ0XFx7ICBcXHNpZ21hfF9FOlxcc2lnbWFcXGluIEc6ICAgXFxyaWdodFxcfSJdLFsxLDAsIlxcc2lnbWEgSFxcbWFwc3RvIFxcc2lnbWF8X0UiLDJdLFsxLDIsIlxcc2lnbWEgSFxcbWFwc3RvIFxcc2lnbWF8X0UiXSxbMCwyLCJcXHRleHR7RXh0ZW5kZWQgYnkgVGhlb3JlbX1+XFxyZWZ7fSJdXQ==
+              \[\begin{tikzcd}
+                      {\bbrace{ F\text{-algebra homomorphism between } E \text{ and } \bar{F}  }} \\
+                      \\
+                      {\left\{\text{left cosets of } H \text{ in } G\right\}} && {\left\{  \sigma|_E:\sigma\in G   \right\}}
+                      \arrow["{\sigma H\mapsto \sigma|_E}"', from=3-1, to=1-1]
+                      \arrow["{\sigma H\mapsto \sigma|_E}", from=3-1, to=3-3]
+                      \arrow["{\text{Extended by}~\ref{lemma:extend algebraic extension}\text{ and }\ref{proposition:F algebra hom is surjective}}", from=1-1, to=3-3]
+                  \end{tikzcd}\]
+        \item (inclusion reversing) If $E_1, E_2$ correspond to $H_1, H_2$, respectively, then $E_1 \subseteq E_2$ if and only if $H_2 \leq H_1$
+        \item $[K: E]=|H|$ and $[E: F]=[G: H]$
+        \item $K / E$ is always Galois, with Galois group $\operatorname{Gal}(K / E)=H$ :
+        \item For all $\sigma\in G$,$$\sigma(E)\longleftrightarrow \sigma H\sigma^{-1}$$
+              In particular, by (1) and Theorem~\ref{theorem:characterizations of normal extension}, $E$ is normal(hence Galios) over $F$ if and only if $H$ is a normal subgroup in $G$. If this is the case, then the Galois group is isomorphic to the quotient group
+              $$
+                  \operatorname{Gal}(E / F) \cong G / H
+              $$
+        \item If $E_1, E_2$ correspond to $H_1, H_2$, respectively, then the intersection $E_1 \cap E_2$ corresponds to the group $\left(H_1, H_2\right.$ ) generated by $H_1$ and $H_2$ and the composite field $E_1 E_2$ corresponds to the intersection $H_1 \cap H_2$.
+    \end{enumerate}
+
+\end{theo}
+In the following statements, we fix a algebraic closure of $F$, and $K,F\p,K_1,K_2$ containing $F$ are subfield of $\bar{F}$.
+\begin{theo}
+    Suppose $K/F$ is a Galois extension and $F^{\prime} / F$ is any extension. Then $K F^{\prime} / F^{\prime}$ is a Galois extension, with Galois group
+    $$
+        \operatorname{Gal}\left(K F^{\prime} / F^{\prime}\right) \cong \operatorname{Gal}\left(K / K \cap F^{\prime}\right)
+    $$
+    isomorphic to a subgroup of $\operatorname{Gal}(K / F)$.
+\end{theo}
+\begin{coro}
+    Suppose $K / F$ is a Galois extension and $F^{\prime} / F$ is any finite extension. Then
+    $$
+        \left[K F^{\prime}: F\right]=\frac{[K: F]\left[F^{\prime}: F\right]}{\left[K \cap F^{\prime}: F\right]}
+    $$
+\end{coro}
+\begin{theo}
+    Let $K_1$ and $K_2$ be Galois extensions of a field $F$. Then
+    \begin{enumerate}[(1)]
+        \item The intersection $K_1 \cap K_2$ is Galois over $F$.
+        \item The composite $K_1 K_2$ is Galois over $F$. The Galois group is isomorphic to the subgroup
+              $$
+                  H=\left\{(\sigma, \tau)|\sigma|_{K_1 \cap K_2}=\left.\tau\right|_{K_1 \cap K_2}\right\}
+              $$
+              of the direct product $\operatorname{Gal}\left(K_1 / F\right) \times \operatorname{Gal}\left(K_2 / F\right)$ consisting of elements whose restrictions to the intersection $K_1 \cap K_2$ are equal.
+    \end{enumerate}
+\end{theo}
+\begin{coro}
+    $E/F$ be finite separable extension, there's Galois extension $K_1$ contains $E$(for example, the composite of the splitting fields of the minimal polynomials for a basis for $E$ over $F$). Take $S$ be the set of all the Galios extenison of $F$ which contains $E$, then
+    \begin{equation*}
+        \bar{E}=\bigcap_{K\in S} K =\bigcap_{K\in S} (K\cap K_1)
+    \end{equation*}
+    is acturally finite many intersection of Galios extenison of $F$ which contains $E$ by Fundamental Theorem of Galios Theory.
+
+    Hence, there's minimal Galios extension of $F$ that contains $E$.
+\end{coro}
+\begin{coro}
+    If $K/F$ is finite and separable, then $K / F$ is simple. In particular, any finite extension of fields of characteristic 0 is simple.
+\end{coro}
+\begin{coro}
+    $K_1$ and $K_2$ are separable extensions over $F$, then $K_1K_2$ also separable over $F$. In particular, all the separable elements in $\bar{F}$ form a field. We call it separable closure of $F$ and denote it by $F_{sep}$.
+\end{coro}
+\begin{prop}
+    $\bar{F}/F_{sep}$ is pruely inseparable extension and $F_{sep}$ is separable and normal extension.
+\end{prop}
+\begin{prooff}
+    By characterizations of purely inseparable extension and definition of normal extension.
+\end{prooff}
+\begin{theo}
+    Let $G$ be a topological group, and let $\mathcal{N}$ be a neighbourhood base for the identity element $e$ of $G$. Then
+    \begin{enumerate}[(1)]
+        \item for all $N_1, N_2 \in \mathcal{N}$, there exists an $N^{\prime} \in \mathcal{N}$ such that $e \in N^{\prime} \subset N_1 \cap N_2$;
+        \item all $a\in N \in \mathcal{N}$, there exists an $N^{\prime} \in \mathcal{N}$ such that $N^{\prime}a \subset N$;
+        \item all $N \in \mathcal{N}$, there exists an $V \in \mathcal{N}$ such that $V^{-1}V \subset N$;
+        \item all $N \in \mathcal{N}$ and all $g \in G$, there exists an $N^{\prime} \in \mathcal{N}$ such that $g^{-1}N^{\prime}g \subset N$;
+    \end{enumerate}
+    Conversely, if $G$ is a group and $\mathcal{N}$ is a nonempty set of subsets of $G$ contain $e$ satisfying $(1), (2), (3), (4)$, then there is a (unique) topology on $G$ such that $G$ is a topological group and $\mathcal{N}$ form a neighborhood base at $e$.
+
+    Morover, if subsets in $\mathcal{N}$ are all subgroup of $G$, we only need (1) and (4)
+\end{theo}
+
+\begin{defn}
+    Given field extensions $F\subset E\subset \bar{F}$, $E/F$ is called Galios extension iff $E/F$ is separable and normal.
+\end{defn}
+\begin{theo}
+    $(L_i)_{i\in I}$ are all finite Galios extenison of $F$ contained in $E$, notice that $\text{Gal}(E/L_i L_j)\subset \text{Gal}(E/L_i)\cap  \text{Gal}(E/L_j)$ for $i,j\in I$ and
+    for all $\sigma \in \text{Gal}(E/F)$, $\sigma^{-1}\text{Gal}(E/L_i)\sigma=\text{Gal}(E/L_i)$. Hence $(\text{Gal}(E/L_i)_{i\in I}$ induce a topological group structure on $\text{Gal}(E/F)$ such that 
+    $(\text{Gal}(E/L_i)_{i\in I}$ form a neighborhood at $e$ of $G$. We call it Krull topology.
+\end{theo}
+
+
+
+
+
+\begin{theo}[infinite Galios correspondence]
+
+\end{theo}
+
+
+
+
+
+
+\newpage
+\subsection{Specturm}
+\begin{prop}
+    Let A be a ring and let X be the set of all prime ideals of A. For each subset
+    E of A, let $V(E)$ denote the set of all prime ideals of A which contain E.
+    \begin{enumerate}[(1)]
+        \item if $a$ is the ideal generated by $E$, then $V(E)$ = $V(a)$ = $V(r(a))$.
+
+        \item $V(\varnothing)=X$,$V((1))=\varnothing $
+
+        \item if $(E_i)_{i\in I}$ is any family of subsets of A, then
+              \begin{equation*}
+                  V(E_i)_{i\in I}=\bigcap_{i\in I} V(E_i)
+              \end{equation*}
+
+        \item $V(I\cap J) = V(IJ) = V(I)\cup V(J)$ for any ideals I,J of A.
+              These results show that the sets $V(E)$ satisfy the axioms for closed sets
+              in a topological space. The resulting topology is called the Zariski topology.
+              The topological space X is called the prime spectrum of A, and is written $\text{Spec}(A)$.
+    \end{enumerate}
+
+\end{prop}
+\begin{prooff}
+    By Theorem~\ref{theorem:prime avoidance}
+\end{prooff}
+\begin{prop}
+    $X$=Spec$A$, $X_f=X-V(f)$.
+    \begin{enumerate}[(1)]
+        \item $X_f$ form a basis of $X$.
+        \item $X_{fg}=X_f\cap X_g$.
+        \item $X$ is compact.
+        \item $X_f=\varnothing \Leftrightarrow$ $f$ is a unit.
+        \item $X_f=X \Leftrightarrow $ $f$ is nilpotent.
+        \item An open subset of X is open if and only if it is finite union of sets $X_f$.
+    \end{enumerate}
+    The sets $X_f$ are called basic open sets of $X$=Spec$A$
+\end{prop}
+\begin{prop}
+    It is sometimes convenient to denote a prime ideal
+    of $A$ by a letter such as $x$ or $y$ when thinking of it as a point of $X=$Spec$A$.
+    When thinking of $x$ as a prime ideal of $A$, we denote it by $P_x$. Show that:
+    \begin{enumerate}[(1)]
+        \item the set $\bbrace{x}$ is closed in Spec$A$ if and only if $P_x$ is maximal.
+        \item $\overline{\bbrace{x}}=V(P_x)$
+    \end{enumerate}
+\end{prop}
+\begin{defn}
+    A topological space X is said to be irreducible if $X\neq \varnothing$ and satisfies the following three equivalent conditions:
+    \begin{enumerate}[(1)]
+        \item every pair of non-empty open sets intersects.
+        \item every non-empty open set is dense in X.
+        \item X is not a union of two closed, proper, non-empty sets.
+    \end{enumerate}
+\end{defn}
+\begin{prop}
+    Let X be a topological space.
+    \begin{enumerate}[(1)]
+        \item If Y is an irreducible subspace of X, then the closure Y of Y
+              in X is irreducible.
+        \item Every irreducible subspace of X is contained in a maximal irreducible
+              subspace.
+        \item The maximal irreducible subspaces of X are closed and cover X. They are
+              called the irreducible components of X.
+    \end{enumerate}
+\end{prop}
+\begin{prop}
+    A is a ring, Spec$A$ is the specture of A.
+
+    There is a one-to-one order-reversing correspondence
+    between the radical ideals($\sqrt{I}=I$) and the closed subsets of Spec$A$. More precisely,we can say there are three bijections
+    \begin{equation*}
+        \bbrace{\text{radical ideals of } A}\longleftrightarrow \bbrace{\text{closed subset of } \text{Spec}A}
+    \end{equation*}
+    \begin{equation*}
+        \bbrace{\text{prime ideals }}\longleftrightarrow \bbrace{\text{irreducible closed subset}}
+    \end{equation*}
+    \begin{equation*}
+        \bbrace{\text{minimal ideals }}\longleftrightarrow \bbrace{\text{irreducible components}}
+    \end{equation*}
+    given by the correspondences
+    \begin{equation*}
+        I \longrightarrow  V(I)
+    \end{equation*}
+    \begin{equation*}
+        \bigcap_{P\in E}P   \longleftarrow V(E)
+    \end{equation*}
+    \label{theorem:radical ideal and closed subset}
+\end{prop}
+\begin{prop}
+    Let $\varphi: A\rightarrow B$ be a ring homomorphism. Let $X=$Spec$A$ and $Y=$Spec$B$.
+    Let $\phi$ to be the map:
+    \begin{align*}
+        \text{Spec}B\rightarrow \text{Spec}A \\
+        P \mapsto \varphi^{-1}(P)
+    \end{align*}
+    \begin{enumerate}[(1)]
+        \item If $f\in A$, then $\phi^{-1}(X_f)=Y_{\varphi(f)}$,and hence $\phi$ is continuous.
+        \item $I$ is an ideal of $A$, $\phi^{-1}(V(I))=V(\varphi(I))$.
+        \item $J$ is an ideal of $B$, $\overline{\phi(V(J))}=V(\phi(J))$
+    \end{enumerate}
+\end{prop}
+\begin{defn}
+    A topological space is called Noetherian if the closed subsets of X satisfy the descending
+    chain condition, i.e., for closed subsets $Y_1,Y_2,Y_3,\dots$ with $Y_{i+1}\subset Y_i$
+    for all positive integers $i$, there exists an integer $n$ such that $Y_i = Y_n$
+    for all $i\ge n$. An equivalent condition is that the open subsets satisfy the
+    ascending chain condition.
+\end{defn}
+\begin{exam}
+    $R$ is a Noetherian ring, then $X=\spec{R}$ is a Notherian space.
+\end{exam}
+\begin{prooff}
+    By Theorem~\ref{theorem:radical ideal and closed subset}
+\end{prooff}
+\begin{theo}[Decomposition into irreducibles]
+    Let $X$ be a Noetherian topological space.
+    \begin{enumerate}[(1)]
+        \item There exist a nonnegative integer n and closed, irreducible subsets
+              $Z_1,...,Z_n\subset X$ such that $X=Z_1\cup\dots Z_n$ and $Z_i\nsubseteq Z_j$ for $i\neq j$.
+              \label{Decomposition into irreducibles}
+        \item If $Z_1,...,Z_n$ are closed, irreducible subsets satisfying (\ref{Decomposition into irreducibles}), then
+              every irreducible subset $Z\subset X$ is contained in some $Z_i$.
+        \item If $Z_1,...,Z_n\subset X$ are closed, irreducible subsets satisfying (\ref{Decomposition into irreducibles}), then
+              they are precisely the irreducible components of $X$. In particular, the
+              $Z_i$ are uniquely determined up to order.
+    \end{enumerate}
+    \label{theorem:Decomposition into irreducibles}
+\end{theo}
+\begin{coro}
+    A Notherian ring has only finite many minimal prime ideals.
+    \label{example:Spec of Notherian ring is irr}
+\end{coro}
+\begin{prooff}
+    By Example~\ref{example:Spec of Notherian ring is irr} and Theorem~\ref{theorem:Decomposition into irreducibles}.
+\end{prooff}
+
+
+
+\newpage
+\subsection{Chain conditions}
+\begin{defn}[Notherian]
+    ring($R$-module) $A$ is said to be Noetherian if it satisfies the following three
+    equivalent conditions:
+    \begin{enumerate}[(1)]
+        \item Every non-empty set of ideals(submodules) in $A$ has a maximal element.
+        \item Every ascending chain of ideals(submodules) in $A$ is stationary.
+        \item Every ideal(submodule) in $A$ is finitely generated.
+    \end{enumerate}
+\end{defn}
+\begin{defn}[Artinian]
+    ring($R$-module) $A$ is said to be Artinian if it satisfies the following three
+    equivalent conditions:
+    \begin{enumerate}[(1)]
+        \item Every non-empty set of ideals(submodules)  in $A$ has a minimal element.
+        \item Every decending chain of ideals(submodules) in $A$ is stationary.
+    \end{enumerate}
+\end{defn}
+\begin{theo}
+    Let $0 \rightarrow M^{\prime} \rarr{\alpha} M \rarr{\beta} M^{\prime \prime} \rightarrow 0$ be an exact sequence of A-modules. Then
+    \begin{enumerate}
+        \item $M$ is Noetherian $\Leftrightarrow M^{\prime}$ and $M^{\prime \prime}$ are Noetherian;
+        \item $M$ is Artinian $\Leftrightarrow M^{\prime}$ and $M^{\prime \prime}$ are Artinian.
+    \end{enumerate}
+    \label{theorem:chain condition,exact sequence}
+\end{theo}
+\begin{coro}
+    If $M_i(1 \leqslant i \leqslant n)$ are Noetherian (resp. Artinian) A-modules, so is $\bigoplus_{i=1}^n M_i$.
+\end{coro}
+\begin{prooff}
+    Apply Theorem~\ref{theorem:chain condition,exact sequence} to the exact sequence
+    $$
+        0 \rightarrow M_n \rightarrow \bigoplus_{i=1}^n M_i \rightarrow \bigoplus_{i=1}^{n-1} M_i \rightarrow 0
+    $$
+\end{prooff}
+\begin{coro}
+    Let $A$ be a Noetherian (resp. Artinian) ring, $M$ a finitely generated A-module. Then $M$ is Noetherian (resp. Artinian).
+\end{coro}
+\begin{defn}
+    A chain of submodules of a module $M$ is a sequence $\left(M_i\right)(0 \leqslant i \leqslant n)$ of submodules of $M$ such that
+    $$
+        M=M_0 \supset M_1 \supset \cdots \supset M_n=0 \text { (strict inclusions). }
+    $$
+    The length of the chain is $n$ (the number of "links"). A composition series of $M$ is a maximal chain, that is one in which no extra submodules can be inserted: this is equivalent to saying that each quotient $M_{i-1} / M_i(1 \leqslant i \leqslant n)$ is simple (that is, has no submodules except 0 and itself).
+\end{defn}
+\begin{prop}
+    Suppose that $M$ has a composition series of length $n$. Then every composition series of $M$ has length $n$, and every chain in $M$ can be extended to a composition series.
+\end{prop}
+\begin{prop}
+    $M$ has a composition series $\Leftrightarrow M$ satisfies both chain conditions.
+\end{prop}
+
+\begin{prop}
+    If $A$ is a Artinian ring, $A$ has only finitely many maximal ideals.
+\end{prop}
+\begin{prooff}
+    If $P_1,\dots,P_n,\dots $ is sequence of distinct maximal ideal. Consider decending chain of ideals:
+    \begin{equation*}
+        P_1\supset P_1P_2\dots \supset P_1\dots P_n\supset \dots
+    \end{equation*}
+    By Theorem~\ref{theorem:prime avoidance}, each '$\supset$' is strict. A contradiction!
+\end{prooff}
+\begin{prop}
+    A ring $A$ is Artinian, then the product of all its maximal ideals is nilpotent.
+\end{prop}
+\begin{prooff}
+
+\end{prooff}
+\begin{prop}
+    A ring $A$ is Artinian, then $A$ is Notherian.
+\end{prop}
+
+\begin{prop}
+    Let $A$ be a ring and $M$ an $A$-module. Then if $M$ is a
+    Noetherian module, $А/Ann(M)$ is a Noetherian ring.
+\end{prop}
+\begin{prooff}
+    If we set $\bar{A}=A / \operatorname{Ann}(M)$ and view $M$ as an $\bar{A}$-module, then the submodules of $M$ as an $A$-module or $\bar{A}$-module coincide, so that $M$ is also Noetherian as an $\bar{A}$-module. We can thus replace $A$ by $\bar{A}$, and then $Ann(M)=(0)$. Now letting $M=A \omega_1+\cdots+A \omega_n$, we can embed $A$ in $M^n$ by means of the map $a \mapsto\left(a \omega_1, \ldots, a \omega_n\right)$. By Theorem $1, M^n$ is a Noetherian module, so that its submodule $A$ is also Noetherian.
+\end{prooff}
+\begin{theo}[Hilbert basis theorem]
+    $R$ is Notherian, then $R[x]$ and $R[[x]]$ are Notherian.
+\end{theo}
+\begin{theo}[Cohen]
+    If all the prime ideals of a ring $A$ are finitely
+    generated then $A$ is Noetherian.
+\end{theo}
+\begin{defn}[fractional ideal]
+    Let $A$ be an integral domain with field of fractions $K$. A fractional ideal $I$ of $A$ is an $A$-submodule $I$ of $K$ such that $I \neq 0$ and $\alpha I \subset A$ for some $0 \neq \alpha \in K$. The product of two fractional ideals is defined in the same way as the product of two ideals. If $I$ is a fractional ideal of $A$ we set $I^{-1}=\{\alpha \in K \mid \alpha I$ $\subset A\}$; this is also a fractional ideal, and $I I^{-1} \subset A$. In the particular case that $I I^{-1}=A$ we say that $I$ is invertible.
+\end{defn}
+\begin{prop}
+    An invertible fractional ideal of $A$ is finitely generated as an $A$-module.
+\end{prop}
+\begin{prooff}
+    Let $1=\sum a_ib_i$, where $a_i\in I, b_i\in I^{-1}$. Then $a_1,\dots,a_n$ generate I.
+\end{prooff}
+
+
+
+
+\newpage
+\subsection{Localization}
+\begin{defn}[Localization of Ring]
+    Let $R$ be a ring, and $S$ a multiplicative subset. Define a
+    relation on $R\times S$ by $(x,s)\sim (y,t)$ if there is $u\in S$ such that $xtu = ysu$.Denote by $S^{-1}R$ the set of equivalence classes, and by $x/$ the class of $(x,s)$
+
+    It is easy to check that $S^{-1}R$ is a ring, with $0/1$ for $0$ and $1/1$ for $1$. It is called
+    the ring of fractions with respect to $S$ or the localization at $S$.
+
+    Let $\varphi_S: R \rightarrow S^{-1}R$ be the map given by $\varphi_S(x)= x/1$. Then $\varphi_S$ is a ring homomorphism between $R$ and $S^{-1}R$
+\end{defn}
+\begin{exam}[Localization at a prime ideal]
+    Let $R$ be a ring, $p$ be a prime ideal. Set $S_p:=R-p$. We call the
+    ring $S_p^{-1}R$ the localization of $R$ at $p$, and set $R_p:=S_p^{-1}R$, $\varphi_p=\varphi_{S_p}$.
+\end{exam}
+\begin{exam}[Localization at a element]
+    Let $R$ be a ring, $f\in R$. Set $S_f:=\bbrace{f^n:n\ge 0}$. We call the
+    ring $S^{-1}_f R$ the localization of $R$ at $f$, and set $R_f:=S_f^{-1}R$ and $\varphi_{f} :=\varphi_{S_f}$.
+\end{exam}
+\begin{exam}
+    Let $f:A\rightarrow B$ be a ring homomorphism, $S$ be a multiplicative subset of $A$, then denote $f(S)$ is a multiplicative subset of $B$. Denote the localization at $f(S)$ by $S^{-1}B$.
+    Respectively, if $P$ is a prime ideal of $A$, denote the localization at $S=f(A-P)$ by $B_P$.
+\end{exam}
+\begin{prop}
+    Every ideal in $S^{-1}A$ of the form $S^{-1}I$.
+\end{prop}
+\begin{prooff}
+    Notice that if $\bar{I}$ is an ideal of $S^{-1}A$, then $S^{-1}\varphi_S^{-1}(\bar{I})=\bar{I}$.
+\end{prooff}
+\begin{prop}
+    $A$ is Notherian, then $S^{-1}A$ is Notherian.
+\end{prop}
+
+
+\begin{prop}
+    Let $R$ be a ring, $S$ be a multiplicative subset of $R$,\\
+    $S^{-1}I=\bbrace{x/s:s\in I,s\in S}$.
+    Then $S^{-1}I$ is the ideal generated by $\varphi_S(I)$, and the following conditions are equivalent:
+    \begin{enumerate}[(1)]
+        \item $S^{-1}I=S^{-1}R$
+        \item $I\cap S\neq \varnothing$
+        \item $\varphi_S^{-1}(S^{-1}I)=R$
+    \end{enumerate}
+    \label{proposition:I cap S=0 equivalent condition}
+\end{prop}
+\begin{prooff}
+    Obviously, $S^{-1}I$ is the ideal generated by $\varphi_S(I)$.
+
+    (1)$\Rightarrow$(2):Consider $1/1\in S^{-1}I$.
+
+    (2)$\Rightarrow$(3):Take $a\in I\cap S$, notice that $a/a=1/1$.
+
+    (3)$\Rightarrow$(1):Consider $1/1\in S^{-1}I$.
+\end{prooff}
+\begin{prop}
+    Let R be a ring, $S$ be a multiplicative subset of $R$, there's a one-to-one order-preserving bijection:
+    \begin{equation*}
+        \bbrace{P\in \text{Spec}R: P\cap S=\varnothing }\longleftrightarrow \text{Spec}(S^{-1}R)
+    \end{equation*}
+    given by the following maps:
+    \begin{equation*}
+        P\longrightarrow S^{-1}P
+    \end{equation*}
+    \begin{equation*}
+        \varphi_S^{-1}(\bar{P})\longrightarrow \overline{P}\in \text{Spec}(S^{-1}R)
+    \end{equation*}
+\end{prop}
+\begin{prooff}
+    Step 1 (well-defined): If $P\in \text{Spec}(R)$ and $P\cap S=\varnothing$, then $S^{-1}P$ is a prime of $S^{-1}R$.
+
+    Step 2 (injective): $\varphi_S^{-1}(S^{-1}P)=P$.
+
+    Step 3 (surjective): Let $J$ be a prime ideal of $S^{-1}R$, then $P=\varphi_S^{-1}(J)$ is a prime ideal of R. We show that $S^{-1}P=J$. For all $x/s\in J$, since $J$ is an ideal, $x/1=x/s\times s/1  \in J$, hence $x\in P$ and $x/s\in S^{-1}P$.
+    It is clear that $\varphi_S(\varphi_S^{-1}(J))\subset J$. Hence, we have $J=S^{-1}P$.
+\end{prooff}
+\begin{defn}[Localization of Module]
+    The construction of $S^{-1}A$ can be carried through with an $A$-module M in
+    place of the ring A. Define a relation $=$ on $M\times S$ as follows:
+    $(m,s)=(m\p,s\p)$ if and only if there's $t\in S$ such that $t(sm\p -s\p m)=0$.
+
+    In particular, if $P$ is a prime ideal of $A$, $S=A-P$, we call $M_P=S^{-1}M$ the localization at $P$.
+\end{defn}
+\begin{prop}
+    $S^{-1}M$ has both $A$-module structure and $S^{-1}A$-module structure by the natrual way:
+    \begin{equation*}
+        S^{-1}A\times S^{-1}M \rightarrow S^{-1}M
+    \end{equation*}
+    \begin{equation*}
+        (a/s,m/s_1)\rightarrow am/(ss_1)
+    \end{equation*}
+    \begin{equation*}
+        A\times S^{-1}M \rightarrow S^{-1}M
+    \end{equation*}
+    \begin{equation*}
+        (a,m/s_1)\rightarrow a/(ss_1)
+    \end{equation*}
+    Let $f:M\rightarrow N$ be an A-module homomorphism. Then it gives rise to an
+    $S^{-1}A$-module and $A$-module homomorphism:
+    \begin{equation*}
+        S^{-1}M \rightarrow S^{-1}N
+    \end{equation*}
+    \begin{equation*}
+        m/s_1 \rightarrow f(m)/s
+    \end{equation*}
+    And, if $M\xrightarrow{f}N\xrightarrow{g}P$ is exact, then $S^{-1}M\xrightarrow{S^{-1}f}S^{-1}N\xrightarrow{S^{-1}g}S^{-1}P$ is exact.
+    \label{proposition:localization is exact}
+\end{prop}
+\begin{rema}
+    It follows from Proposition~\ref{proposition:localization is exact} that if $N$ is a submodule of $M$, the map $S^{-1}M\xrightarrow{S^{-1}f} S^{-1}M $ is injective, where $f:N\rightarrow M$ be the embeding. Therefore $S{-1}N$
+    can be regarded as a submodule of $S^{-1}M$.
+\end{rema}
+\begin{rema}
+    If $P$ is a prime ideal of $A$, $S=A-P$,$f:M\rightarrow N$ be a $A$-module homomorphism, we usually denote $S^{-1}f$ by $f_P$.
+\end{rema}
+\begin{prop}
+    If $N,P$ are submodule of $M$,then
+    \begin{enumerate}[(1)]
+        \item $S^{-1}(N+P)=S^{-1}M+S^{-1}P$
+        \item $S^{-1}(N\cap P)=S^{-1}N\cap S^{-1}P$
+        \item the map $S^{-1}f:S^{-1}M\rightarrow S^{-1}(M/N)$ given by the natrual homomorphism $f:M\rightarrow M/N$ is an surjective.In particular,$S^{-1}M/S^{-1}N\simeq S^{-1}(M/N)$ as $S^{-1}A$-module and $A$-mdoule.
+    \end{enumerate}
+    \label{proposition:S-1 commute with quotient,sum and intersect}
+\end{prop}
+\begin{theo}
+    Let $M$ be an $A$-module. Then the $S^{-1}A$ modules $S^{-1}M$ and
+    $S^{-1}A\otimes_A M$ are naturally isomorphic. The isomorphisc map is given by the bi-linear map:
+    \begin{equation*}
+        S^{-1}A\times M\rightarrow S^{-1}M
+    \end{equation*}
+    \begin{equation*}
+        \varphi:(a/s,m)\rightarrow  am/s
+    \end{equation*}
+    and the universal property of tensor product.
+    \label{proposition:S^-1 and S^-1otimes isomorphic}
+\end{theo}
+\begin{rema}
+    ‘natrually’ in above theorem means: given two covariant functors:$S^{-1}A\otimes\underline{\quad}$ and $S^{-1}\underline{\quad}$, then the isomorphic map induced by $\varphi$ induce a natrual transformation between these two functors.
+\end{rema}
+\begin{prop}[localization commute with tensor product]
+    Let $R$ be a ring, $S$ a multiplicative subset, $M, N$ modules.
+    Show $S^{-1}\left(M \otimes_R N\right)\simeq S^{-1} M \otimes_R N\simeq S^{-1} M \otimes_{S^{-1} R} S^{-1} N$.
+    \label{proposition:localization commute with tensor product}
+\end{prop}
+\begin{prooff}
+    \begin{align*}
+        S^{-1}\left(M \otimes_R N\right)\simeq S^{-1}R\otimes_R(M \otimes_R N)\simeq S^{-1}M\otimes_R N\simeq \\
+        (S^{-1}M\otimes_{S^{-1}A}S^{-1}A)\otimes_A N \simeq S^{-1} M \otimes_{S^{-1} R} S^{-1} N
+    \end{align*}
+\end{prooff}
+
+
+
+
+
+
+\begin{prop}[$M$=0 is a local property]
+    Let $M$ be an $A$-module. Then the following are equivalent:
+    \begin{enumerate}[(1)]
+        \item $M = 0$
+        \item $M_P=0$ for all prime ideals $P$.
+        \item $M_m=0$ for maximal ideals $m$.
+    \end{enumerate}
+    \label{proposition:M=0 is a local property}
+\end{prop}
+\begin{prop}[injective homomorphism is a local property]
+    Let $f:M\rightarrow N$ be $A$-module homomorphism, $f_P:M_P\rightarrow N_P$ be homomorphism induced by prime ideal $P$. Then the following are equivalent:
+    \begin{enumerate}[(1)]
+        \item $f$ is injective
+        \item $f_P$ is injective for all prime ideals $P$.
+        \item $f_m$ is injective for maximal ideals $m$.
+    \end{enumerate}
+\end{prop}
+\begin{prop}[flat is a local property]
+    Let $f:M\rightarrow N$ be $A$-module homomorphism, $f_P:M_P\rightarrow N_P$ be homomorphism induced by prime ideal $P$. Then the following are equivalent:
+    \begin{enumerate}[(1)]
+        \item $f$ is flat $A$-module.
+        \item $f_P$ is flat $A_P$-module for all prime ideals $P$.
+        \item $f_m$ is flat $A_m$-module for all maximal ideals $m$.
+    \end{enumerate}
+\end{prop}
+\begin{prop}
+    Let $M$ be a finitely generated $A$-module, $S$ a multiplicatively
+    closed subset of $A$. Then $S^{-1}(\text{Ann}(M)=\text{Ann}(S^{-1}M)$.
+    \label{proposition:S-1 (finitely generated case)}
+\end{prop}
+
+
+
+\begin{defn}[support of a module]
+    Let $A$ be a ring, $M$ an $A$-module. The support of $M$ is defined to be the set $\text{Supp}(M)=\bbrace{P\in \spec{A}: M_P\neq 0}$.
+\end{defn}
+\begin{prop}
+    $M$ is a $R$-module, $A$ is a ring, I is an ideal of $A$.
+    \begin{enumerate}[(1)]
+        \item $M\neq 0 \Leftrightarrow \text{Supp}(M)=\varnothing$
+        \item $V(I) = \text{Supp} (A/I)$
+        \item If $0\rightarrow M\p \rightarrow M\rightarrow M^{\prime\prime} \rightarrow 0$  is an exact sequence, then $\text{Supp}(M)= \text{Supp}(M\p)\cup \text{Supp} (M^{\prime\prime})$.
+        \item If $M$ is finitely generated, then $\text{Supp}(M)=V(\text{Ann}(M))$
+        \item If $M,N$ are finitely generated, then $\text{Supp}(M\otimes_A N)=\text{Supp}(M)\cap \text{Supp}(N)$.
+        \item If $M=\sum_{i\in I }M_i$, then $\text{Supp}(M)=\bigcap_{i\in I}\text{Supp}(M_i)$
+    \end{enumerate}
+\end{prop}
+\begin{prooff}
+
+    (1):By Theorem~\ref{proposition:M=0 is a local property}
+
+    (2):By Proposition~\ref{proposition:S-1 commute with quotient,sum and intersect} and Proposition~\ref{proposition:I cap S=0 equivalent condition}.
+
+    (3):By Theorem~\ref{proposition:localization is exact}.
+
+    (4):Notice that $M_P\neq 0\Leftrightarrow \text{Ann}(M_P)\neq R$. Then Proposition~\ref{proposition:S-1 (finitely generated case)}.
+
+    (5):Since localization commute with tensor product, it suffice to show:
+    \begin{lem}
+        $M,N$ are finitely generated $R$-module, in which $(R,m,k)$ be a local ring, $M\otimes_R N=0$, then $M=0$ or $N=0$.
+    \end{lem}
+    \begin{proofff}
+        Notice that $M\otimes_R R/m\simeq M/mM$. Hence, by Theorem~\ref{tensor product preserve free module}, and Nakayama's lemma, define $M_k=M\otimes_A k$, it suffice to show $M_k\otimes_k N_k=(M\otimes N)_k$. Notice that
+        $$
+            \begin{gathered}
+                M_k \otimes_k N_k=\left(M \otimes_A k\right) \otimes_k\left(k \otimes_A N\right) \\
+                \cong M \otimes_A\left(k \otimes_k k\right) \otimes_A N \cong\left(M \otimes_A N\right) \otimes_A k=\left(M \otimes_A N\right)_k .
+            \end{gathered}
+        $$
+    \end{proofff}
+
+    (6):trivial.
+\end{prooff}
+
+
+\begin{prop}[universal property of localization]
+    Let $g: A \rightarrow B$ be a ring homomorphism such that $g(s)$ is a unit in $B$ for all $s \in S$. Then there exists a unique ring homomorphism $h: S^{-1} A \rightarrow B$ such that $g=h \circ f$.
+\end{prop}
+\begin{theo}
+    let $A$ be a ring, $S \subset A$ a multiplicative set, $I$ an ideal of $A$ and $\bar{S}$ the image of $S$ in $A / I$; then there's ring isomorphism
+    $$
+        S^{-1}A/ S^{-1}I \simeq  \bar{S}^{-1}(A/I)
+    $$
+    given by
+    \begin{equation*}
+        a/s+S^{-1}I \mapsto a+I/s+I
+    \end{equation*}
+    In particular, if $\mathfrak{p}$ is a prime ideal of $A$ then
+    $$
+        A_{\mathfrak{p}} / \mathfrak{p} A_{\mathfrak{p}} \simeq(A / \mathfrak{p})_{\overline{A-p}} .
+    $$
+    where $\mathfrak{p} A_{\mathfrak{p}}$ is the ideal generated by $\varphi_{\mathfrak{p}}(\mathfrak{p})$.
+    The left-hand side is the residue field of the local ring $A_p$, whereas the right-hand side is the field of fractions of the integral domain $A / \mathfrak{p}$. This field is written $\kappa(\mathfrak{p})$ and called the residue field of $\mathfrak{p}$.
+\end{theo}
+\begin{prooff}
+    By theorem~\ref{proposition:S-1 commute with quotient,sum and intersect} and universal property of localization.
+\end{prooff}
+\begin{theo}
+    Let $A$ be a ring, $S \subset A$ a multiplicative set, and $f: A \longrightarrow S^{-1}A$ the canonical map. If $B$ is a ring, with ring homomorphisms $g: A \longrightarrow B$ and $h: B \longrightarrow S^{-1}A$ satisfying
+    \begin{enumerate}[(1)]
+        \item $f=h g$
+        \item for every $b \in B$ there exists $s \in S$ such that $g(s) \cdot b \in g(A)$
+    \end{enumerate}
+    Then $S^{-1}A\simeq g(S)^{-1}B\simeq T^{-1}B$, where $T=\bbrace{t \in B \mid h(t) \text{ is a unit of } S^{-1}A }$.
+\end{theo}
+\begin{prooff}
+    By universal property of localization and condition (1) and (2), there are ring homomorphisms:
+    \begin{align*}
+        S^{-1}A\rightarrow g(S)^{-1}B \\
+        \varphi:  a/s\mapsto g(a)/g(s)
+    \end{align*}
+    \begin{align*}
+        g(S)^{-1}B\rightarrow S^{-1}A \\
+        \psi: b/g(s)\mapsto h(b) \cdot  (1/s)
+    \end{align*}
+    such that $\varphi\circ\psi=\text{id}, \psi\circ\varphi=\text{id}$.
+    Hence $S^{-1}A\simeq g(S)^{-1}B$.
+
+    Since $T\supset g(S)$, by universal property of localization, there are ring homomorphisms:
+    \begin{align*}
+        S^{-1}A\rightarrow T^{-1}B \\
+        \varphi:  a/s\mapsto g(a)/g(s)
+    \end{align*}
+    \begin{align*}
+        T^{-1}B\rightarrow S^{-1}A \\
+        \psi: b/t\mapsto h(b)h(t)^{-1}
+    \end{align*}
+    Notice that if $g(s_1)b=g(a_1),g(s_2)=tg(b_2)$, then $h(b)(s_1/1)=a_1/1,h(t)(s_2/1)=a_2/1$ and $\psi(b/t)=a_1/s_1\cdot (a_2/s_2)^{-1}$. And it's easy to cheack that
+    $\varphi(\psi(b/t))=\varphi(a_1/s_1\cdot (a_2/s_2)^{-1})=g(a_1)/g(s_1)\cdot (g(a_2)/g(s_2))^{-1}=b/t$. Hence $S^{-1}A\simeq g(S)^{-1}B\simeq T^{-1}B$.
+
+\end{prooff}
+\begin{coro}
+    If $\mathfrak{p}$ is a prime ideal of $A, S=A-\mathfrak{p}$ and $B$ satisfies the conditions of the theorem, then setting $P=\mathfrak{p} A_{\mathfrak{p}} \cap B$ we have $A_{\mathfrak{p}}\simeq B_{\mathrm{P}}$.
+\end{coro}
+\begin{prooff}
+    Under these circumstances the $T$ in the theorem is exactly $B-P$ because $A_{\mathfrak{p}}$ is a local ring.
+\end{prooff}
+\begin{coro}
+    If $S$ and $T$ are two multiplicative subsets of $A$ with $S \subset T$, then writing $T^{\prime}$ for the image of $T$ in $S^{-1}A$, we have $(T\p)^{-1}S^{-1}A\simeq T^{-1}A$.
+\end{coro}
+\begin{prooff}
+    Consider the following commutative diagram:
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJBIl0sWzIsMCwiU157LTF9QSJdLFsyLDIsIlReey0xfUEiXSxbMCwxLCJhXFxtYXBzdG8gYS8xIl0sWzEsMiwiYS9zXFxtYXBzdG8gYS9zIl0sWzAsMiwiYVxcbWFwc3RvIGEvMSIsMl1d
+    \[\begin{tikzcd}
+            A && {S^{-1}A} \\
+            \\
+            && {T^{-1}A}
+            \arrow["{a\mapsto a/1}", from=1-1, to=1-3]
+            \arrow["{a/s\mapsto a/s}", from=1-3, to=3-3]
+            \arrow["{a\mapsto a/1}"', from=1-1, to=3-3]
+        \end{tikzcd}\]
+\end{prooff}
+
+
+
+
+
+
+\newpage
+\subsection{Intergral Extension}
+
+
+\newpage
+\subsection{Flatness}
+\begin{theo}[Base Change]
+    If $f:A\rightarrow B$ is a ring homomorphism and $M$ is a flat $A$-module,
+    then $M_B=B\otimes_A M $ is a flat $B$-module.
+\end{theo}
+\begin{prooff}
+    By Theorem~\ref{proposition:M otimes R=R}.
+\end{prooff}
+\begin{theo}[Localization]
+    $S^{-1}A$ is a flat $A$-module.
+    \label{theorem:flatness:localization}
+\end{theo}
+\begin{prooff}
+    By Theorem~\ref{proposition:S^-1 and S^-1otimes isomorphic}.
+\end{prooff}
+\begin{theo}[Transitivity]
+    $f:A\rightarrow B$ is a ring homomorphism,$B$ is flat $A$-module, $N$ is flat $B$-module, then $N$ is flat over $A$.
+\end{theo}
+\begin{prooff}
+    By Theorem~\ref{proposition:M otimes R=R}.
+\end{prooff}
+
+\begin{defn}[faithfully flat]
+
+\end{defn}
+
+\newpage
+\subsection{Dimension Theory and Hilbert's Nullstellensatz}
+\begin{defn}
+    Let $X$ be a topological space; we consider strictly decreasing (or strictly increasing) chains $Z_0, Z_1, \ldots, Z_r$ of length $r$ of irreducible closed subsets of $X$. The supremum of the lengths, taken over all such chains, is called the combinatorial dimension of $X$ and denoted $\operatorname{dim} X$. If $X$ is a Noetherian space then there are no infinite strictly decreasing chains, but it can nevertheless happen that $\operatorname{dim} X=\infty$.
+
+    Let $Y$ be a subspace of $X$. If $S \subset Y$ is an irreducible closed subset of $Y$ then its closure in $X$ is an irreducible closed subset $\bar{S} \subset X$ such that $\bar{S} \cap Y=S$. Indeed, if $\bar{S}=V \cup W$ with $V$ and $W$ closed in $X$ then $$S=\bigcap_{W\supset S,W \text{ closed in X}}W\cap Y=\bar{S}\cap Y=(V \cap Y) \cup(W \cap Y)$$, so that we may assume $S=V \cap Y$, but then $V=\bar{S}$. It follows easily from this that $\operatorname{dim} Y \leqslant \operatorname{dim} X$.
+
+    Let $A$ be a ring. The supremum of the lengths $r$, taken over all strictly decreasing chains $\mathfrak{p}_0 \supset \mathfrak{p}_1 \supset \cdots \supset \mathfrak{p}_r$ of prime ideals of $A$, is called the Krull dimension, or simply the dimension of $A$, and denoted $\operatorname{dim} A$. It is clear that the Krull dimension of $A$ is the same thing as the combinatorial dimension of $\operatorname{Spec} A$. For a prime ideal $p$ of $A$, the supremum of the lengths, taken over all strictly decreasing chains of prime ideals $\mathfrak{p}=\mathfrak{p}_0 \supset \mathfrak{p}_1 \supset \cdots \supset \mathfrak{p}_r$ starting from $\mathfrak{p}$, is called the height of $\mathfrak{p}$, and denoted ht $\mathfrak{p}$;. Moreover, the supremum of the lengths, taken over all strictly increasing chain of prime ideals $\mathfrak{p}=\mathfrak{p}_0 \subset \mathfrak{p}_1 \subset \cdots \subset \mathfrak{p}_r$ starting from $\mathfrak{p}$, is called the coheight of $p$, and written coht $p$. It follows from the definitions that
+    $$
+        \text { ht } \mathfrak{p}=\operatorname{dim} A_{\mathfrak{p}}, \quad \operatorname{coht} \mathfrak{p}=\operatorname{dim} A / \mathfrak{p} \text { and } \text { ht } \mathfrak{p}+\operatorname{coht} \mathfrak{p} \leqslant \operatorname{dim} A
+    $$
+\end{defn}
+\begin{exam}
+    $A$ is a Artinian ring, then $\dim A=0$.
+\end{exam}
+\begin{prooff}
+    Since there's only a finite number of maximal ideals $\mathfrak{p}_1, \ldots, \mathfrak{p}_r$, and that the product of all of these is nilpotent. If then $\mathfrak{p}$ is a prime ideal, $\mathfrak{p} \supset(0)=\left(\mathfrak{p}_1 \ldots \mathfrak{p}_r\right)^v$, by Theorem~\ref{theorem:prime avoidance} so that $\mathfrak{p} \supset \mathfrak{p}_i$ for some $i$; hence, $\mathfrak{p}=\mathfrak{p}_i$, so that every prime ideal is maximal.
+\end{prooff}
+\begin{exam}
+    The polynomial ring $k\left[X_1, \ldots, X_n\right]$ over a field $k$ is an integral domain, and since
+    $$
+        k\left[X_1, \ldots, X_n\right] /\left(X_1, \ldots, X_i\right) \simeq k\left[X_{i+1}, \ldots, X_n\right],
+    $$
+    $\left(X_1, \ldots, X_i\right)$ is a prime ideal of $k\left[X_1, \ldots, X_n\right]$. Thus
+    $$
+        (0) \subset\left(X_1\right) \subset\left(X_1, X_2\right) \subset \cdots \subset\left(X_1, \ldots, X_n\right)
+    $$
+    is a chain of prime ideals of length $n$, and $\operatorname{dim} k\left[X_1, \ldots, X_n\right] \geqslant n$.
+\end{exam}
+\begin{defn}
+    For an ideal $I$ of a ring $A$ we define the height of $I$ to be the infimum of the heights of prime ideals containing $I$ :
+    $$
+        \text { ht } I=\inf \{\text { ht } \mathfrak{p} \mid I \subset \mathfrak{p} \in \operatorname{Spec} A\} \text {. }
+    $$
+
+    Here also we have the inequality
+    $$
+        \text { ht } I+\operatorname{dim} A / I \leqslant \operatorname{dim} A \text {. }
+    $$
+
+    If $M$ is an $A$-module we define the dimension of $M$ by
+    $$
+        \operatorname{dim} M=\operatorname{dim}(A / \operatorname{ann}(M)) \text {. }
+    $$
+\end{defn}
+\begin{prop}
+    If $M$ is finitely generated then $\operatorname{dim} M$ is the combinatorial dimension of the closed subspace $\operatorname{Supp}(M)=V(\operatorname{ann}(M))$ of $\operatorname{Spec} A$.
+\end{prop}
+
+
+
+
+
+\newpage
+\section{Homological Algerba}
+\subsection{Basic Definition in Category}
+\begin{defn}[Category]
+    A category $\mathcal{C}$ consists of three ingredients: a class obj $(\mathcal{C})$ of objects, a set of morphisms $\operatorname{Hom}(A, B)$ for every ordered pair $(A, B)$ of objects, and composition $\operatorname{Hom}(A, B) \times \operatorname{Hom}(B, C) \rightarrow \operatorname{Hom}(A, C)$, denoted by
+    $$
+        (f, g) \mapsto g f
+    $$
+    for every ordered triple $A, B, C$ of objects. [We often write $f: A \rightarrow B$ or $A \stackrel{f}{\rightarrow} B$ instead of $f \in \operatorname{Hom}(A, B)$.] These ingredients are subject to the following axioms:
+    \begin{enumerate}[(1)]
+        \item the Hom sets are pairwise disjoint; that is, each $f \in \operatorname{Hom}(A, B)$ has a unique domain $A$ and a unique target $B$;
+        \item for each object $A$, there is an identity morphism $1_A \in \operatorname{Hom}(A, A)$ such that $f 1_A=f$ and $1_B f=f$ for all $f: A \rightarrow B$;
+        \item composition is associative: given morphisms $A \stackrel{f}{\rightarrow} B \stackrel{g}{\rightarrow} C \stackrel{h}{\rightarrow} D$, then
+              $$
+                  h(g f)=(h g) f
+              $$
+    \end{enumerate}
+\end{defn}
+\begin{defn}[Subcategory]
+    A category $\mathcal{S}$ is a subcategory of a category $\mathcal{C}$ if
+    \begin{enumerate}[(1)]
+        \item  $\operatorname{obj}(\mathcal{S}) \subseteq \operatorname{obj}(\mathcal{C})$
+        \item  $\operatorname{Hom}_{\mathcal{S}}(A, B) \subseteq \operatorname{Hom}_{\mathcal{C}}(A, B)$ for all $A, B \in \operatorname{obj}(\mathcal{S})$, where we denote Hom sets in $\mathcal{S}$ by $\operatorname{Hom}_{\mathcal{S}}(\square, \square)$,
+        \item  if $f \in \operatorname{Hom}_{\mathcal{S}}(A, B)$ and $g \in \operatorname{Hom}_{\mathcal{S}}(B, C)$, then the composite $g f \in$ $\operatorname{Hom}_{\mathcal{S}}(A, C)$ is equal to the composite $g f \in \operatorname{Hom}_{\mathcal{C}}(A, C)$,
+        \item if $A \in \operatorname{obj}(\mathcal{S})$, then the identity $1_A \in \operatorname{Hom}_{\mathcal{S}}(A, A)$ is equal to the identity $1_A \in \operatorname{Hom}_{\mathcal{C}}(A, A)$.
+              A subcategory $\mathcal{S}$ of $\mathcal{C}$ is a full subcategory if, for all $A, B \in \operatorname{obj}(\mathcal{S})$, we have $\operatorname{Hom}_{\mathcal{S}}(A, B)=\operatorname{Hom}_{\mathcal{C}}(A, B)$.
+    \end{enumerate}
+\end{defn}
+\begin{defn}[covariant functor]
+    If $\mathcal{C}$ and $\mathcal{D}$ are categories, then a covariant functor $T: \mathcal{C} \rightarrow \mathcal{D}$ is a function such that
+    \begin{enumerate}[(1)]
+        \item if $A \in \operatorname{obj}(\mathcal{C})$, then $T(A) \in \operatorname{obj}(\mathcal{D})$,
+        \item if $f: A \rightarrow A^{\prime}$ in $\mathcal{C}$, then $T(f): T(A) \rightarrow T\left(A^{\prime}\right)$ in $\mathcal{D}$,
+        \item if $A \stackrel{f}{\rightarrow} A^{\prime} \stackrel{g}{\rightarrow} A^{\prime \prime}$ in $\mathcal{C}$, then $T(A) \stackrel{T(f)}{\rightarrow} T\left(A^{\prime}\right) \stackrel{T(g)}{\rightarrow} T\left(A^{\prime \prime}\right)$ in $\mathcal{D}$ and
+              $$
+                  T(g f)=T(g) T(f),
+              $$
+        \item $T\left(1_A\right)=1_{T(A)}$ for every $A \in \operatorname{obj}(\mathcal{C})$.
+    \end{enumerate}
+\end{defn}
+\begin{defn}[contravariant functor]
+    A contravariant functor $T: \mathcal{C} \rightarrow \mathcal{D}$, where $\mathcal{C}$ and $\mathcal{D}$ are categories, is a function such that
+    \begin{enumerate}[(1)]
+        \item if $C \in \operatorname{obj}(\mathcal{C})$, then $T(C) \in \operatorname{obj}(\mathcal{D})$,
+        \item if $f: C \rightarrow C^{\prime}$ in $\mathcal{C}$, then $T(f): T\left(C^{\prime}\right) \rightarrow T(C)$ in $\mathcal{D}$ (note the reversal of arrows),
+        \item if $C \stackrel{f}{\rightarrow} C^{\prime} \stackrel{g}{\rightarrow} C^{\prime \prime}$ in $\mathcal{C}$, then $T\left(C^{\prime \prime}\right) \stackrel{T(g)}{\rightarrow} T\left(C^{\prime}\right) \stackrel{T(f)}{\rightarrow} T(C)$ in $\mathcal{D}$ and $T(g f)=T(f) T(g)$,
+        \item $T\left(1_A\right)=1_{T(A)}$ for every $A \in \operatorname{obj}(\mathcal{C})$.
+    \end{enumerate}
+\end{defn}
+\begin{defn}[faithful functor]
+    A functor $T: \mathcal{C} \rightarrow \mathcal{D}$ is faithful if, for all $A, B \in \operatorname{obj}(\mathcal{C})$, the functions $\operatorname{Hom}_{\mathcal{C}}(A, B) \rightarrow \operatorname{Hom}_{\mathcal{D}}(T A, T B)$ given by $f \mapsto T f$ are injections.
+\end{defn}
+\begin{defn}[isomorphism]
+    A morphism $f: A \rightarrow B$ in a category $\mathcal{C}$ is an isomorphism if there exists a morphism $g: B \rightarrow A$ in $\mathcal{C}$ with
+    $$
+        g f=1_A \quad \text { and } \quad f g=1_B .
+    $$
+    The morphism $g$ is called the inverse of $f$.
+\end{defn}
+\begin{defn}[natural transformation]
+    Let $S, T: \mathcal{A} \rightarrow \mathcal{B}$ be covariant functors. A natural transformation $\tau: S \rightarrow T$ is a one-parameter family of morphisms in $\mathcal{B}$,
+    $$
+        \tau=\left(\tau_A: S A \rightarrow T A\right)_{A \in \operatorname{obj}(\mathcal{A})},
+    $$
+    making the following diagram commute for all $f: A \rightarrow A^{\prime}$ in $\mathcal{A}$ :
+
+    Natural transformations between contravariant functors are defined similarly. A natural isomorphism is a natural transformation $\tau$ for which each $\tau_A$ is an isomorphism.
+\end{defn}
+\begin{defn}[initial object]
+    An object $A$ in a category $\mathcal{C}$ is called an initial object if, for every object $X$ in $\mathcal{C}$, there exists a unique morphism $A \rightarrow X$. Any two initial objects in a category $\mathcal{C}$, should they
+    exist, are isomorphic.
+\end{defn}
+\begin{defn}[terminal object]
+    An object $\Omega$ in a category $\mathcal{C}$ is called a terminal object if, for every object $C$ in $\mathcal{C}$, there exists a unique morphism $X \rightarrow \Omega$.Any two terminal objects in a category $\mathcal{C}$, should they
+    exist, are isomorphic.
+\end{defn}
+\begin{defn}[product]
+    Let $\mathcal{C}$ be a category, and let $\left(A_i\right)_{i \in I}$ be a family of objects in $\mathcal{C}$ indexed by a set $I$. A product is an ordered pair $\left(C,\left(p_i: C \rightarrow A_i\right)_{i \in I}\right)$, consisting of an object $C$ and a family $\left(p_i: C \rightarrow A_i\right)_{i \in I}$ of projections, that
+    is a solution to the following universal mapping problem: for every object $X$ equipped with morphisms $f_i: X \rightarrow A_i$, there exists a unique morphism $\theta: X \rightarrow C$ making the diagram commute for each $i$.
+    \begin{equation*}
+        \begin{tikzcd}
+            & {A_i} \\
+            C && X
+            \arrow["{\alpha_i}", from=2-1, to=1-2]
+            \arrow["\theta"{description}, dashed, from=2-3, to=2-1]
+            \arrow["{f_i}"', from=2-3, to=1-2]
+        \end{tikzcd}\
+    \end{equation*}
+    Should it exist, a product is denoted by $\prod_{i \in I} A_i$, and it is unique to isomorphism, for it is a terminal object in a suitable category.
+\end{defn}
+
+
+
+
+\begin{defn}[coproduct]
+    Let $\mathcal{C}$ be a category, and let $\left(A_i\right)_{i \in I}$ be a family of objects in $\mathcal{C}$ indexed by a set $I$. A coproduct is an ordered pair $\left(C,\left(\alpha_i: A_i \rightarrow C\right)_{i \in I}\right)$, consisting of an object $C$ and a family $\left(\alpha_i: A_i \rightarrow C\right)_{i \in I}$ of morphisms, called injections, that is a solution to the following universal mapping problem: for every object $X$ equipped with morphisms $\left(f_i: A_i \rightarrow X\right)_{i \in I}$, there exists a unique morphism $\theta: C \rightarrow X$ making the diagram commute for each $i$.
+    \begin{equation*}
+        \begin{tikzcd}
+            & {A_i} \\
+            C && X
+            \arrow["{\alpha_i}"', from=1-2, to=2-1]
+            \arrow["\theta"{description}, dashed, from=2-1, to=2-3]
+            \arrow["{f_i}"{description}, from=1-2, to=2-3]
+        \end{tikzcd}\
+    \end{equation*}
+    Should it exist, a coproduct is usually denoted by $\bigsqcup_{i \in I} A_i$ (the injections are not mentioned). A coproduct is unique to isomorphism, for it is an initial object in a suitable category.
+\end{defn}
+\begin{exam}[coproduct in category of topological space]
+    $(X_{i})_{i\in I}$ be a family of topological space, $f_{i}:X_i\rightarrow X$ be a family of continuous map. $\bigsqcup_{i \in I} A_i=\left\{\left(a_i, i\right) \in \left(\bigcup_{i \in I} A_i\right) \times I : a_i \in A_i\right\}$ be the disjoint union of $(X_i)_{\in I}$. Define $U$ open in $\bigsqcup_{i \in I} A_i$ if and only if $f_{i}^{-1}(U)$ open in $X_i$ for all $i\in I$. Then $\bigsqcup_{i \in I} A_i$ with continous maps $\alpha_i:a_i\mapsto (a_i,i)$ is the coproduct of a family of topological space.
+\end{exam}
+\begin{exam}[coproduct in $k$-aglebra]
+    If $F$ is a commutative ring and $(A_i)_{i\in I}$ is a family of $F$-algebra, we can define the tensor product of all these $F$-algebra $$\bigotimes_{i\in I}A_i $$ to be the quotient of the $F$-vector space with basis $\prod_{i \in I} A_i$ by the subspace generated by elements of the form:
+    \begin{enumerate}[(1)]
+        \item  $\left(x_i\right)+\left(y_i\right)-\left(z_i\right)$ with $x_j+y_j=z_j$ for one $j \in I$ and $x_i=y_i=z_i$ for all $i \neq j$
+        \item  $\left(x_j\right)-a\left(y_i\right)$ with $x_j=a y_j$ for one $j \in I$ and $x_i=y_i$ for all $i \neq j$
+    \end{enumerate}
+    It can be made into a commutative $F$-algebra in an obvious fashion, and there are canonical homomorphisms $$A_i \rightarrow \bigotimes_{i\in I} A_i$$ of $F$-algebras.
+    Then by universal property of tensor product, the tensor product of all these $F$-algebra is the coproduct of $A_i$.
+\end{exam}
+
+
+
+
+\begin{defn}[pushback/fibered product]
+    Given two morphisms $f: B \rightarrow A$ and $g: C \rightarrow A$ in a category $\mathcal{C}$, a \blue{pullback} (or \blue{fibered product}) is a triple $(D, \alpha, \beta)$ with $g \alpha=f \beta$ that is a solution to the universal mapping problem: for every $\left(X, \alpha^{\prime}, \beta^{\prime}\right)$ with $g \alpha^{\prime}=f \beta^{\prime}$, there exists a unique morphism $\theta: X \rightarrow D$ making the diagram commute.
+    \begin{equation*}
+        \begin{tikzcd}
+            X \\
+            & D & C \\
+            & B & A
+            \arrow["\alpha", from=2-2, to=2-3]
+            \arrow["g", from=2-3, to=3-3]
+            \arrow["f"', from=3-2, to=3-3]
+            \arrow["\beta"', from=2-2, to=3-2]
+            \arrow["{\alpha^{\prime}}", from=1-1, to=2-3]
+            \arrow["{\beta^{\prime}}"', from=1-1, to=3-2]
+            \arrow["\theta"{description}, dashed, from=1-1, to=2-2]
+        \end{tikzcd}
+    \end{equation*}
+    The pullback is often denoted by $B \sqcap_A C$.Pullbacks, when they exist, are unique to isomorphism, for they are terminal objects in a suitable category.
+\end{defn}
+\begin{exam}[fibered product in topological space]
+    $A,B,C$ be topological spaces, $f:B\rightarrow A, g:C\rightarrow A$ be continuous maps, $D=\bbrace{(b,c)\in B\times C:f(b)=g(c)}$ be the fibered product of
+\end{exam}
+
+
+
+
+\begin{defn}[pushout/fibered coproduct]
+    Given two morphisms $f: A \rightarrow B$ and $g: A \rightarrow C$ in a category $\mathcal{C}$, a pushout (or fibered sum) is a triple $(D, \alpha, \beta)$ with $\beta g=\alpha f$ that is a solution to the universal mapping problem: for every triple $\left(Y, \alpha^{\prime}, \beta^{\prime}\right)$ with $\beta^{\prime} g=\alpha^{\prime} g$, there exists a unique morphism $\theta: D \rightarrow Y$ making the diagram commute. The pushout is often denoted by $B \cup_A C$.
+    \begin{equation*}
+        \begin{tikzcd}
+            X \\
+            & D & C \\
+            & B & A
+            \arrow["\alpha"', from=2-3, to=2-2]
+            \arrow["g"', from=3-3, to=2-3]
+            \arrow["f", from=3-3, to=3-2]
+            \arrow["\beta", from=3-2, to=2-2]
+            \arrow["{\alpha^{\prime}}"', from=2-3, to=1-1]
+            \arrow["{\beta^{\prime}}", from=3-2, to=1-1]
+            \arrow["\theta"{description}, dashed, from=2-2, to=1-1]
+        \end{tikzcd}\
+    \end{equation*}
+    Pushouts are unique to isomorphism when they exist, for they are initial objects in a suitable category.
+\end{defn}
+\begin{exam}
+    In category of Commutative Rings, $f:A\rightarrow B, g:A\rightarrow B$ be ring homomorphism, then the pushout is given by tensor product of $A$-algebra $B$ and $A$-algebra $C$ and homorphism:
+    \begin{align*}
+        \beta: & B\rightarrow B\otimes_A C & \alpha: & C\rightarrow B\otimes_A C \\
+               & b\mapsto b\otimes 1       &         & c\mapsto 1\otimes c
+    \end{align*}
+\end{exam}
+\begin{defn}[inverse system]
+    Given a partially ordered set $I$ and a category $\mathcal{C}$, an inverse system in $\mathcal{C}$ is an ordered pair $\left(\left(M_i\right)_{i \in I},\left(\psi_i^j\right)_{j \succeq i}\right)$, abbreviated $\left\{M_i, \psi_i^j\right\}$, where $\left(M_i\right)_{i \in I}$ is an indexed family of objects in $\mathcal{C}$ and $\left(\psi_i^j: M_j \rightarrow M_i\right)_{j \succeq i}$ is an indexed family of morphisms for which $\psi_i^i=1_{M_i}$ for all $i$, and such that the following diagram commutes whenever $k \succeq j \succeq i$.
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJNX2siXSxbNCwwLCJNX2kiXSxbMiwyLCJNX2oiXSxbMCwxLCJcXHBzaV57a31fe2l9Il0sWzAsMiwiXFxwc2lee2t9X3tqfSIsMl0sWzIsMSwiXFxwc2lee2p9X3tpfSIsMl1d
+    \[\begin{tikzcd}
+            {M_k} &&&& {M_i} \\
+            \\
+            && {M_j}
+            \arrow["{\psi^{k}_{i}}", from=1-1, to=1-5]
+            \arrow["{\psi^{k}_{j}}"', from=1-1, to=3-3]
+            \arrow["{\psi^{j}_{i}}"', from=3-3, to=1-5]
+        \end{tikzcd}\]
+\end{defn}
+\begin{defn}[inverse limit]
+    Let $I$ be a partially ordered set, let $\mathcal{C}$ be a category, and let $\left\{M_i, \psi_i^j\right\}$ be an inverse system in $\mathcal{C}$ over $I$. The inverse limit (also called projective limit or limit) is an object $\varprojlim M_i$ and a family of projections $\left(\alpha_i: \varprojlim M_i \rightarrow M_i\right)_{i \in I}$ such that:
+    \begin{enumerate}[(1)]
+        \item  $\psi_i^j \alpha_j=\alpha_i$ whenever $i \preceq j$,
+        \item  for every $X \in \operatorname{obj}(\mathcal{C})$ and all morphisms $f_i: X \rightarrow M_i$ satisfying $\psi_i^j f_j=f_i$ for all $i \preceq j$, there exists a unique morphism $\theta: X \rightarrow$ $\varprojlim M_i$ making the diagram commute.
+              % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXHZhcnByb2psaW0gTV9pIl0sWzMsMCwiWCJdLFsyLDEsIiBNX2kiXSxbMiwyLCJNX2oiXSxbMSwwLCJcXHRoZXRhIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzEsMiwiZl9pIiwyXSxbMywyLCJcXHZhcnBoaV9pXntqfSJdLFsxLDMsImZfaiJdLFswLDIsIlxcYWxwaGFfaSJdLFswLDMsIlxcYWxwaGFfaiIsMl1d
+              \[\begin{tikzcd}
+                      {\varprojlim M_i} &&& X \\
+                      && { M_i} \\
+                      && {M_j}
+                      \arrow["\theta"', dashed, from=1-4, to=1-1]
+                      \arrow["{f_i}"', from=1-4, to=2-3]
+                      \arrow["{\varphi_i^{j}}", from=3-3, to=2-3]
+                      \arrow["{f_j}", from=1-4, to=3-3]
+                      \arrow["{\alpha_i}", from=1-1, to=2-3]
+                      \arrow["{\alpha_j}"', from=1-1, to=3-3]
+                  \end{tikzcd}\]
+    \end{enumerate}
+\end{defn}
+\begin{exam}
+    In the category of topological group, inverse limit exists. Inverse limit of Finite discrete group is called pro-finite group. A topological group is pro-finite group if and only if it is totally disconnected and compact.
+\end{exam}
+\begin{defn}[direct system]
+    Given a partially ordered set $I$ and a category $\mathcal{C}$, a direct system in $\mathcal{C}$ is an ordered pair $\left(\left(M_i\right)_{i \in I},\left(\varphi_j^i\right)_{i \preceq j}\right)$, abbreviated $\left\{M_i, \varphi_j^i\right\}$, where $\left(M_i\right)_{i \in I}$ is an indexed family of objects in $\mathcal{C}$ and $\left(\varphi_j^i: M_j \rightarrow M_i\right)_{i \preceq j}$ is an indexed family of morphisms for which $\varphi_i^i=1_{M_i}$ for all $i$, and such that the following diagram commutes whenever $i \preceq j \preceq k$.
+    % https://q.uiver.app/#q=WzAsMyxbMCwwLCJNX2kiXSxbNCwwLCJNX2siXSxbMiwyLCJNX2oiXSxbMCwxLCJcXHBzaV57aX1fe2t9Il0sWzAsMiwiXFxwc2lee2l9X3tqfSIsMl0sWzIsMSwiXFxwc2lee2p9X3trfSIsMl1d
+    \[\begin{tikzcd}
+            {M_i} &&&& {M_k} \\
+            \\
+            && {M_j}
+            \arrow["{\psi^{i}_{k}}", from=1-1, to=1-5]
+            \arrow["{\psi^{i}_{j}}"', from=1-1, to=3-3]
+            \arrow["{\psi^{j}_{k}}"', from=3-3, to=1-5]
+        \end{tikzcd}\]
+\end{defn}
+\begin{defn}[direct limit]
+    Let $I$ be a partially ordered set, let $\mathcal{C}$ be a category, and let $\left\{M_i, \varphi_j^i\right\}$ be a direct system in $\mathcal{C}$ over $I$. The direct limit (also called inductive limit or colimit) is an object $\varinjlim M_i$ and insertion morphisms $\left(\alpha_i: M_i \rightarrow \varinjlim M_i \right)_{i\in I}.$
+    \begin{enumerate}[(1)]
+        \item  $\alpha_j \varphi_j^i=\alpha_i$ whenever $i \preceq j$,
+        \item  Let $X \in \operatorname{obj}(\mathcal{C})$, and let there be given morphisms $f_i: M_i \rightarrow X$ satisfying $f_j \varphi_j^i=f_i$ for all $i \preceq j$. There exists a unique morphism $\theta: \underset{\longrightarrow}{\lim } M_i \rightarrow X$ making the diagram commute.
+              %https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXHZhcmluamxpbSBNX2kiXSxbMywwLCJYIl0sWzIsMSwiIE1faSJdLFsyLDIsIk1faiJdLFswLDEsIlxcdGhldGEiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMiwxLCJmX2kiXSxbMiwzLCJcXHZhcnBoaV57aX1fe2p9IiwyXSxbMywxLCJmX2oiLDJdLFsyLDAsIlxcYWxwaGFfaSIsMl0sWzMsMCwiXFxhbHBoYV9qIl1d
+              \[\begin{tikzcd}
+                      {\varinjlim M_i} &&& X \\
+                      && { M_i} \\
+                      && {M_j}
+                      \arrow["\theta", dashed, from=1-1, to=1-4]
+                      \arrow["{f_i}", from=2-3, to=1-4]
+                      \arrow["{\varphi^{i}_{j}}"', from=2-3, to=3-3]
+                      \arrow["{f_j}"', from=3-3, to=1-4]
+                      \arrow["{\alpha_i}"', from=2-3, to=1-1]
+                      \arrow["{\alpha_j}", from=3-3, to=1-1]
+                  \end{tikzcd}\]
+    \end{enumerate}
+\end{defn}
+\begin{exam}
+    $M$ is a smooth manifold, $p\in M$, $C^{\infty}_p(M)$ be the germ of smooth function at $p$, then $C^{\infty}_p(M)$ is the direct limit of the direct system $\bbrace{(C^{\infty}(U))_{p\in U \text{ open in } M}, (\text{res}_{V}^{U})_{V\subset U} }$ where res be the restriction map from the bigger open subset to the smaller one.
+\end{exam}
+\begin{defn}
+    A covariant functor $F: \mathcal{A} \rightarrow \mathcal{C}$ preserves direct limits if, whenever $\left(\varinjlim A_i,\left(\alpha_i: A_i \rightarrow \underset{\longrightarrow}{\lim } A_i\right)\right)$ is a direct limit of a direct system $\left\{A_i, \varphi_j^i\right\}$ in $\mathcal{A}$, then \\ $\left(F\left(\underset{\longrightarrow}{\lim } A_i\right),\left(F \alpha_i: F A_i \rightarrow F\left(\varinjlim  A_i\right)\right)\right)$ is a direct limit of the direct system $\left\{F A_i, F \varphi_j^i\right\}$ in $\mathcal{C}$.
+
+    Similarly, we can define co(contra)variant functor perserve(convert) \\ limit(limit to colimit/colimit to limit)
+\end{defn}
+\begin{defn}
+    Let $F: \mathcal{C} \rightarrow \mathcal{D}$ and $G: \mathcal{D} \rightarrow \mathcal{C}$ be covariant functors. The ordered pair $(F, G)$ is an adjoint pair if, for each $C \in \operatorname{obj}(\mathcal{C})$ and $D \in \operatorname{obj}(\mathcal{D})$, there are bijections
+    $$
+        \tau_{C, D}: \operatorname{Hom}_{\mathcal{D}}(F C, D) \rightarrow \operatorname{Hom}_{\mathcal{C}}(C, G D)
+    $$
+    such that the following diagram commute:
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXG9wZXJhdG9ybmFtZXtIb219X3tcXG1hdGhjYWx7RH19KEYgQywgRCkiXSxbMiwwLCIgXFxvcGVyYXRvcm5hbWV7SG9tfV97XFxtYXRoY2Fse0R9fVxcbGVmdChGIENee1xccHJpbWV9LCBEXFxyaWdodCkiXSxbMCwyLCJcXG9wZXJhdG9ybmFtZXtIb219X3tcXG1hdGhjYWx7Q319KEMsIEcgRCkgIl0sWzIsMiwiXFxvcGVyYXRvcm5hbWV7SG9tfV97XFxtYXRoY2Fse0N9fVxcbGVmdChDXntcXHByaW1lfSwgRyBEXFxyaWdodCkiXSxbMCwxLCIoRiBmKV4qIl0sWzAsMiwiXFx0YXVfe0MsRH0iLDJdLFsyLDMsImZeeyp9IiwyXSxbMSwzLCJcXHRhdV97Q157XFxwcmltZX0sRH0iXV0=
+    \[\begin{tikzcd}
+            {\operatorname{Hom}_{\mathcal{D}}(F C, D)} && { \operatorname{Hom}_{\mathcal{D}}\left(F C^{\prime}, D\right)} \\
+            \\
+            {\operatorname{Hom}_{\mathcal{C}}(C, G D) } && {\operatorname{Hom}_{\mathcal{C}}\left(C^{\prime}, G D\right)}
+            \arrow["{(F f)^*}", from=1-1, to=1-3]
+            \arrow["{\tau_{C,D}}"', from=1-1, to=3-1]
+            \arrow["{f^{*}}"', from=3-1, to=3-3]
+            \arrow["{\tau_{C^{\prime},D}}", from=1-3, to=3-3]
+        \end{tikzcd}\]
+    % https://q.uiver.app/#q=WzAsNCxbMCwwLCJcXG9wZXJhdG9ybmFtZXtIb219X3tcXG1hdGhjYWx7RH19KEYgQywgRCkiXSxbMiwwLCIgXFxvcGVyYXRvcm5hbWV7SG9tfV97XFxtYXRoY2Fse0R9fVxcbGVmdChGIEMsIERee1xccHJpbWV9XFxyaWdodCkiXSxbMCwyLCJcXG9wZXJhdG9ybmFtZXtIb219X3tcXG1hdGhjYWx7Q319KEMsIEcgRCkgIl0sWzIsMiwiXFxvcGVyYXRvcm5hbWV7SG9tfV97XFxtYXRoY2Fse0N9fVxcbGVmdChDLCBHIERee1xccHJpbWV9XFxyaWdodCkiXSxbMCwxLCIoZyleKiJdLFswLDIsIlxcdGF1X3tDLER9IiwyXSxbMiwzLCIoR2cpX3sqfSIsMl0sWzEsMywiXFx0YXVfe0MsRF57XFxwcmltZX19Il1d
+    \[\begin{tikzcd}
+            {\operatorname{Hom}_{\mathcal{D}}(F C, D)} && { \operatorname{Hom}_{\mathcal{D}}\left(F C, D^{\prime}\right)} \\
+            \\
+            {\operatorname{Hom}_{\mathcal{C}}(C, G D) } && {\operatorname{Hom}_{\mathcal{C}}\left(C, G D^{\prime}\right)}
+            \arrow["{(g)^*}", from=1-1, to=1-3]
+            \arrow["{\tau_{C,D}}"', from=1-1, to=3-1]
+            \arrow["{(Gg)_{*}}"', from=3-1, to=3-3]
+            \arrow["{\tau_{C,D^{\prime}}}", from=1-3, to=3-3]
+        \end{tikzcd}\]
+\end{defn}
+\begin{exam}[Hom and Tensor]
+    If $B={ }_R B_S$ is a bimodule, $\square \otimes_R B:\text{Mod}_R\rightarrow \text{Mod}_S$ and $\operatorname{Hom}_S(B, \square):\text{Mod}_S\rightarrow \text{Mod}_R$ be two functors.
+    then $\left(\square \otimes_R B, \operatorname{Hom}_S(B, \square)\right)$ is an adjoint pair. Similarly, if $B={ }_S B_R$ is a bimodule,
+    $B \otimes_R \square: _R\text{Mod}\rightarrow _S\text{Mod}$ and $\operatorname{Hom}_S(B, \square):  _S\text{Mod}\rightarrow _R\text{Mod}$ be two functors.
+    then $\left(B \otimes_R \square, \operatorname{Hom}_S(B, \square)\right)$ is an adjoint pair.
+\end{exam}
+\begin{exam}[Free and Forget]
+
+\end{exam}
+\begin{exam}[Induced Representation]
+    $G$ is a finite group, $H$ be a subgroup of $G$, then $\bb{C}[G]$ be a $(\bb{C}[G],\bb{C}[H])$ bi-module, funcotr $\bb{C}[G]\otimes_{\bb{C}[H]}\square: _{\bb{C}[H]}\text{Mod}\rightarrow _{\bb{C}[G]}\text{Mod}$ and funcotr $\text{Hom}_{\bb{C}[G]}(\bb{C}[G],\square)$ be an adjoint pair,
+    since $\text{Hom}_{\bb{C}[G]}(\bb{C}[G],\square)\simeq \text{Res}^{\bb{C}[G]}_{\bb{C}[H]}$(Restriction from $\bb{C}[G]$-module to $\bb{C}[H]$-module), we have $(\bb{C}[G]\otimes_{\bb{C}[H]}\square,\text{Res}^{\bb{C}[G]}_{\bb{C}[H]})$ is an adjoint pair.
+\end{exam}
+\begin{prop}
+    Let $(F, G)$ be an adjoint pair offunctors, where $F: \mathcal{C} \rightarrow \mathcal{D}$ and $G: \mathcal{D} \rightarrow \mathcal{C}$. Then $F$ preserves direct limits and $G$ preserves inverse limits.
+\end{prop}
+
+
+
+
+
+\newpage
+\subsection{Abelian Category}
+\begin{defn}[additive category]
+    A category $\mathcal{C}$ is additive if
+    \begin{enumerate}[(1)]
+        \item $\operatorname{Hom}(A, B)$ is an (additive) abelian group for every $A, B \in \operatorname{obj}(\mathcal{C})$,
+        \item  the distributive laws hold: given morphisms
+              $$
+                  X \xrightarrow{a} A \underset{g}{\stackrel{f}{\rightrightarrows}} B \xrightarrow{b} Y,
+              $$
+              where $X$ and $Y \in \operatorname{obj}(\mathcal{C})$, then
+              $$
+                  b(f+g)=b f+b g \quad \text { and } \quad(f+g) a=f a+g a,
+              $$
+        \item  $\mathcal{C}$ has a zero object (a zero object is an object that is both initial and terminal),
+        \item  $\mathcal{C}$ has finite products and finite coproducts: for all objects $A, B$ in $\mathcal{C}$, both $A \sqcap B$ and $A \sqcup B$ exist in $\operatorname{obj}(\mathcal{C})$.
+    \end{enumerate}
+\end{defn}
+\begin{defn}[Additive Functor]
+    If $\mathcal{C}$ and $\mathcal{D}$ are additive categories, a functor $T: \mathcal{C} \rightarrow \mathcal{D}$ (of either variance) is additive if, for all $A, B$ and all $f, g \in \operatorname{Hom}(A, B)$, we have
+    $$
+        T(f+g)=T f+T g ;
+    $$
+    that is, the function $\operatorname{Hom}_{\mathcal{C}}(A, B) \rightarrow \operatorname{Hom}_{\mathcal{D}}(T A, T B)$, given by $f \mapsto T f$, is a homomorphism of abelian groups.
+\end{defn}
+\begin{prop}
+    If $\mathcal{C}$ and $\mathcal{D}$ are additive categories and $T: \mathcal{C} \rightarrow \mathcal{D}$ is an additive functor of either variance, then $T(A \oplus B) \cong T(A) \oplus T(B)$ for all $A, B \in \operatorname{obj}(\mathcal{C})$.
+\end{prop}
+\begin{defn}
+    A morphism $u: B \rightarrow C$ in a category $\mathcal{C}$ is a monomorphism (or is monic) if $u$ can be canceled from the left; that is, for all objects $A$ and all morphisms $f, g: A \rightarrow B$, we have that $u f=u g$ implies $f=g$.
+    $$
+        A \underset{g}{\stackrel{f}{\rightrightarrows}} B \xrightarrow{u} C
+    $$
+\end{defn}
+\begin{defn}
+    A morphism $v: B \rightarrow C$ in a category $\mathcal{C}$ is an epimorphism (or is epic) if $v$ can be canceled from the right; that is, for all objects $D$ and all morphisms $h, k: C \rightarrow D$, we have that $h v=k v$ implies $h=k$.
+    $$
+        B \xrightarrow{v} C \underset{k}{\stackrel{h}{\rightrightarrows}} D
+    $$
+\end{defn}
+\begin{defn}[kernel]
+\end{defn}
+
+
+
+
+\newpage
+\subsection{Derived Functor}
+
+
+\newpage
+\section{Theory of Scheme}
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

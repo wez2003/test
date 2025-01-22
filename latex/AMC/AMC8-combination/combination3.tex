@@ -1,0 +1,166 @@
+\documentclass{beamer}
+%Information
+\title{Combination 3: Binomial Coefficents}
+\titlegraphic{\hfill\includegraphics[height=1cm]{orange.png}}
+\institute{Youth STEM Academy}
+\author{Erzhuo Wang}
+\date{\today}
+   
+%Theme
+\usetheme[block=fill, sectionpage=none]{metropolis}
+\useoutertheme{infolines}
+\useinnertheme{metropolis}
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamertemplate{items}[ball]
+\setbeamertemplate{sections/subsections in toc}[ball]
+\setbeamertemplate{headline}{}
+\logo{YSA}
+\usecolortheme{custom}
+%\usetheme{Madrid}
+%\usetheme{Heverlee}
+
+%Setting
+\usepackage[UTF8,noindent]{ctexcap}
+\ctexset{today=old}
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+\newtheorem{coro}[defn]{Corollary}
+\newtheorem{theo}[defn]{Theorem}
+\newtheorem{exer}[defn]{Exercise}
+\newtheorem{rema}[defn]{Remark}
+\newtheorem{lem}[defn]{Lemma}
+\newtheorem{prop}[defn]{Proposition}
+\newtheorem{nota}[defn]{Notation}
+\newtheorem{exam}[defn]{Example}
+\newtheorem{ques}[defn]{Question}
+
+\newenvironment{prooff}{{\noindent\it\textcolor{cyan!40!black}{Proof}:}\,}{\par}
+\newenvironment{proofff}{{\noindent\it\textcolor{cyan!40!black}{Proof of the lemma}:}\,}{\qed \par}
+\newcommand{\bbrace}[1]{\left\{ #1 \right\} }
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\p}{^{\prime}}
+\renewcommand{\mod}[1]{(\text{mod}\,#1)}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\spec}[1]{\text{Spec}({#1})}
+\newcommand{\rarr}[1]{\xrightarrow{#1}}
+\newcommand{\larr}[1]{\xleftarrow{#1}}
+\newcommand{\emptyy}{\underline{\quad}}
+\newenvironment{enu}{\begin{enumerate}[(1)]}{\end{enumerate}}
+%ctrl+点击文本返回代码  选中代码 ctrl+alt+j 为代码查找文本
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+\begin{frame}{Introduction}
+    这节课我们主要讲一些组合数的基本性质, 然后做一些组合方面的综合性题目来巩固之前学的内容。
+
+
+\end{frame}
+\begin{frame}{Binomial Theorem(二项式定理)}
+    \begin{theo}[Binomial Theorem]
+        % 组合数基本性质+ 真题训练  
+        The expansion of $(x+y)^n$ for positive integer $n$ is
+        \begin{equation*}
+            (x+y)^n=\binom{n}{0}x^n+\binom{n}{1}x^{n-1}y^1+\binom{n}{2}x^{n-2}y^2+\dots+\binom{n}{n}x^0y^n
+        \end{equation*}
+    \end{theo}
+    \begin{exam}
+        Show that $2^n= \binom{n}{0}+\binom{n}{1}+\binom{n}{2}+\cdots+\binom{n}{n}$
+    \end{exam}
+\end{frame}
+% \begin{frame}{Hundreds digit of $2011^{2011}$(AMC 10B, 2011-23)}
+%     What is the hundreds digit of $2011^{2011}$?
+%     \pause
+
+%     \begin{prooff}
+%         By Binomial Theorem, hundreds digit of $2011^{2011}$ is equal to that of
+%         $$
+%             \begin{aligned}
+%                   & 1+\binom{2011}{1}(10)\left(1^{2010}\right)+\binom{2011}{2}(10)^2\left(1^{2009}\right) \\
+%                 = & 1+2011 \cdot 10+2011 \cdot 1005 \cdot 100                                             \\
+%                 = & 1+2011 \cdot 100510
+%             \end{aligned}
+%         $$
+
+%         Finally, the hundreds digit of this number is equal to that of $1+11 \cdot 510=5611$, so the requested hundreds digit is 6 .
+
+%     \end{prooff}
+% \end{frame}
+\begin{frame}{Properties of Binomial Coefficients}
+    If $k$ and $n$ are two integers and $0 \leq k \leq n$, then
+    \begin{itemize}
+        \item $\binom{n}{k}=\binom{n}{n-k}$
+        \item $\binom{n}{k}+\binom{n}{k+1}=\binom{n+1}{k+1}$
+        \item $k\binom{n}{k}=n\binom{n-1}{k-1}$
+        \item
+              \begin{equation*}
+                  \binom{k}{k}+\binom{k+1}{k}+\cdots+\binom{n}{k}=\binom{n+1}{k+1}
+              \end{equation*}
+        \item  \begin{equation*}
+                  \binom{n}{0}-\binom{n}{1}+\binom{n}{2}+\cdots+(-1)^n\binom{n}{n}=0
+              \end{equation*}
+    \end{itemize}
+\end{frame}
+% \begin{frame}{A Special Sequence}
+%     Let $(a_1,\dots,a_{10})$ be a list of $1,2,3,\dots,10$ such that for all $2\le i\le 10$, either $a_i+1$ or $a_i-1$ or both appear somewhere before $a_i$ in
+%     the list. How many such lists are there?
+% \end{frame}
+\begin{frame}{Example}
+    \begin{ques}
+        What is the coefficient of $x^7$ in the polynomial $(x+3)^{10}$.
+    \end{ques}
+\end{frame}
+\begin{frame}{Exercise}
+    \begin{ques}
+        Two people flip a fair coin. One flipped it $5$ times while the other $6$ times. What is the probability that the second person
+        flipped more tails than the first person?
+
+        两个人抛一枚均匀的硬币。一个人翻了5次,另一个人翻了6次。求第二个人抛到反面的次数比第一个人多的概率?
+    \end{ques}
+    \begin{ques}
+        A box contains exactly five chips, three red and two white. Chips are randomly removed one at a time without
+        replacement until all the red chips are drawn or all the white chips are drawn. What is the probability that the last chip drawn is white?
+    
+        一个盒子里正好有5个筹码,3个红牌,2个白牌。每次随机取出一张筹码,直到所有红牌或白牌都被取出为止。最后一张牌是白色的概率是多少?
+    \end{ques}
+\end{frame}
+\begin{frame}{Exercise}
+    \begin{ques}
+        Two different numbers are randomly selected from $-2,-1,0,3,4,5$ and multiplied together. What is the probablity
+    that the product is $0$?
+    从$-2,-1,0,3,4,5$中随机选择两个不同的数字并相乘, 为0的概率是多少?
+    \end{ques}
+    \begin{ques}
+        在海滩上,50个人戴着太阳镜,35个人戴着帽子。有些人既戴太阳镜又戴帽子。
+        如果随机选择一个戴帽子的人,
+        这个人也戴太阳镜的概率是$\frac{2}{5}$. 如果随机选择一个戴太阳镜的人,这个人也戴帽子的概率是多少?
+    \end{ques}
+\end{frame}
+\begin{frame}
+    \begin{ques}[AMC 8, 2019-25]
+        Alice has $24$ apples. In how many ways can she sharethem with Becky and Chris so that each of the three people has at least two
+        apples?
+
+        爱丽丝有24个苹果。她有多少种方法可以与贝基和克里斯分享这些苹果,使得这样三个人每人至少有两个苹果?
+    \end{ques}
+    \begin{ques}[AMC8, 2020-23]
+        Five different awards are to be given to three students. Each student will receive at least one award. In how many different ways can the awards be distributed?
+
+        (A) 120 (B) 150 (C) 180 (D) 210 (E) 240
+    \end{ques}
+\end{frame}
+\begin{frame}{Challenging Problem}
+\begin{ques}
+    What is the probability that any $50$ person has the same birthday? (Assuming there are $365$ days in a year)
+    
+    任取$50$个人, 存在两人生日相同的概率是多少?(假设一年有$365$天)
+\end{ques}
+\begin{ques}
+    A set of teams held a round-robin tournament in which every team played every other team exactly once. Every teamwon 10 games and lost 10 games. How many
+    sets of three teams $\bbrace{A,B,C}$ were there in which $A$ beat $B$, $B$ beat $C$, $C$ beat $A$.
+\end{ques}
+
+\end{frame}
+
+\end{document}

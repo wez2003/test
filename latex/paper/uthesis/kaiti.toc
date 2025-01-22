@@ -1,0 +1,8 @@
+\contentsline {section}{\numberline {1}课题动机背景}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Artin L-函数}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Hecke L-函数}{4}{subsection.1.2}%
+\contentsline {section}{\numberline {2}课题内容概述}{6}{section.2}%
+\contentsline {subsection}{\numberline {2.1}局部域特征的分类}{6}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}局部函数方程}{7}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}整体函数方程}{8}{subsection.2.3}%
+\contentsline {section}{\numberline {3}课题执行方案}{10}{section.3}%

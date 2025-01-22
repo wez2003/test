@@ -1,0 +1,162 @@
+\documentclass{beamer}
+%Information
+\title{Number Theory 3: Modular Arithmetic}
+\titlegraphic{\hfill\includegraphics[height=1cm]{orange.png}}
+\institute{Youth STEM Academy}
+\author{Erzhuo Wang}
+\date{July 20,2024}
+%Theme
+\usetheme[block=fill, sectionpage=none]{metropolis}
+\useoutertheme{infolines}
+\useinnertheme{metropolis}
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamertemplate{items}[ball]
+\setbeamertemplate{sections/subsections in toc}[ball]
+\setbeamertemplate{headline}{}
+\logo{YSA}
+\usecolortheme{custom}
+\usepackage[UTF8,noindent]{ctexcap}
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+\newtheorem{coro}[defn]{Corollary}
+\newtheorem{theo}[defn]{Theorem}
+\newtheorem{exer}[defn]{Exercise}
+\newtheorem{rema}[defn]{Remark}
+\newtheorem{lem}[defn]{Lemma}
+\newtheorem{prop}[defn]{Proposition}
+\newtheorem{nota}[defn]{Notation}
+\newtheorem{exam}[defn]{Example}
+\newtheorem{ques}[defn]{Question}
+
+\newenvironment{prooff}{{\noindent\it\textcolor{cyan!40!black}{Proof}:}\,}{\par}
+\newenvironment{proofff}{{\noindent\it\textcolor{cyan!40!black}{Proof of the lemma}:}\,}{\qed \par}
+\newcommand{\bbrace}[1]{\left\{ #1 \right\} }
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\p}{^{\prime}}
+\renewcommand{\mod}[1]{(\text{mod}\,#1)}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\spec}[1]{\text{Spec}({#1})}
+\newcommand{\rarr}[1]{\xrightarrow{#1}}
+\newcommand{\larr}[1]{\xleftarrow{#1}}
+\newcommand{\emptyy}{\underline{\quad}}
+\newenvironment{enu}{\begin{enumerate}[(1)]}{\end{enumerate}}
+%ctrl+点击文本返回代码  选中代码 ctrl+alt+j 为代码查找文本
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+\begin{frame}{Modulus(同余)}
+    \begin{defn}
+        Let $n$ be a natural number. Two integers $a$ and $b$ are said to be equal modulo $n$(模$n$同余) if and only if $n$ divides $a-b$. We write
+        $$
+            a \equiv b \mod{n}
+        $$
+    \end{defn}
+    \begin{exam}
+        For example, $7 \equiv 1(\bmod 3)$, and $11 \equiv 2(\bmod 3) .2016 \equiv 0(\bmod 7)$.
+    \end{exam}
+\end{frame}
+\begin{frame}
+    \begin{prop}
+        For any positive integer $n$, if $a \equiv b(\bmod n)$ and $c \equiv d(\bmod n)$, then
+        $$
+            \begin{aligned}
+                a \pm c & \equiv b \pm d(\bmod n)                                   \\
+                a c     & \equiv b d \quad(\bmod n)                                 \\
+                a^k     & \equiv b^k(\bmod n), \text { for any positive integer } k
+            \end{aligned}
+        $$
+    \end{prop}
+    \begin{prop}
+        If $a m \equiv b m(\bmod n)$ and $\gcd(m,n)=1$, then $a \equiv b(\bmod n)$.
+    \end{prop}
+\end{frame}
+\begin{frame}
+    \begin{theo}
+        For any integer $n, n^2 \bmod 3$ or 4 can only be 0 or 1 .
+
+        For any integer $n, n^2 \bmod 8$ can only be 0 or 1 or 4 .
+    \end{theo}
+    \begin{prooff}
+        \begin{equation*}
+            (4k+1)^2\equiv 1\mod{4}, (4k+2)^2\equiv 0\mod{4}
+        \end{equation*}
+        \begin{equation*}
+            (4k+3)^2\equiv 1\mod{4}, (4k)^2\equiv 0\mod{4}
+        \end{equation*}
+        \begin{equation*}
+            (1)^2\equiv 1\mod{8}, (2)^2\equiv 4\mod{8}, (3)^2\equiv 1\mod{8}, (4)^2\equiv 0\mod{8}
+        \end{equation*}
+        \begin{equation*}
+            (5)^2\equiv 1\mod{8}, (6)^2\equiv 4\mod{8}, (7)^2\equiv 1\mod{8}, (0)^2\equiv 0\mod{8}
+        \end{equation*}
+    \end{prooff}
+\end{frame}
+\begin{frame}{Rational roots of polynomial equation(有理根的判定)}
+    \begin{lem}
+        $p$ is a prime, $a,b$ are integers, $p|ab$, then either $p|a$ or $p|b$.
+    \end{lem}
+    \begin{theo}
+        If $a_n, a_{n-1}, \ldots, a_0$ are integers, and if $p$ and $q$ are relatively prime integers where $p / q$ is a solution of
+        $$
+            a_n x^n+a_{n-1} x^{n-1}+a_{n-2} x^{n-2}+\cdots+a_1 x+a_0=0,
+        $$
+        then, $p \mid a_0$ and $q \mid a_n$.
+    \end{theo}
+\end{frame}
+\begin{frame}{Divisibility Rules}
+    If $n$ is a natural number with $m+1$ digits $a_m, a_{m-1}, a_{m-1}$, $n=a_m \times 10^m+a_{m-1} \times 10^{m-1}+\cdots+a_1 \times 10+a_0$, then
+    \begin{itemize}
+        \item $2|n$  if and only if $2 \mid a_0$.
+        \item $3|n$  if and only if $3 \mid\left(a_0+a_1+\cdots+a_m\right)$.
+        \item $5|n$  if and only if $5 \mid a_0$.
+        \item $9|n$  if and only if $9 \mid\left(a_0+a_1+\cdots+a_m\right)$.
+        \item $11|n$ if and only if $11 \mid\left(a_0-a_1+a_2-\cdots+(-1)^m a_m\right)$.
+    \end{itemize}
+\end{frame}
+\begin{frame}{base-ten representation of $19!$}
+    \begin{ques}[难]
+        $19!=1216T510040M832H00$, 则$T+M+H=$
+    \end{ques}
+\end{frame}
+\begin{frame}{Exercise}
+    \begin{itemize}
+        \item If $2^{100}=5 m+k$, where $k$ and $m$ are integers and $0 \leq k \leq 4$, then $k$ is
+
+              $2^{100}$除以$5$的余数是多少?
+
+        \item What is the units digit of $3^{2013}$ ?
+
+              $3^{2013}$的个位数是多少?
+
+        \item Consider the sequence $a_1=1, a_2=13, \ldots$, where each term $a_n$ is obtained from the previous term $a_{n-1}$ by appending the $n^{\text {th }}$ odd number.
+              So $a_3=135, a_4=1357$. Find the number $m$ so that $a_m$ is the $30^{\text {th }}$ multiple of $9$ in the sequence.
+
+    \end{itemize}
+
+\end{frame}
+\begin{frame}{Exercise}
+    \begin{itemize}
+        \item Consider the sum $1^2+2^2+\cdots+2012^2$. What is its last digit?
+
+              $1^2+2^2+\cdots+2012^2$个位数是多少?
+
+        \item Consider the 2700 digit number $N=100101102 \ldots 999$ obtained by listing all the three digit numbers in order. What is the remainder when $N$ is divided by $11$ ?
+
+              $N=100101102 \ldots 999$除以$11$的余数是多少?
+    \end{itemize}
+\end{frame}
+\begin{frame}{Homework}
+    \begin{ques}[AMC 8, 2020-19]
+        A number is called flippy if its digits alternate between two distinct digits. For example, 2020 and 37373 are flippy, but 3883 and 123123 are not. How many five-digit flippy numbers are divisible by 15?
+
+        如果一个数的各位数在两个不同的数字之间交替, 那么这个数就被称为翻转数. 例如，$2020$和$37373$是翻转数, 而$3883$和$123123$不是翻转的。有多少个五位翻转数能被$15$整除?
+    \end{ques}
+    \begin{ques}
+        What is the tens digit of $2015^{2016}-2017$?
+
+        $2015^{2016}-2017$的十位数是什么?
+    \end{ques}
+\end{frame}
+\end{document}
